@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f5f5"
+    android:layout_height="match_parent"
+    tools:context="com.shindygo.shindy.EventFeedbackActivity">
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/dp16"
+            android:id="@+id/back"
+            android:scaleType="centerInside"
+            android:src="@drawable/navigation_lines" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/bebright"
+            android:layout_marginRight="50dp"
+            android:layout_gravity="center"
+            android:text="@string/event_feedback"
+            android:textAppearance="?android:textAppearanceLarge" />
+    </LinearLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/taab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="fixed"
+
+
+        app:tabGravity="fill"
+
+
+        />
+   <!-- <com.rahimlis.badgedtablayout.BadgedTabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:badgeBackgroundColor="@color/navigation_notification_yellow"
+        app:tabTextSize="12dp"
+        android:layout_below="@+id/taab"
+        app:badgeTextColor="@android:color/white"
+        app:tabBackground="@android:color/white"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@android:color/black"
+        app:tabTextColor="@android:color/black" />-->
+
+    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/taab"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.shindygo.shindy.MainActivity"
+        tools:showIn="@layout/app_bar_main">
+
+
+    </android.support.v4.view.ViewPager>
+
+
+</LinearLayout>

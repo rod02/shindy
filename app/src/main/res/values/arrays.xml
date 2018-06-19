@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="age_list">
+        <item>3 years</item>
+        <item>4 years</item>
+        <item>5 years</item>
+        <item>6 years</item>
+        <item>7 years</item>
+        <item>8 years</item>
+        <item>9 years</item>
+        <item>10 years</item>
+
+    </string-array>
+    <string-array name="distance">
+        <item>Optional</item>
+
+        <item>20 Miles</item>
+        <item>40 Miles</item>
+        <item>50 Miles</item>
+        <item>60 Miles</item>
+        <item>80 Miles</item>
+        <item>120 Miles</item>
+        <item>140 Miles</item>
+        <item>160 Miles</item>
+        <item>180 Miles</item>
+
+
+    </string-array>
+    <string-array name="religion">
+        <item>Optional</item>
+        <item>Catholic</item>
+        <item>Protestant</item>
+        <item>Latter Day Saint(mormon)</item>
+        <item>7th Day Adventist</item>
+
+
+
+    </string-array>
+    <string-array name="gender">
+        <item>Optional</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="gender_preference">
+        <item>Both</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="availability">
+        <item>Optional</item>
+        <item>Online</item>
+        <item>Offline</item>
+    </string-array>
+    <string-array name="users">
+        <item>All Users</item>
+        <item>Favourite</item>
+        <item>Facebook</item>
+    </string-array>
+</resources>

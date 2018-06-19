@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp20"
+        android:background="@android:color/white"
+        android:layout_marginEnd="@dimen/dp10">
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="10dp"
+        android:tint="@android:color/black"
+        android:src="@drawable/close" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/dp30"
+        android:id="@+id/ll"
+        android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate the Event"
+            android:textSize="18dp"
+            android:layout_marginTop="@dimen/dp10"
+            android:textStyle="bold"/>
+
+        <RatingBar
+            android:id="@+id/rating_bar_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate your Event host"
+            android:textSize="18dp"
+            android:layout_marginTop="28dp"
+            android:textStyle="bold"/>
+        <RatingBar
+            android:id="@+id/rating_bar_host"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            />
+    </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll"
+        android:text="Comments (optional)"
+        android:layout_marginTop="@dimen/dp20"
+        android:textSize="@dimen/dp20"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/et_comment"
+
+        android:gravity="top"
+
+        android:padding="5dp"
+        android:layout_width="340dp"
+        android:minHeight="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv1"
+        android:background="@drawable/rounded_border_gray"
+        android:layout_marginTop="@dimen/dp10"/>
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/et_comment"
+        android:layout_marginTop="17dp"
+        android:text="Submit"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/rounded_blue_button"
+        android:backgroundTint="@color/green_online"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/et_comment"
+        android:layout_marginTop="17dp"
+        android:textSize="10dp"
+        android:gravity="center"
+        android:text="Thanks.This helps make Shindings awesome"
+        android:layout_marginEnd="50dp"
+        />
+    </RelativeLayout>
+</RelativeLayout>

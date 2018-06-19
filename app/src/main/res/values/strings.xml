@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">Shindy</string>
+    <string name="shindy">Shindy</string>
+    <string name="fb_acc_verification_text">For account verificaiton you must sign in with   a Facebook account to use Shindy</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="uniqe_events_for_singles">Uniqe Events for Singles</string>
+    <!--<string name="facebook_app_id">206973290037604</string>
+    <string name="fb_login_protocol_scheme">fb206973290037604</string>-->
+    <string name="facebook_app_id">434815240293809</string>
+    <string name="fb_login_protocol_scheme">fb434815240293809</string>
+    <string name="title_activity_main">MainActivity</string>
+
+
+    <string name="empty_directory">Empty Directory</string>
+    <string name="storage_removed">Storage was removed or unmounted.</string>
+    <string name="choose_file">Select a file</string>
+    <string name="error_selecting_file">Error selecting File</string>
+    <string name="internal_storage">Internal storage</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="profile_preferences"><![CDATA[Profile & Preferences]]></string>
+    <string name="event_mgmt">Event Mgmt</string>
+    <string name="users_mgmt">Users Mgmt</string>
+
+    <string name="my_invites">My Invites</string>
+    <string name="my_shindigs">My Shindigs</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="preview"><u>Preview</u></string>
+    <string name="prefer_to_be_invited_n_with_others_with_in">Prefer to be invited \nwith others with in</string>
+    <string name="distance">Distance</string>
+    <string name="religion">Religion (optional)</string>
+    <string name="gender_preference">Gender Preference (optional)</string>
+    <string name="availability">Availability (optional)</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="users">Users</string>
+    <string name="new_users">New Users</string>
+    <string name="profile">Profile</string>
+    <string name="favorite">Favorite</string>
+    <string name="invite">Invite</string>
+    <string name="message">Message</string>
+    <string name="show">Show</string>
+    <string name="filters">+Filters</string>
+    <string name="filtersApl">FILTER APPLIED</string>
+
+    <string name="preference_file_key">prefe_file_key</string>
+    <string name="send_label">Done</string>
+    <string name="events_you_re_attending">EVENTS YOU’RE ATTENDING</string>
+    <string name="invited">INVITED</string>
+    <string name="details">Details</string>
+    <string name="who_s_invited">WHO\'s INVITED</string>
+
+    <string name="likedEvent">Liked Events</string>
+    <string name="blockedEv">Blocked Events</string>
+    <string name="eventRev">Event Review</string>
+
+    <string name="review">Reviews</string>
+    <string name="discussion">Discussion</string>
+    <string name="block_event">BLOCK EVENT</string>
+    <string name="send_invite">SEND INVITE</string>
+    <string name="i_m_in">I\'M IN</string>
+    <string name="title_activity_maps_fragment">Map</string>
+
+    <string name="host_new_event">Host New Event</string>
+
+    <string name="psychologist_susan_david_shares_how_the_way_we_deal_with_our_emotions_shapes_everything_that_matters_our_actions_careers_relationships_health_and_happiness_in_this_deeply_moving_humorous_and_potentially_life_changing_talk_she_challenges_a_culture_that_prizes_positivity_over_emotional_truth_and_discusses_the_powerful_strategies_of_emotional_agility_a_talk_to_share">Psychologist Susan David shares how the way we deal with our emotions shapes everything that matters: our actions, careers, relationships, health and happiness. In this deeply moving, humorous and potentially life-changing talk, she challenges a culture that prizes positivity over emotional truth and discusses the powerful strategies of emotional agility. A talk to share.</string>
+    <string name="Vancuver">Vancouver Convention Centre offers both scale and intimacy. At its heart is a soaring space where TED\'s stage designers have created a custom theater.</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="ticket_price">Ticket Price</string>
+    <string name="co_hosts">Co-hosts</string>
+    <string name="event_name">Event name</string>
+    <string name="time_start">Sep 10, 2018 10:00 PM</string>
+    <string name="my_messages">My Messages</string>
+    <string name="messages">Messages</string>
+    <string name="active">Active</string>
+    <string name="groups">Groups</string>
+    <string name="event_feedback">Event Feedback</string>
+    <string name="choose_date">Choose date</string>
+
+
+</resources>

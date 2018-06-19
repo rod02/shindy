@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context="com.shindygo.shindy.SearchFilterActivity">
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/dp16"
+            android:id="@+id/back"
+            android:scaleType="centerInside"
+            android:src="@drawable/navigation_lines" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="50dp"
+            android:layout_gravity="center"
+            android:text="Blocked Users"
+            android:textAppearance="?android:textAppearanceLarge" />
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/desc"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#f5f5f5"
+        android:layout_below="@+id/top">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="@dimen/dp10"
+            android:text="Description"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/searchpanel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#e0e0e0"
+        android:gravity="center"
+        android:layout_below="@+id/desc">
+        <RelativeLayout
+            android:id="@+id/qwert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:hint="Search..."
+        android:textColorLink="@color/colorPrimaryDark"
+        android:layout_height="35dp"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginEnd="@dimen/dp10"
+        android:imeActionId="@integer/send"
+        android:imeActionLabel="@string/send_label"
+        android:imeOptions="actionSend"
+        android:maxLines="1"
+
+        android:inputType="textPersonName"
+        android:padding="@dimen/dp5"
+        android:singleLine="true"
+        android:backgroundTint="@android:color/white"
+        android:background="@drawable/rounded_edit_text_border"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cancel"
+                android:id="@+id/clear"
+                android:layout_alignEnd="@+id/et_search"
+                android:layout_marginRight="@dimen/dp10"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <TextView
+            android:visibility="gone"
+            android:clickable="false"
+            android:layout_toRightOf="@+id/qwert"
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_filter"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_height="wrap_content"
+            android:textColor="#616161"
+            android:text="+ FILTERS"
+            android:layout_marginLeft="20dp" />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_blocked"
+        android:layout_below="@+id/searchpanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

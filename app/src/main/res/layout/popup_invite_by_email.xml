@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite a friend via Email"
+        android:textSize="20dp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editText"
+        android:layout_alignRight="@+id/editText"
+        android:layout_alignTop="@+id/textView"
+        android:src="@drawable/close" />
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/close"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgEvent"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/day" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginStart="@dimen/dp20"
+                android:textSize="@dimen/dp20"
+                android:text="name"/>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginStart="@dimen/dp20"
+                android:textSize="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="date"/>
+        </LinearLayout>
+    </LinearLayout>
+    <EditText
+        android:padding="5dp"
+        android:maxLength="301"
+        android:id="@+id/editText"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:gravity="top"
+        android:textColor="@android:color/darker_gray"
+        android:hint="enter email"
+        android:singleLine="true"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/ll"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="@dimen/dp20"
+        android:background="@drawable/rounded_border_gray"
+        />
+    <EditText
+        android:padding="5dp"
+        android:maxLength="301"
+        android:id="@+id/editText2"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:gravity="top"
+        android:hint="Leave a note"
+        android:textColor="@android:color/darker_gray"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/editText"
+        android:maxLines="4"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="@dimen/dp20"
+        android:background="@drawable/rounded_border_gray"
+        />
+
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText"
+        android:layout_below="@+id/editText"
+        android:layout_marginTop="14dp"
+        android:text="300 charecters left"
+        android:textStyle="italic"
+        android:id="@+id/textView2" />
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:layout_alignEnd="@+id/close"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginBottom="@dimen/dp10"
+        android:background="@color/colorPrimary"
+        android:text="Send"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+</RelativeLayout>

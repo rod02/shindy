@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_shindigs"
+            android:icon="@drawable/calender_star"
+            android:title="@string/my_shindigs" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/message"
+            android:title="@string/my_messages"
+            app:actionLayout="@layout/message_counter" />
+     <!--   <item
+            android:id="@+id/nav_invites"
+            android:icon="@drawable/add_person"
+            android:title="@string/My_invites" />-->
+        <item
+            android:id="@+id/nav_host_new_event"
+            android:icon="@drawable/calender_add"
+            android:title="@string/host_new_event" />
+    </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_users_mgmt"
+            android:icon="@drawable/stop"
+            android:title="@string/users_mgmt" />
+        <item
+            android:id="@+id/nav_event_mgmt"
+            android:icon="@drawable/event_mgmt"
+            android:title="@string/event_mgmt" />
+        <item
+            android:id="@+id/nav_profile_preferences"
+            android:icon="@drawable/setting"
+            android:title="@string/profile_preferences" />
+    </group>
+    <group
+        android:id="@+id/menu_logout"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="@string/logout" />
+    </group>
+</menu>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f5f5"
+    tools:context="com.shindygo.shindy.SearchFilterActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/dp16"
+            android:id="@+id/back"
+            android:scaleType="centerInside"
+            android:src="@drawable/left_arrow" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="50dp"
+            android:layout_gravity="center"
+            android:text="Search Filters"
+            android:textAppearance="?android:textAppearanceLarge" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Distance"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black" />
+
+        <Spinner
+            android:id="@+id/distance"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/distance"
+            android:padding="@dimen/dp10" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:background="@color/colorPrimaryDark"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Religion"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/sp_religion"
+            android:entries="@array/religion"
+            android:padding="@dimen/dp10" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:background="@color/colorPrimaryDark"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Gender"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:id="@+id/gender"
+            android:layout_height="wrap_content"
+            android:entries="@array/gender"
+            android:padding="@dimen/dp10" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:background="@color/colorPrimaryDark"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Gender Preference"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black" />
+
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/sp_gender_pref"
+            android:entries="@array/gender_preference"
+            android:padding="@dimen/dp10" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:background="@color/colorPrimaryDark"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Age"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black" />
+
+
+        <EditText
+            android:id="@+id/age_from"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+
+            android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="to"/>
+
+        <EditText
+            android:id="@+id/age_to"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:inputType="number"/>
+
+        <Spinner
+
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/sp_age"
+            android:entries="@array/age_list"
+            android:padding="@dimen/dp10" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:background="@color/colorPrimaryDark"/>
+    <RelativeLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="SEARCH"
+            android:background="@drawable/rounded_green_button"/>
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_toRightOf="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="39dp"
+            android:background="@drawable/rounded_border_red"
+            android:text="CLEAR"
+            android:textColor="#ff3b30"
+            />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="@dimen/dp5"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:id="@+id/pictureLayout"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/profile_test1" />
+
+        <View
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/circle_shape_green"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_name_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_weight="1"
+        android:layout_toRightOf="@+id/pictureLayout"
+        android:layout_centerVertical="true"
+        android:text="Tony Cage, 23 "
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@android:color/black" />
+<LinearLayout
+    android:id="@+id/unblock"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/list_item_genre_arrow"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerInside"
+        android:src="@drawable/stop"
+        android:tint="@color/navigation_notification_red" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Unblock"/>
+</LinearLayout>
+</RelativeLayout>

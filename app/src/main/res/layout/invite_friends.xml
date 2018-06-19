@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_layout"
+    android:background="#f5f5f5">
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="@dimen/dp16"
+        android:id="@+id/back"
+        android:scaleType="centerInside"
+        android:src="@drawable/left_arrow" />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/bebright"
+        android:layout_marginRight="50dp"
+        android:layout_gravity="center"
+        android:text="Invite Friends"
+        android:textAppearance="?android:textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_below="@+id/top">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EVENT"
+            android:textColor="@android:color/black"
+           />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dp5"
+            android:layout_marginStart="@dimen/dp5"
+            android:background="@android:color/darker_gray" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/item"
+        layout="@layout/item_my_shindings"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/dp10"/>
+
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/item"
+        android:layout_marginTop="@dimen/dp20"
+        android:background="#ffc105">
+        <TextView
+            android:id="@+id/tetx1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowColor="#19020304"
+            android:shadowDx="1.2246467991473532e-16"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:textColor="#fafafa"
+            android:text="SELECT FRIENDS BELOW"
+            />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="52dp"
+            android:fontFamily="sans-serif"
+            android:shadowColor="#19020304"
+            android:shadowDx="1.2246467991473532e-16"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            android:text="INVITE BY"
+            android:textColor="#fafafa"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+        <ImageView
+            android:id="@+id/send_invite_email"
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:src="@drawable/envelope"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_below="@+id/rl1"
+        android:id="@+id/ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+   <include layout="@layout/seach_user"
+
+
+       /></RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_above="@+id/bottom"
+        android:layout_below="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+         />
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp20"
+            android:background="@drawable/circle_shape_gray"
+            android:backgroundTint="#969696">
+
+            <TextView
+                android:id="@+id/invited_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:text="+1"
+                android:textColor="#fafafa"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_invite"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/rl2">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp10"
+            android:src="@drawable/sent" />
+    </RelativeLayout>
+</RelativeLayout>
