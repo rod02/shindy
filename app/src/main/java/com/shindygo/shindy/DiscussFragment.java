@@ -119,7 +119,11 @@ public class DiscussFragment extends Fragment {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 sendMessage();
-                rvChat.scrollToPosition(listOfDisc.size());
+              try {
+                  rvChat.scrollToPosition(listOfDisc.size());
+              }catch (NullPointerException e){
+                  e.printStackTrace();
+              }
                 return false;
             }
         });

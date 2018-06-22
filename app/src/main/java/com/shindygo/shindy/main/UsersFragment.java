@@ -22,6 +22,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,6 +35,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.shindygo.shindy.Api;
 import com.shindygo.shindy.R;
 import com.shindygo.shindy.SearchFilterActivity;
@@ -47,6 +56,7 @@ import com.shindygo.shindy.model.InviteEvent;
 import com.shindygo.shindy.model.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -72,6 +82,14 @@ import static com.shindygo.shindy.SearchFilterActivity.FILTER;
 public class UsersFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+
+    private static final String TAG = UsersFragment.class.getSimpleName();
+    private static final String INVITE_URL = "http://shindygo.com/";
+    private static final String FB_RQ_FRIENDS = "user_friends";
+    private static final int FACEBOOK = 2;
+
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     @BindView(R.id.search_user_img)
@@ -101,6 +119,8 @@ public class UsersFragment extends Fragment {
     private UsersAdapter adapter;
     LinearLayoutManager layoutManager;
     private PopupWindow mPopupWindow, messPopup;
+    private CallbackManager callbackManager;
+
     private boolean seachVis=false;
     private String choosenEvent;
     private int isAnon=0;
@@ -179,6 +199,10 @@ public class UsersFragment extends Fragment {
 //
 //            }
 //        });
+
+
+/*
+
         searchUserImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -222,6 +246,178 @@ public class UsersFragment extends Fragment {
     }
 
 
+
+
+*/
+
+
+        searchUserImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                final boolean hidden = searchView.getVisibility() != View.VISIBLE;
+/*                searchView.animate()
+                        .translationY(searchView.getHeight())
+                        //.alpha(0.0f)
+                        .setDuration(R.integer.ANIM_TRANS_TIME)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                searchView.setVisibility(hidden? View.VISIBLE : View.GONE);
+                            }
+                        });*/
+                /*TranslateAnimation animate = new TranslateAnimation(0,0,0,
+                        !hidden? searchView.getHeight(): -searchView.getHeight());
+                animate.setDuration(R.integer.ANIM_TRANS_TIME);
+                animate.setFillAfter(true);
+                searchView.startAnimation(animate);*/
+
+                /*searchView.setVisibility(
+                        !hidden? View.GONE: View.VISIBLE)*/;
+                if(hidden){
+                    Animation slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
+                    searchView.setVisibility(View.VISIBLE);
+                    searchView.startAnimation(slideDown);
+                    etSearch.requestFocus(etSearch.getText().toString().length());
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+                }else{
+                    Animation slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
+                    searchView.startAnimation(slideUp);
+                    slideUp.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            searchView.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    //searchView.setVisibility(View.GONE);
+                    InputMethodManager imm = (InputMethodManager)getActivity(). getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+                }
+
+            }
+        });
+/*        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                Log.v(TAG, "onEditorAction "+ textView.getText().toString());
+                seachF(etSearch.getText().toString());
+
+                return true;
+            }
+        });*/
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.v(TAG, "afterTextChanged "+ etSearch.getText().toString());
+                seachF(etSearch.getText().toString());            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.v(TAG, "onTextChanged "+ etSearch.getText().toString());
+                seachF(etSearch.getText().toString());
+            }
+        });
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etSearch.setText("");
+            }
+        });
+        //seach("");
+        searchUserSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
+                switch (position){
+                    case FACEBOOK:
+                        users.clear();
+                        adapter.notifyDataSetChanged();
+                       /*AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                       Log.v(TAG,"fb accessToken");
+                       Log.v(TAG,"size: "+accessToken.getPermissions().size());
+                       Log.v(TAG,"size: "+accessToken.getPermissions().iterator().toString());
+                       Log.v(TAG,"size: "+accessToken.getPermissions().toArray()[0]);
+                       Log.v(TAG,"size: "+accessToken.getPermissions().toArray()[1]);
+                       if(hasPermission(FB_RQ_FRIENDS)){
+
+                           GraphRequest request = GraphRequest.newGraphPathRequest(
+                                   AccessToken.getCurrentAccessToken(),
+                                   "/"+ Profile.getCurrentProfile().getId() +"/friends",
+                                   new GraphRequest.Callback() {
+                                       @Override
+                                       public void onCompleted(GraphResponse response) {
+                                           // Insert your code here
+                                           Log.v(TAG,"fb friendslist");
+                                           Log.v(TAG,response.toString());
+
+                                       }
+                                   });
+
+                           request.executeAsync();
+                       }
+*/
+                        break;
+
+                    default:
+                        seachF(etSearch.getText().toString());
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        //fbInit();
+        return view;
+    }
+
+    private void fbInit() {
+        callbackManager = CallbackManager.Factory.create();
+        if(!hasPermission(FB_RQ_FRIENDS)){
+            LoginManager mLoginManager = LoginManager.getInstance();
+            mLoginManager.logInWithReadPermissions(this, Arrays.asList(FB_RQ_FRIENDS));
+            mLoginManager.logInWithPublishPermissions(this,
+                    Arrays.asList(new String[]{"publish_actions"}));
+            mLoginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    //Toast.makeText(getActivity(), "Facebook login success!", Toast.LENGTH_SHORT).show();
+                    Log.v(TAG,"Facebook login success" );
+                }
+                @Override
+                public void onCancel() {
+                    Toast.makeText(getActivity(), "Facebook login canceled!", Toast.LENGTH_SHORT).show(); }
+                @Override
+                public void onError(FacebookException exception) {
+                    Toast.makeText(getActivity(), "Facebook login error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                } });
+
+        }
+
+    }
+
+    private boolean hasPermission(String request){
+        return AccessToken.getCurrentAccessToken().getPermissions().contains(request);
+    }
 
 
 

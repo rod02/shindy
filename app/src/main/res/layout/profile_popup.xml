@@ -161,12 +161,14 @@ android:layout_width="match_parent" android:layout_height="match_parent">
                 android:text="block" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_invite_view"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <LinearLayout
             android:id="@+id/choose"
             android:layout_width="match_parent"
@@ -174,57 +176,64 @@ android:layout_width="match_parent" android:layout_height="match_parent">
             android:layout_below="@+id/bar"
             android:layout_marginStart="@dimen/dp10"
             android:layout_marginTop="@dimen/dp10">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CHOOSE EVENT"
                 android:layout_gravity="center"
-                android:fontFamily="@font/robotocondensed"/>
+                android:fontFamily="@font/robotocondensed"
+                android:text="CHOOSE EVENT" />
+
             <ImageView
+                android:id="@+id/pay"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/doller"
-                android:id="@+id/pay"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/dp20"/>
+                android:layout_marginStart="@dimen/dp20"
+                android:src="@drawable/doller" />
+
             <ImageView
+                android:id="@+id/anonim"
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/anonim"
-                android:src="@drawable/invisible"
-                android:layout_marginStart="@dimen/dp20"/>
+                android:layout_marginStart="@dimen/dp20"
+                android:src="@drawable/invisible" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/lll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bar">
+
             <android.support.v7.widget.RecyclerView
 
                 android:id="@+id/rv_event_user"
-                android:layout_width="280dp"
-                android:layout_height="50dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/iv_arrow"
-                android:visibility="gone"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_toRightOf="@+id/rv_event_user"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/righticon" />
+                android:src="@drawable/righticon"
+                android:visibility="gone" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/tv_Bam"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lll"
             android:background="@color/green_online"
+            android:gravity="center_horizontal"
             android:text="Invite Sent...Bam"
             android:textColor="@android:color/white"
-            android:gravity="center_horizontal"
-            android:layout_below="@+id/lll"/>
+            android:visibility="gone" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

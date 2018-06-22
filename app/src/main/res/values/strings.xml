@@ -72,10 +72,8 @@
     <string name="psychologist_susan_david_shares_how_the_way_we_deal_with_our_emotions_shapes_everything_that_matters_our_actions_careers_relationships_health_and_happiness_in_this_deeply_moving_humorous_and_potentially_life_changing_talk_she_challenges_a_culture_that_prizes_positivity_over_emotional_truth_and_discusses_the_powerful_strategies_of_emotional_agility_a_talk_to_share">Psychologist Susan David shares how the way we deal with our emotions shapes everything that matters: our actions, careers, relationships, health and happiness. In this deeply moving, humorous and potentially life-changing talk, she challenges a culture that prizes positivity over emotional truth and discusses the powerful strategies of emotional agility. A talk to share.</string>
     <string name="Vancuver">Vancouver Convention Centre offers both scale and intimacy. At its heart is a soaring space where TED\'s stage designers have created a custom theater.</string>
     <string name="title_activity_maps">Map</string>
-    <string name="ticket_price">Ticket Price</string>
     <string name="co_hosts">Co-hosts</string>
     <string name="event_name">Event name</string>
-    <string name="time_start">Sep 10, 2018 10:00 PM</string>
     <string name="my_messages">My Messages</string>
     <string name="messages">Messages</string>
     <string name="active">Active</string>
@@ -83,5 +81,47 @@
     <string name="event_feedback">Event Feedback</string>
     <string name="choose_date">Choose date</string>
 
+
+    <string name="name_n_age">%1$s, %2$s</string>
+    <string name="list_empty">List Empty</string>
+
+    <string name="transition_event_image">transition_event_image</string>
+
+
+    <string name="time_start">Time Start</string>
+    <string name="date_start">Date Start</string>
+    <string name="date_end">Date End</string>
+    <string name="time_end">Time End</string>
+    <string name="location">Location</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="website">Website</string>
+    <string name="ticket_price">Ticket Price</string>
+    <string name="max_male">Max Male</string>
+    <string name="max_female">Max Female</string>
+    <string name="spots">Spots</string>
+    <string name="we_charged__">We charged a 10% service fee for each ticket purchased. It is how we keep food on the table.</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="created_events">Created Events</string>
+    <string name="save">Save</string>
+    <string name="quick_review">Quick Review</string>
+    <string name="rate_the_event">Rate the Event</string>
+    <string name="rate_host">Rate your Event host</string>
+    <string name="event_successfully_created">Event Successfully Created</string>
+    <string name="event_successfully_updated">Event Successfully Updated</string>
+    <string name="event_details">Event Details</string>
+    <string name="please_try_again">Please Try Again</string>
+
+    <string name="save_failed">No changes made</string>
+    <string name="reviews"><i>Reviews</i></string>
+    <string name="private_host_n">Private Host: %1$s</string>
+    <string name="hosted_by_n">Hosted by: %1$s</string>
+    <string name="invited_by_n">Invited by: %1$s</string>
+    <string name="view_previous_reply">View %1$s previous reply</string>
+    <string name="offer_to_pay">Offer to Pay if you accept: $%1s</string>
+    <string name="event_sched_n_n">%1$s | %2$s</string>
+    <string name="invite_sent_bam">Invite Sent....BAM !</string>
+    <string name="expires_n">Expires: %1$s</string>
 
 </resources>

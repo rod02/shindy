@@ -3,6 +3,7 @@ package com.shindygo.shindy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -135,6 +136,53 @@ public class Event implements Parcelable {
     @SerializedName("invitecode")
     @Expose
     private String invitecode;
+
+
+    @SerializedName("join_male")
+    @Expose
+    String joinMale;
+
+    @SerializedName("joinfemale")
+    @Expose
+    String joinFemale;
+
+
+    @SerializedName("guest_invite_friend")
+    @Expose
+    String ableGuestInvite;               //1 and 0
+
+
+    public String getAbleGuestInvite() {
+        return ableGuestInvite;
+    }
+
+    public void setAbleGuestInvite(String ableGuestInvite) {
+        this.ableGuestInvite = ableGuestInvite;
+    }
+
+    public void setInvited_by_id(String invited_by_id) {
+        this.invited_by_id = invited_by_id;
+    }
+
+    public void setInvitecode(String invitecode) {
+        this.invitecode = invitecode;
+    }
+
+    public String getJoinMale() {
+        return joinMale;
+    }
+
+    public void setJoinMale(String joinMale) {
+        this.joinMale = joinMale;
+    }
+
+    public String getJoinFemale() {
+        return joinFemale;
+    }
+
+    public void setJoinFemale(String joinFemale) {
+        this.joinFemale = joinFemale;
+    }
 
     public String getInvitecode() {
         return invitecode;
@@ -643,5 +691,23 @@ public class Event implements Parcelable {
         parcel.writeString(offer_to_pay);
         parcel.writeString(invited_by_id);
         parcel.writeString(invitecode);
+    }
+
+
+    public String toJSONObject() {
+        return new Gson().toJson(this, Event.class);
+    }
+
+    public String toJSON() {
+        return new Gson().toJson(this, Event.class);
+    }
+
+    public boolean isOfferToPay() {
+        try {
+            return getOffer_to_pay().equals("1");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

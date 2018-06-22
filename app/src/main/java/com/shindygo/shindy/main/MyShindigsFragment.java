@@ -119,26 +119,31 @@ public class MyShindigsFragment extends Fragment {
         eventController.getAttendingEvent(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                attending_list = response.body();
-                rvShindingsAttending.setLayoutManager(new LinearLayoutManager(getActivity()));
-                if (attending_list!=null)
-                    rvShindingsAttending.setAdapter(new MyShindingsAdapter(attending_list, new ClickEvent() {
-                        @Override
-                        public void Click(Event event) {
+                try {
 
-                        }
+                    attending_list = response.body();
+                    rvShindingsAttending.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    if (attending_list!=null)
+                        rvShindingsAttending.setAdapter(new MyShindingsAdapter(attending_list, new ClickEvent() {
+                            @Override
+                            public void Click(Event event) {
 
-                        @Override
-                        public void openEvent(Event event) {
+                            }
 
-                        }
-                    }));
-                rvShindingsAttending.setNestedScrollingEnabled(true);
+                            @Override
+                            public void openEvent(Event event) {
+
+                            }
+                        }));
+                    rvShindingsAttending.setNestedScrollingEnabled(true);
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
         eventController.getInvitedEvent(new Callback<List<Event>>() {

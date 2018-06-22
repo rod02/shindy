@@ -18,6 +18,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -154,6 +155,8 @@ public class ProfileActivity extends Fragment {
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager)getActivity(). getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(),0);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
                 User user = new User(sharedPref.getString("fbid", ""), sharedPref.getString("name", ""), sharedPref.getString("email", ""));
                 if (etZip.getText().toString().length() > 0)

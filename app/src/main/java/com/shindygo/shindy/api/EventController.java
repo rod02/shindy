@@ -16,6 +16,8 @@ import com.shindygo.shindy.model.Rating;
 import com.shindygo.shindy.model.Reply;
 import com.shindygo.shindy.model.Status;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -195,7 +197,7 @@ public class EventController {
     {
         Map<String,String> map = new HashMap<>();
         map.put("eventid",eventid);
-        map.put("image",image);
+        map.put("image[]",image);
         Call<Object> add = shindiServer.pushImage(map);
         add.enqueue(callback);
 
@@ -238,4 +240,15 @@ public class EventController {
     public void cancelInvite(String eventid,String id,Callback<Status> callback){
         shindiServer.cancelInvite(id,eventid,fbid).enqueue(callback);
     }
+
+    public void fetchCreatedEvents(String fbId, Callback<List<Event>> callback) {
+        shindiServer.getEventCreatedByUser(fbId).enqueue(callback);
+    }
+
+    public void updateEvent(Event event, Callback<JSONObject> callback) {
+
+        Call<JSONObject>updateEvent = shindiServer.updateEvent(event.toMap());
+        updateEvent.enqueue(callback);
+    }
+
 }

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="send">4</integer>
+    <integer name="ANIM_TRANS_TIME">200</integer>
+
+
 </resources>

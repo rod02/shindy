@@ -8,6 +8,8 @@ import com.shindygo.shindy.interfaces.ShindiServer;
 import com.shindygo.shindy.model.Filter;
 import com.shindygo.shindy.model.User;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,7 @@ public class Api {
     ShindiServer shindiServer;
     Retrofit retrofit ;
     private SharedPreferences sharedPref ;
-    Context context;
+    static Context context;
     private String fbid;
     public Api(@NonNull Context context) {
         this.context = context;
@@ -173,4 +175,40 @@ public class Api {
         add.enqueue(callback);
     }
 
+
+    public void fetchNewUsers(String myId, Callback<List<User>> callback) {
+        Call<List<User>> fetchNewUsers = shindiServer.fetchNewUsers(myId);
+        fetchNewUsers.enqueue(callback);
+    }
+
+
+    public void likeUserToGroup(String myId, String friendFbId, Callback<JSONObject> callback) {
+        Call<JSONObject> likeUserToGroup = shindiServer.likeUserToGroup(myId, friendFbId);
+        likeUserToGroup.enqueue(callback);
+    }
+
+
+
+    public static void initialized(Context applicationContext) {
+        if(isInitialized()){
+            return;
+        }
+        instance = new Api(applicationContext);
+    }
+
+    private static boolean isInitialized() {
+        return instance!=null;
+    }
+
+    private static Api instance;
+
+    public static Api getInstance() {
+        if(instance!=null)
+            return instance;
+        return new Api(context);
+    }
+
+    public static Context getContext() {
+        return context;
+    }
 }

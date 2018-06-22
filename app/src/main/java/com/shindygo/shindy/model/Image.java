@@ -41,6 +41,11 @@ public class Image implements Serializable, Parcelable
     public Image() {
     }
 
+    public Image(String id, String imagePath) {
+        this.id = id;
+        this.imagePath = imagePath;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeValue(imagePath);

@@ -44,6 +44,7 @@ import com.shindygo.shindy.main.NewUsersFragment;
 import com.shindygo.shindy.main.UsersFragment;
 import com.shindygo.shindy.utils.ConnectIntentService;
 import com.shindygo.shindy.utils.FontUtils;
+import com.shindygo.shindy.utils.MySharedPref;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity
         ReviewDetailEventFragment.OnFragmentInteractionListener,
         MessagesFragment.OnFragmentInteractionListener,
         EventFeedbackActivity.OnFragmentInteractionListener,  NavigationView.OnNavigationItemSelectedListener, MyShindigsFragment.OnFragmentInteractionListener, UsersFragment.OnFragmentInteractionListener, NewUsersFragment.OnFragmentInteractionListener {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
 
     @BindView(R.id.title)
@@ -72,6 +75,9 @@ public class MainActivity extends AppCompatActivity
     private ViewPager mViewPager;
     ImageView imageViewMenu;
     TextView menuName;
+
+
+
 
     public  boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = ((ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE));
@@ -105,6 +111,7 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         Profile.getCurrentProfile();
+        Api.initialized(getApplicationContext());
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -170,7 +177,8 @@ public class MainActivity extends AppCompatActivity
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tabs.setupWithViewPager(mViewPager);
-        tabs.setBadgeText(2, "13");
+        //
+        tabs.setBadgeText(2, String.valueOf(MySharedPref.getNewUsersCount()));
 
 //        tabLayout.setTabFont(ResourcesCompat.getFont(this, R.font.trench));
 //        tabs.setBadgeTruncateAt(TextUtils.TruncateAt.MIDDLE);
@@ -360,5 +368,11 @@ public class MainActivity extends AppCompatActivity
             }
             return null;
         }
+    }
+
+
+    public void setTabBadgeText(int index, String text){
+        tabs.setBadgeText(index, text);
+        //Log.v(TAG, "setTabBadgeText; "+text);
     }
 }

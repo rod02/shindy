@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <plurals name="stocks">
+        <item quantity="zero">Out of Stock</item>
+        <item quantity="one">Stock</item>
+        <item quantity="other">Stocks</item>
+    </plurals>
+</resources>

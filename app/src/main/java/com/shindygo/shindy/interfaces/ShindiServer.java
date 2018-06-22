@@ -12,6 +12,8 @@ import com.shindygo.shindy.model.Reply;
 import com.shindygo.shindy.model.Status;
 import com.shindygo.shindy.model.User;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -265,5 +267,34 @@ public interface ShindiServer {
     @GET("eventreviewlist")
     Call<List<Event>> getEventReview(@Query("user_fbid") String id );
 
+
+
+    @Headers({
+            "API-key: shindykey456",
+            "Authorization: Basic c2hpbmR5QGFkbWluOm9yYW5nZUAxMjM="
+    })
+    @FormUrlEncoded
+    @POST("newuserlist")
+    Call<List<User>> fetchNewUsers(@Field("user_fbid") String myId);
+
+
+    @Headers({
+            "API-key: shindykey456",
+            "Authorization: Basic c2hpbmR5QGFkbWluOm9yYW5nZUAxMjM="
+    })
+    @FormUrlEncoded
+    @POST("adduseras_liketogroup")
+    Call<JSONObject> likeUserToGroup(@Field("user_fbid") String myId, @Field("friend_fbid") String friend_fbId );
+
+
+
+
+    @Headers({
+            "API-key: shindykey456",
+            "Authorization: Basic c2hpbmR5QGFkbWluOm9yYW5nZUAxMjM="
+    })
+    @FormUrlEncoded
+    @POST("update_event")
+    Call<JSONObject> updateEvent(@FieldMap Map<String, Object> event);
 
 }

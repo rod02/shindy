@@ -1,7 +1,14 @@
 package com.shindygo.shindy.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.shindygo.shindy.Api;
+import com.shindygo.shindy.R;
+import com.shindygo.shindy.utils.TextUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +53,13 @@ public class User {
     @SerializedName("gender_pref")
     @Expose
     private String genderPref;
+    @SerializedName("show_my_gender_pref")
+    @Expose
+    private String showMyGenderPref;
+    @SerializedName("invite_me_other_share_gender_pref")
+    @Expose
+    private String inviteMeOtherShareGenderPref;
+
     @SerializedName("address")
     @Expose
     private String address;
@@ -67,17 +81,17 @@ public class User {
     @SerializedName("markasfavorite")
     @Expose
     private String markasfavorite;
+    @SerializedName("allow_anonymous_invite")
+    @Expose
+    private String allowAnonymousInvite;
     private boolean anonymous_invite;
+
     private boolean offer_to_pay;
 
 
     public boolean checked =false;
 
-    public String example() {
 
-
-        return "{'id':'1','fbid':'a12b3c','fullname':'Danny Smith','photo':'','email_address':'dannysmith@gmail.com','about':'i am born and raised Alabama boy','age':'26','age_pref':'10','religion':'0','gender':'0','gender_pref':'0','address':'Alabama','distance':'50','zipcode':'90210','availability':'Available','joineddate':'0000-00-00 00:00:00','updatedate':'0000-00-00 00:00:00'}";
-    }
     public JSONObject toJson() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("fbid",fbid);
@@ -275,6 +289,15 @@ public class User {
         return markasfavorite;
     }
 
+    public boolean isMarkAsFavorite(){
+        try {
+            return getMarkasfavorite().equals("1");
+        }catch (NullPointerException e){
+            return false;
+        }
+
+    }
+
     public void setMarkasfavorite(String markasfavorite) {
         this.markasfavorite = markasfavorite;
     }
@@ -302,4 +325,91 @@ public class User {
     public void setOffer_to_pay(boolean offer_to_pay) {
         this.offer_to_pay = offer_to_pay;
     }
+
+
+
+    /**
+     * Getter for the User that is currently logged in to the application.
+     * @return The User that is currently logged in to the application.
+     */
+    public static User getCurrentUser()
+    {
+        final SharedPreferences sharedPref = Api.getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
+
+        return User.fromSharedPref(sharedPref);
+    }
+    private static User fromSharedPref(SharedPreferences sharedPref){
+
+        User user = new User(sharedPref.getString("fbid", ""),
+                sharedPref.getString("name", ""),
+                sharedPref.getString("email", ""));
+        user.setAbout(sharedPref.getString("about",""));
+        user.setPhoto(sharedPref.getString("photo",""));
+        user.setAge(sharedPref.getString("age",""));
+        user.setAgePref(String.valueOf(sharedPref.getInt("prefAge",0)));
+        user.setDistance(String.valueOf(sharedPref.getInt("spDistance",0)));
+        user.setReligion(String.valueOf(sharedPref.getInt("spReligion",0)));
+        user.setGenderPref(String.valueOf(sharedPref.getInt("spGender",0)));
+        user.setAvailability(String.valueOf(sharedPref.getInt("spAva",0)));
+        user.setGender(sharedPref.getString("gender",""));
+        user.setAddress(sharedPref.getString("address",""));
+        user.setZipcode(sharedPref.getString("zipCode",""));
+        user.setJoineddate(sharedPref.getString("joinedDate",""));
+        user.setUpdatedate(sharedPref.getString("updateDate",""));
+        return user;
+    }
+    public static String getCurrentUserId() {
+        final SharedPreferences sharedPref = Api.getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
+        return sharedPref.getString("fbid", "");
+    }
+
+    /**
+     * Setter for the User that is currently logged in to the application.
+     * @param user The user that is currently logged in to the application.
+     */
+    public static void setCurrentUser(User user) {
+        SharedPreferences sharedPref =  Api.getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("name", user.getFullname());
+        editor.putString("fbid", user.getFbid());
+        editor.putString("photo", user.getPhoto());
+        editor.putString("url", user.getPhoto());
+        editor.putString("email", user.getEmailAddress());
+        editor.putString("about", user.getAbout());
+        editor.putString("age", user.getAge());
+        editor.putInt("prefAge", TextUtils.parseInt(user.getAgePref()));
+        editor.putInt("spDistance", TextUtils.parseInt(user.getDistance()));
+        editor.putInt("spReligion", TextUtils.parseInt(user.getReligion()));
+        editor.putInt("spGender", TextUtils.parseInt(user.getGenderPref()));
+        editor.putInt("spAva", TextUtils.parseInt(user.getAvailability()));
+        editor.putString("gender", user.getGender());
+        editor.putString("address", user.getAddress());
+        editor.putString("zipCode", user.getZipcode());
+        editor.putString("joinedDate", user.getJoineddate());
+        editor.putString("updateDate", user.getUpdatedate());
+        editor.apply();
+    }
+
+    public String getReligonAsText() {
+        Resources res = Api.getContext().getResources();
+        try{
+            return res.getStringArray(R.array.religion)[Integer.parseInt(getReligion())];
+        }catch (Exception e){
+            return "";
+        }
+
+    }
+
+
+    public String getGenderPrefAsText() {
+        Resources res = Api.getContext().getResources();
+        try{
+            return res.getStringArray(R.array.gender_preference)[Integer.parseInt(getGenderPref())];
+        }catch (Exception e){
+            return "both";
+        }
+
+    }
+
+
 }
