@@ -503,183 +503,134 @@ public class UsersFragment extends Fragment {
                     new EventController(getContext()).getEventListCreatedByUser(new Callback<List<Event>>() {
                         @Override
                         public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                            if (response!=null)
-                                eventList = response.body();
-                            adapter = new UsersAdapter(users,eventList, new ClickUser() {
-                                @Override
-                                public void Click(final User user) {
-                                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                                    String[] religions = getResources().getStringArray(R.array.religion);
-                                    String[] prefs = getResources().getStringArray(R.array.gender_preference);
-                                    final SharedPreferences sharedPref = getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
-                                    final String id = sharedPref.getString("fbid", "");
+                            try {
+                                if (response!=null)
+                                    eventList = response.body();
+                                adapter = new UsersAdapter(users,eventList, new ClickUser() {
+                                    @Override
+                                    public void Click(final User user) {
+                                        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                                        String[] religions = getResources().getStringArray(R.array.religion);
+                                        String[] prefs = getResources().getStringArray(R.array.gender_preference);
+                                        final SharedPreferences sharedPref = getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
+                                        final String id = sharedPref.getString("fbid", "");
 
-                                    // Inflate the custom layout/view
-                                    View customView = inflater.inflate(R.layout.profile_popup, null);
-                                    ImageView imageView = customView.findViewById(R.id.imageView2);
-                                    final ImageView star = customView.findViewById(R.id.iv_star);
-                                    Glide.with(getContext()).load(user.getPhoto()).into(imageView);
-                                    TextView name = customView.findViewById(R.id.tv_name);
-                                    TextView about = customView.findViewById(R.id.tv_desc);
-                                    about.setText(user.getAbout());
-                                    TextView city = customView.findViewById(R.id.tv_city);
-                                    city.setText(user.getAddress());
-                                    TextView religion = customView.findViewById(R.id.tv_religon);
-                                    religion.setText(religions[Integer.parseInt(user.getReligion())]);
-                                    TextView pref = customView.findViewById(R.id.tv_pref);
-                                    pref.setText("Preference: " + prefs[Integer.parseInt(user.getGenderPref())]);
-                                    name.setText(user.getFullname());
-                                    final ImageView arrow = customView.findViewById(R.id.iv_arrow);
-                                    final ImageView pay = customView.findViewById(R.id.pay);
-                                    final ImageView anonim = customView.findViewById(R.id.anonim);
-                                    final TextView textView = customView.findViewById(R.id.tv_Bam);
-                                    final LinearLayout invite_view = customView.findViewById(R.id.ll_invite_view);
-                                    final RecyclerView recycler = customView.findViewById(R.id.rv_event_user);
-                                    recycler.setLayoutManager(new LinearLayoutManager(getContext(), 0, false));
-                                    recycler.setAdapter(new EventUserAdapter(new ClickEventCard() {
-                                        @Override
-                                        public void Click(boolean b, String eventId) {
-                                            choosenEvent = eventId;
-                                            arrow.setVisibility(View.VISIBLE);
-                                        }
-                                    }, eventList));
-                                    LinearLayout invite = customView.findViewById(R.id.ll_invite);
-                                    invite.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            recycler.setAdapter(new EventUserAdapter(new ClickEventCard() {
-                                                @Override
-                                                public void Click(boolean b, String eventId) {
-                                                    choosenEvent = eventId;
-                                                    arrow.setVisibility(View.VISIBLE);
-                                                }
-                                            }, eventList));
-                                            invite_view.setVisibility(invite_view.getVisibility()==View.VISIBLE?GONE:View.VISIBLE);
-                                        }
-                                    });
-                                    pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
-                                    pay.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            if (isPay==1){
-                                                isPay=0;
-                                                pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.fb_blue));
+                                        // Inflate the custom layout/view
+                                        View customView = inflater.inflate(R.layout.profile_popup, null);
+                                        ImageView imageView = customView.findViewById(R.id.imageView2);
+                                        final ImageView star = customView.findViewById(R.id.iv_star);
+                                        Glide.with(getContext()).load(user.getPhoto()).into(imageView);
+                                        TextView name = customView.findViewById(R.id.tv_name);
+                                        TextView about = customView.findViewById(R.id.tv_desc);
+                                        about.setText(user.getAbout());
+                                        TextView city = customView.findViewById(R.id.tv_city);
+                                        city.setText(user.getAddress());
+                                        TextView religion = customView.findViewById(R.id.tv_religon);
+                                        religion.setText(religions[Integer.parseInt(user.getReligion())]);
+                                        TextView pref = customView.findViewById(R.id.tv_pref);
+                                        pref.setText("Preference: " + prefs[Integer.parseInt(user.getGenderPref())]);
+                                        name.setText(user.getFullname());
+                                        final ImageView arrow = customView.findViewById(R.id.iv_arrow);
+                                        final ImageView pay = customView.findViewById(R.id.pay);
+                                        final ImageView anonim = customView.findViewById(R.id.anonim);
+                                        final TextView textView = customView.findViewById(R.id.tv_Bam);
+                                        final LinearLayout invite_view = customView.findViewById(R.id.ll_invite_view);
+                                        final RecyclerView recycler = customView.findViewById(R.id.rv_event_user);
+                                        recycler.setLayoutManager(new LinearLayoutManager(getContext(), 0, false));
+                                        recycler.setAdapter(new EventUserAdapter(new ClickEventCard() {
+                                            @Override
+                                            public void Click(boolean b, String eventId) {
+                                                choosenEvent = eventId;
+                                                arrow.setVisibility(View.VISIBLE);
                                             }
-                                            else {
-                                                isPay=1;
-                                                pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
-                                            }
-
-                                        }
-
-                                    });
-                                    anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
-                                    anonim.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            if (isAnon==1){
-                                                isAnon=0;
-                                                anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.fb_blue));
-                                            }
-                                            else {
-                                                isAnon=1;
-                                                anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
-                                            }
-
-
-                                        }
-                                    });
-                                    arrow.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            textView.setVisibility(View.VISIBLE);
-                                            //todo send invite
-                                            EventController eventController = new EventController(getContext());
-                                            eventController.sendinvite(new InviteEvent(choosenEvent, user.getFbid(), isAnon, isPay), new Callback<ResponseBody>() {
-                                                @Override
-                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                    if (response != null) {
-                                                        Log.v("sendInvite", response.body().toString());
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                    t.printStackTrace();
-                                                }
-                                            });
-
-                                            Handler handler = new Handler();
-                                            handler.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    textView.setVisibility(GONE);
-
-                                                }
-                                            }, 2000);
-
-                                        }
-                                    });
-                                    LinearLayout linearLayout = customView.findViewById(R.id.ll_block);
-                                    linearLayout.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-
-                                            api.blockUser(id, user.getFbid(), new Callback<Object>() {
-                                                @Override
-                                                public void onResponse(Call<Object> call, Response<Object> response) {
-                                                    Toast.makeText(getContext(), "User blocked succesfuly!", Toast.LENGTH_SHORT).show();
-                                                    mPopupWindow.dismiss();
-                                                }
-
-                                                @Override
-                                                public void onFailure(Call<Object> call, Throwable t) {
-                                                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                                                    mPopupWindow.dismiss();
-                                                }
-                                            });
-                                        }
-                                    });
-
-                                    LinearLayout ll_message = customView.findViewById(R.id.ll_message);
-                                    ll_message.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            createMessage();
-                                        }
-                                    });
-                                    LinearLayout favorite = customView.findViewById(R.id.ll_favorite);
-                                    favorite.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            if (user.getMarkasfavorite().equals("0")) {
-                                                star.setColorFilter(ContextCompat.getColor(getContext(), R.color.navigation_notification_yellow));
-                                                api.addFavoriteUser(id, user.getFbid(), new Callback<Object>() {
+                                        }, eventList));
+                                        LinearLayout invite = customView.findViewById(R.id.ll_invite);
+                                        invite.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                recycler.setAdapter(new EventUserAdapter(new ClickEventCard() {
                                                     @Override
-                                                    public void onResponse(Call<Object> call, Response<Object> response) {
-                                                        Toast.makeText(getContext(), "User favorite!", Toast.LENGTH_SHORT).show();
-                                                        users.get(users.indexOf(user)).setMarkasfavorite("1");
-                                                        user.setMarkasfavorite("1");
-                                                        adapter.notifyDataSetChanged();
-                                                        //   mPopupWindow.dismiss();
+                                                    public void Click(boolean b, String eventId) {
+                                                        choosenEvent = eventId;
+                                                        arrow.setVisibility(View.VISIBLE);
+                                                    }
+                                                }, eventList));
+                                                invite_view.setVisibility(invite_view.getVisibility()==View.VISIBLE?GONE:View.VISIBLE);
+                                            }
+                                        });
+                                        pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
+                                        pay.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (isPay==1){
+                                                    isPay=0;
+                                                    pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.fb_blue));
+                                                }
+                                                else {
+                                                    isPay=1;
+                                                    pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
+                                                }
+
+                                            }
+
+                                        });
+                                        anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
+                                        anonim.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (isAnon==1){
+                                                    isAnon=0;
+                                                    anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.fb_blue));
+                                                }
+                                                else {
+                                                    isAnon=1;
+                                                    anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
+                                                }
+
+
+                                            }
+                                        });
+                                        arrow.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                textView.setVisibility(View.VISIBLE);
+                                                //todo send invite
+                                                EventController eventController = new EventController(getContext());
+                                                eventController.sendinvite(new InviteEvent(choosenEvent, user.getFbid(), isAnon, isPay), new Callback<ResponseBody>() {
+                                                    @Override
+                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                        if (response != null) {
+                                                            Log.v("sendInvite", response.body().toString());
+                                                        }
                                                     }
 
                                                     @Override
-                                                    public void onFailure(Call<Object> call, Throwable t) {
-                                                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                                                        mPopupWindow.dismiss();
+                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                        t.printStackTrace();
                                                     }
                                                 });
-                                            } else {
-                                                star.setColorFilter(null);
-                                                api.RemoveFavoriteUser(id, user.getFbid(), new Callback<Object>() {
+
+                                                Handler handler = new Handler();
+                                                handler.postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        textView.setVisibility(GONE);
+
+                                                    }
+                                                }, 2000);
+
+                                            }
+                                        });
+                                        LinearLayout linearLayout = customView.findViewById(R.id.ll_block);
+                                        linearLayout.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+
+                                                api.blockUser(id, user.getFbid(), new Callback<Object>() {
                                                     @Override
                                                     public void onResponse(Call<Object> call, Response<Object> response) {
-                                                        Toast.makeText(getContext(), "User remove from favorite!", Toast.LENGTH_SHORT).show();
-                                                        users.get(users.indexOf(user)).setMarkasfavorite("0");
-                                                        user.setMarkasfavorite("0");
-                                                        adapter.notifyDataSetChanged();
-                                                        //   mPopupWindow.dismiss();
+                                                        Toast.makeText(getContext(), "User blocked succesfuly!", Toast.LENGTH_SHORT).show();
+                                                        mPopupWindow.dismiss();
                                                     }
 
                                                     @Override
@@ -689,42 +640,96 @@ public class UsersFragment extends Fragment {
                                                     }
                                                 });
                                             }
+                                        });
+
+                                        LinearLayout ll_message = customView.findViewById(R.id.ll_message);
+                                        ll_message.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                createMessage();
+                                            }
+                                        });
+                                        LinearLayout favorite = customView.findViewById(R.id.ll_favorite);
+                                        favorite.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (user.getMarkasfavorite().equals("0")) {
+                                                    star.setColorFilter(ContextCompat.getColor(getContext(), R.color.navigation_notification_yellow));
+                                                    api.addFavoriteUser(id, user.getFbid(), new Callback<Object>() {
+                                                        @Override
+                                                        public void onResponse(Call<Object> call, Response<Object> response) {
+                                                            Toast.makeText(getContext(), "User favorite!", Toast.LENGTH_SHORT).show();
+                                                            users.get(users.indexOf(user)).setMarkasfavorite("1");
+                                                            user.setMarkasfavorite("1");
+                                                            adapter.notifyDataSetChanged();
+                                                            //   mPopupWindow.dismiss();
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<Object> call, Throwable t) {
+                                                            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                                                            mPopupWindow.dismiss();
+                                                        }
+                                                    });
+                                                } else {
+                                                    star.setColorFilter(null);
+                                                    api.RemoveFavoriteUser(id, user.getFbid(), new Callback<Object>() {
+                                                        @Override
+                                                        public void onResponse(Call<Object> call, Response<Object> response) {
+                                                            Toast.makeText(getContext(), "User remove from favorite!", Toast.LENGTH_SHORT).show();
+                                                            users.get(users.indexOf(user)).setMarkasfavorite("0");
+                                                            user.setMarkasfavorite("0");
+                                                            adapter.notifyDataSetChanged();
+                                                            //   mPopupWindow.dismiss();
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<Object> call, Throwable t) {
+                                                            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                                                            mPopupWindow.dismiss();
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                        if (user.getMarkasfavorite().equals("1")) {
+                                            star.setColorFilter(ContextCompat.getColor(getContext(), R.color.navigation_notification_yellow));
+                                        } else
+                                            star.setColorFilter(null);
+                                        mPopupWindow = new PopupWindow(
+                                                customView,
+                                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                ViewGroup.LayoutParams.WRAP_CONTENT
+                                        );
+                                        if (Build.VERSION.SDK_INT >= 21) {
+                                            mPopupWindow.setElevation(5.0f);
                                         }
-                                    });
-                                    if (user.getMarkasfavorite().equals("1")) {
-                                        star.setColorFilter(ContextCompat.getColor(getContext(), R.color.navigation_notification_yellow));
-                                    } else
-                                        star.setColorFilter(null);
-                                    mPopupWindow = new PopupWindow(
-                                            customView,
-                                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                                            ViewGroup.LayoutParams.WRAP_CONTENT
-                                    );
-                                    if (Build.VERSION.SDK_INT >= 21) {
-                                        mPopupWindow.setElevation(5.0f);
+
+                                        // Get a reference for the custom view close button
+                                        ImageView closeButton = customView.findViewById(R.id.back);
+                                        // Set a click listener for the popup window close button
+                                        closeButton.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                // Dismiss the popup window
+                                                mPopupWindow.dismiss();
+                                            }
+                                        });
+
+                                        mPopupWindow.showAtLocation(llMainUsers, Gravity.CENTER, 0, 0);
                                     }
+                                }, new ClickCard() {
+                                    @Override
+                                    public void Click(boolean b) {
+                                        createMessage();
+                                    }
+                                });
+                                recyclerView.setLayoutManager(layoutManager);
+                                recyclerView.setAdapter(adapter);
+                            }catch (NullPointerException e){
+                                e.printStackTrace();
+                            }
 
-                                    // Get a reference for the custom view close button
-                                    ImageView closeButton = customView.findViewById(R.id.back);
-                                    // Set a click listener for the popup window close button
-                                    closeButton.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            // Dismiss the popup window
-                                            mPopupWindow.dismiss();
-                                        }
-                                    });
-
-                                    mPopupWindow.showAtLocation(llMainUsers, Gravity.CENTER, 0, 0);
-                                }
-                            }, new ClickCard() {
-                                @Override
-                                public void Click(boolean b) {
-                                    createMessage();
-                                }
-                            });
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setAdapter(adapter);
                         }
 
                         @Override
@@ -744,9 +749,14 @@ public class UsersFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                users.clear();
-                adapter.notifyDataSetChanged();
-                Log.i("123", "324");
+                try {
+
+                    users.clear();
+                    adapter.notifyDataSetChanged();
+                    Log.i("123", "324");
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
             }
         });
 

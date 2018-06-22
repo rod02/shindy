@@ -46,6 +46,8 @@ import com.shindygo.shindy.utils.ConnectIntentService;
 import com.shindygo.shindy.utils.FontUtils;
 import com.shindygo.shindy.utils.MySharedPref;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -57,6 +59,11 @@ public class MainActivity extends AppCompatActivity
         EventFeedbackActivity.OnFragmentInteractionListener,  NavigationView.OnNavigationItemSelectedListener, MyShindigsFragment.OnFragmentInteractionListener, UsersFragment.OnFragmentInteractionListener, NewUsersFragment.OnFragmentInteractionListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
+
+    private long lastPressed = Calendar.getInstance().getTimeInMillis();
+    private final long BACK_PRESSED_EXIT_THRESHOLD = 3000; //in millis
+
 
 
     @BindView(R.id.title)
@@ -103,6 +110,18 @@ public class MainActivity extends AppCompatActivity
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    private void hideKeyboard() {
+        try {
+
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getParent().getCurrentFocus().getWindowToken(),0);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +141,11 @@ public class MainActivity extends AppCompatActivity
         };
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-        registerReceiver(broadcastReceiver,intentFilter);
+        try {
+            registerReceiver(broadcastReceiver,intentFilter);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         if (Profile.getCurrentProfile()==null){
             Intent intent = new Intent(MainActivity.this,LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -208,21 +231,6 @@ public class MainActivity extends AppCompatActivity
         drawer.openDrawer(GravityCompat.START);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if (getFragmentManager().getBackStackEntryCount() > 0) {
-                getFragmentManager().popBackStack();
-                navView.getMenu().getItem(0).setChecked(true);
-            }
-            else
-                super.onBackPressed();
-        }
-    }
 /*
 
     @Override
@@ -298,7 +306,7 @@ public class MainActivity extends AppCompatActivity
             }
             case R.id.nav_host_new_event: {
 
-                Fragment fragment1 = new HostNewFragment();
+                Fragment fragment1 = new EventActivity();
                 fm.beginTransaction()
                         .replace(R.id.frame, fragment1)
                         .addToBackStack("host_new")
@@ -375,4 +383,35 @@ public class MainActivity extends AppCompatActivity
         tabs.setBadgeText(index, text);
         //Log.v(TAG, "setTabBadgeText; "+text);
     }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (getFragmentManager().getBackStackEntryCount() > 0) {
+                getFragmentManager().popBackStack();
+                navView.getMenu().getItem(0).setChecked(true);            }
+            else{
+
+                long now = Calendar.getInstance().getTimeInMillis();
+                if(now - lastPressed < BACK_PRESSED_EXIT_THRESHOLD){
+                    super.onBackPressed();
+                    return;
+                }
+                lastPressed = now;
+                Toast.makeText(MainActivity.this, R.string.prompt_double_back_exit, Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
+
+
+    void closeDrawer(){
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
 }

@@ -47,7 +47,7 @@ public class LikedEventFragment extends Fragment {
     List<Event> events = new ArrayList<>();
     LikedEventAdapter likedEventAdapter;
 
-    @BindView(R.id.rv_choose_event)
+    @BindView(R.id.rv_list)
     RecyclerView rvChooseEvent;
     Unbinder unbinder;
 

@@ -9,11 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.shindygo.shindy.R;
+import com.shindygo.shindy.model.Image;
 import com.shindygo.shindy.model.Reply;
 
 import java.util.List;
@@ -42,14 +44,14 @@ public class ChatCommentAdapter extends RecyclerView.Adapter<ChatCommentAdapter.
 
         context = parent.getContext();
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_reply, null);
 
         return new ChatCommentHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ChatCommentHolder holder, final int position) {
-        holder.bindModel(list.get(position));
+        holder.bindModel(list.get(position), position);
 
 
     }
@@ -61,24 +63,26 @@ public class ChatCommentAdapter extends RecyclerView.Adapter<ChatCommentAdapter.
 
     public class ChatCommentHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout llReply;
+        @BindView(R.id.lay_reply_content)
+        RelativeLayout rlReplyContent;
+        @BindView(R.id.tvPreviousReply)
+        TextView tvPreviousReply;
         @BindView(R.id.iv_avatar)
-        CircleImageView ivAvatar;
-        @BindView(R.id.rv_name)
+        ImageView ivAvatar;
+        @BindView(R.id.tv_name)
         TextView rvName;
-        @BindView(R.id.tv_text)
+        @BindView(R.id.content)
         TextView tvText;
-        @BindView(R.id.tv_comment_date)
+        @BindView(R.id.tv_date_created)
         TextView tvCommentDate;
 
         public ChatCommentHolder(View v) {
             super(v);
-            llReply = v.findViewById(R.id.ll_reply);
             ButterKnife.bind(this, v);
         }
 
-        public void bindModel(Reply r) {
-            llReply.setVisibility(View.GONE);
+        public void bindModel(Reply r, int position) {
+            //rlReplyContent.setVisibility(View.GONE);
             Glide.with(context).load(r.getPhoto()).into(ivAvatar);
             rvName.setText(r.getFullname());
             tvText.setText(r.getReplyComment());

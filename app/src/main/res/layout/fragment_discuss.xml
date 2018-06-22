@@ -2,52 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@android:color/white"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:nestedScrollingEnabled="true"
+    >
+
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_chat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/send_message">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/card_comments"
+        android:layout_alignParentTop="true"
+        android:nestedScrollingEnabled="true"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/item_chat" />
+<!--
 
-    </android.support.v7.widget.RecyclerView>
-
-    <LinearLayout
-        android:id="@+id/send_message"
+    <include
+        layout="@layout/comment_box"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp5"
-        android:background="@android:color/white"
-        android:visibility="visible">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:src="@drawable/profile_test1"
-            android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_scrollFlags="enterAlways" />
+-->
 
-        <EditText
-            android:id="@+id/et_message"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:background="@android:color/transparent"
-            android:gravity="center_vertical"
-            android:hint="Write a message"
-            android:paddingStart="15dp"
-            android:singleLine="true" />
 
-        <TextView
-            android:id="@+id/send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="SEND"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textStyle="bold" />
-    </LinearLayout>
 </RelativeLayout>

@@ -48,7 +48,7 @@ public class BlockedEventFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     EventController eventController;
     List<Event> events = new ArrayList<>();
-    @BindView(R.id.rv_choose_event)
+    @BindView(R.id.rv_list)
     RecyclerView rvChooseEvent;
     Unbinder unbinder;
     BlockedEventAdapter blockedEventAdapter;

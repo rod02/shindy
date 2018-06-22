@@ -28,6 +28,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -93,22 +94,24 @@ public class EventActivity extends Fragment  {
     TextView title;
     @BindView(R.id.top)
     LinearLayout top;
+
+
     @BindView(R.id.imgDateStart)
     ImageView imgDateStart;
-    @BindView(R.id.tvDateStart)
-    TextView tvDateStart;
-    @BindView(R.id.tvTimeStart)
-    TextView tvTimeStart;
+    @BindView(R.id.etDateStart)
+    TextInputEditText tvDateStart;
+    @BindView(R.id.etTimeStart)
+    TextInputEditText tvTimeStart;
     @BindView(R.id.imgDateEnd)
     ImageView imgDateEnd;
-    @BindView(R.id.tvDateEnd)
-    TextView tvDateEnd;
-    @BindView(R.id.tvTimeEnd)
-    TextView tvTimeEnd;
+    @BindView(R.id.etDateEnd)
+    TextInputEditText tvDateEnd;
+    @BindView(R.id.etTimeEnd)
+    TextInputEditText tvTimeEnd;
     @BindView(R.id.imgExpiry)
     ImageView imgExpiry;
-    @BindView(R.id.tvDateExpire)
-    TextView tvDateExpire;
+    @BindView(R.id.etExpiryDate)
+    TextInputEditText tvDateExpire;
     @BindView(R.id.imgLocation)
     ImageView imgLocation;
     TextInputEditText etLocation;
@@ -117,6 +120,8 @@ public class EventActivity extends Fragment  {
     TextInputEditText etCoHost;
     @BindView(R.id.imgTicketPrice)
     ImageView imgTicketPrice;
+
+
     TextInputEditText etTicketPrice;
     TextInputEditText etMaxMale;
     TextInputEditText etMaxFemale;
@@ -138,7 +143,7 @@ public class EventActivity extends Fragment  {
     @BindView(R.id.tvCancel)
     TextView tvCancel;
     @BindView(R.id.et_zip)
-    TextView etZipcode;
+    TextInputEditText etZipcode;
     @BindView(R.id.tv_left)
     TextView tvLeft;
     @BindView(R.id.cpAbleInvite)
@@ -269,6 +274,7 @@ public class EventActivity extends Fragment  {
                             calendar.set(Calendar.MINUTE, selectedMinute);
                             //  calendar.set(Calendar.SECOND, dayOfMonth);
                             SimpleDateFormat sdf = new SimpleDateFormat(TextUtils.SDF_4);
+                            sdf.setTimeZone(calendar.getTimeZone());
 
                            // ((TextView)getView().findViewById(v.getId()))
                             ((TextView)v).setText(sdf.format(calendar.getTime()));
@@ -277,7 +283,7 @@ public class EventActivity extends Fragment  {
                         }
 
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, false);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 //mTimePicker.findViewById(com.android.internal.R.id.timePicker).setId(v.getId());
 
@@ -303,6 +309,7 @@ public class EventActivity extends Fragment  {
                             calendar.set(Calendar.MINUTE, selectedMinute);
                             //  calendar.set(Calendar.SECOND, dayOfMonth);
                             SimpleDateFormat sdf = new SimpleDateFormat(TextUtils.SDF_4);
+                            sdf.setTimeZone(calendar.getTimeZone());
 
                             // ((TextView)getView().findViewById(v.getId()))
                             ((TextView)v).setText(sdf.format(calendar.getTime()));
@@ -414,7 +421,7 @@ public class EventActivity extends Fragment  {
                         return;
                     }
                 }*/
-
+                hideKeyboard();
                 if(saving){
                     return;
                 }
@@ -466,9 +473,21 @@ public class EventActivity extends Fragment  {
         return view;
     }
 
+    private void hideKeyboard() {
+        try {
+
+            InputMethodManager imm = (InputMethodManager)getActivity(). getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(),0);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+    }
+
     private void setDataToViews(Event event) {
         etEventName.setText(event.getEventname());
         etLocation.setText(event.getFulladdress());
+        Log.d(TAG, "getZipcode : "+event.getZipcode());
+
         etZipcode.setText(event.getZipcode());
         etDescription.setText(event.getDescription());
         etTicketPrice.setText(event.getTicketprice());/*
@@ -482,9 +501,10 @@ public class EventActivity extends Fragment  {
         tvDateExpire.setText(event.getExpirydate());
         etMaxMale.setText(event.getMax_male());
         etMaxFemale.setText(event.getMax_female());
-        etMaxFemale.setText(event.getWebsite_url());
+        etWebsite.setText(event.getWebsite_url());
        try{
-           cpAbleInvite.setChecked(Integer.parseInt(event.getAbleGuestInvite())==1);
+           Log.d(TAG, "ableToInvite : "+event.getAbleGuestInvite());
+           cpAbleInvite.setChecked(event.isAbleGuestInvite());
        }catch (Exception e){
            e.printStackTrace();
        }
@@ -573,7 +593,7 @@ public class EventActivity extends Fragment  {
                                                     Snackbar.make(getView().findViewById(R.id.rl),
                                                             R.string.event_successfully_created, Snackbar.LENGTH_LONG).show();
                                                 }else{
-                                                    Snackbar.make(getView().findViewById(R.id.rl), R.string.event_successfully_updated, Snackbar.LENGTH_LONG).show();
+                                                    Snackbar.make(getView().findViewById(R.id.rl), R.string.event_successfully_created, Snackbar.LENGTH_LONG).show();
                                                 }
                                                 ( (AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
 
@@ -631,21 +651,67 @@ public class EventActivity extends Fragment  {
                             Log.v(TAG,"onResponse " +response.isSuccessful());
 
                             if(response.isSuccessful()){
-                                if(getView()!=null){
-                                    if (!update) {
-                                        Snackbar.make(getView().findViewById(R.id.rl),
-                                                R.string.event_successfully_created, Snackbar.LENGTH_LONG).show();
-                                    }else{
-                                        Snackbar.make(getView().findViewById(R.id.rl), R.string.event_successfully_updated, Snackbar.LENGTH_LONG).show();
+                                for (int i = 0; i < images.size() ; i++) {
+                                    Image image = images.get(i);
+                                    if(image.id ==null || image.id.equals("0")){
+                                        try {
+                                            images64.add(ImageUtils.img64fromPath(image.imagePath));
+                                        } catch (FileNotFoundException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                    ( (AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
-
                                 }
 
+
+                                if (images64.size() == 0) {
+                                    showProgressBar(false);
+
+                                    if(getView()!=null){
+                                        if (!update) {
+                                            Snackbar.make(getView().findViewById(R.id.rl),
+                                                    R.string.event_successfully_created, Snackbar.LENGTH_LONG).show();
+                                        }else{
+                                            Snackbar.make(getView().findViewById(R.id.rl), R.string.event_successfully_updated, Snackbar.LENGTH_LONG).show();
+                                        }
+                                        ( (AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
+
+                                    }
+                                    return;
+                                }
+                                showProgressBar(true);
+                                for (final String url : images64) {
+                                    new EventController(getContext()).pushImage(event.getEventid(), url, new Callback<Object>() {
+                                        @Override
+                                        public void onResponse(Call<Object> call, Response<Object> response) {
+                                            if (url == images64.get(images64.size() - 1)) {
+                                                showProgressBar(false);
+
+                                                if(getView()!=null){
+                                                    if (!update) {
+                                                        Snackbar.make(getView().findViewById(R.id.rl),
+                                                                R.string.event_successfully_created, Snackbar.LENGTH_LONG).show();
+                                                    }else{
+                                                        Snackbar.make(getView().findViewById(R.id.rl), R.string.event_successfully_updated, Snackbar.LENGTH_LONG).show();
+                                                    }
+                                                    ( (AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
+
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Object> call, Throwable t) {
+                                            t.printStackTrace();;
+                                            showProgressBar(false);
+
+                                        }
+                                    });
+                                }
 
                             }
                         }catch (NullPointerException e){
                             e.printStackTrace();
+
                         }
                     }
                     showProgressBar(false);
@@ -655,9 +721,9 @@ public class EventActivity extends Fragment  {
                 public void onFailure(Call<CreateEventCallBack> call, Throwable t) {
                     Log.e(TAG, "failed to create event");
                     Log.e(TAG, t.getMessage());
-                    showProgressBar(false);
 
                     try {
+                        showProgressBar(false);
 
                         if(getView()!=null)
                             Snackbar.make(getView().findViewById(R.id.rl),
@@ -719,9 +785,11 @@ public class EventActivity extends Fragment  {
         String zipCode;                 //*	zipcode (return on map api)*/
 
         List<Image> image;	                //url image path
+        Log.d(TAG, "etZipcode : "+getText(etZipcode));
+
 
         event.setZipcode(getText(etZipcode));
-
+        Log.d(TAG, "etZipcode : "+event.getZipcode());
         event.setDescription(getText(etDescription));
   //      String notes;                   //	sample event notes
         event.setTicketprice(getText(etTicketPrice));
@@ -741,6 +809,11 @@ public class EventActivity extends Fragment  {
         event.setMax_female(getText(etMaxFemale));
         event.setWebsite_url(getText(etWebsite));
         event.setAbleGuestInvite(cpAbleInvite.isChecked()? "1":"0");
+        Log.d(TAG, "createEvent: isChecked() " + cpAbleInvite.isChecked());
+        Log.d(TAG, "createEvent: isChecked() " + event.getAbleGuestInvite());
+        Log.d(TAG, "createEvent: getEventId() " + event.getEventid());
+        Log.d(TAG, "createEvent: getFbId() " + event.getUserFbid());
+
         try {
            // event.setImage(Image.from(pageViews));
         }catch (NullPointerException e){

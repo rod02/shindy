@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,11 +15,14 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -28,10 +30,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rahimlis.badgedtablayout.BadgedTabLayout;
 import com.rd.PageIndicatorView;
 import com.shindygo.shindy.activity.SendInviteActivity;
 import com.shindygo.shindy.api.EventController;
 import com.shindygo.shindy.main.model.Respo;
+import com.shindygo.shindy.model.Discussion;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.Status;
 import com.shindygo.shindy.utils.OnSwipeTouchListener;
@@ -48,8 +52,16 @@ import retrofit2.Response;
 public class EventDetailActivity extends AppCompatActivity implements MapsFragment.OnFragmentInteractionListener, DiscussFragment.OnFragmentInteractionListener, ReviewDetailEventFragment.OnFragmentInteractionListener {
 
 
+    private static final String TAG = EventDetailActivity.class.getSimpleName();
+
+    private static final int DISCUSSION = 1;
+    private static final int REVIEW = 2;
+    static final int REPLY = 3;
+
+
+
     @BindView(R.id.taab)
-    TabLayout taab;
+    BadgedTabLayout taab;
     @BindView(R.id.container)
     ViewPager container;
     @BindView(R.id.tv_eventName)
@@ -90,6 +102,12 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
     RelativeLayout menu;
     @BindView(R.id.iam_in_image)
     ImageView iamInImage;
+    @BindView(R.id.card_comments)
+    CardView cvCommentBox;
+    @BindView(R.id.ivSend)
+    ImageView ivSend;
+    @BindView(R.id.etComment)
+    EditText etComment;
 
     private boolean hided = false;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -153,8 +171,63 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         tvWoman.setText(event.getMax_female());
         tvRate.setText(event.getRating());
         tvEventName.setText(event.getEventname());
-        tvHostedBy.setText(event.getEventname());
+        tvHostedBy.setText(event.getPrivate_host());
         container.setAdapter(mSectionsPagerAdapter);
+        container.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                switch (position){
+                    case DISCUSSION:
+                        cvCommentBox.setVisibility(View.VISIBLE);
+
+                        break;
+                        default:
+                            cvCommentBox.setVisibility(View.GONE);
+
+                            break;
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+
+            }
+        });
+        ivSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if(v.getTag()!=null){
+                        int tag = (int) v.getTag();
+                        switch (tag){
+                            case DISCUSSION:
+                                sendCommentDiscussion();
+                                v.setTag(DISCUSSION);
+
+                                break;
+                            case REPLY:
+                                sendDiscussionReply();
+                                v.setTag(DISCUSSION);
+
+                                break;
+
+                        }
+                    }else {
+                        sendCommentDiscussion();
+                    }
+
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
         taab.setupWithViewPager(container);
 
         whoInvited.setOnClickListener(new View.OnClickListener() {
@@ -350,7 +423,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
 
-        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {
@@ -369,6 +442,35 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         });
 
     }
+
+    private void sendDiscussionReply() {
+        Fragment fragment = getPagerFragment(DISCUSSION);
+        if (fragment instanceof DiscussFragment){
+            DiscussFragment discussFragment = (DiscussFragment) fragment;
+            discussFragment.sendDiscussionReply((Discussion) etComment.getTag(), etComment.getText().toString());
+            etComment.setText("");
+            etComment.setTag(null);
+            hideKeyboard();
+
+        }
+    }
+
+    private void sendCommentDiscussion() {
+        Fragment fragment = getPagerFragment(DISCUSSION);
+        if (fragment instanceof DiscussFragment){
+            DiscussFragment discussFragment = (DiscussFragment) fragment;
+            discussFragment.sendMessage(etComment.getText().toString());
+            etComment.setText("");
+            hideKeyboard();
+
+        }
+    }
+
+    private Fragment getPagerFragment(int position) {
+        return getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + position);
+
+    }
+
     public void show()
     {
         hided = false;
@@ -410,6 +512,23 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         }
     }
 
+
+    public void hideKeyboard() {
+        try {
+
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getParent().getCurrentFocus().getWindowToken(),0);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showKeyBoard() {
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+    }
+
     public Event getEvent() {
         return event;
     }
@@ -430,8 +549,16 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
 
     }
 
+    public EditText getCommentBox() {
+        return etComment;
+    }
+    public ImageView getSendButton() {
+        return ivSend;
+    }
+
+
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

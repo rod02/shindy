@@ -18,12 +18,17 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.shindygo.shindy.Api;
 import com.shindygo.shindy.R;
 import com.shindygo.shindy.api.EventController;
 import com.shindygo.shindy.interfaces.DiscussionClick;
 import com.shindygo.shindy.model.Discussion;
+import com.shindygo.shindy.model.Reply;
+import com.shindygo.shindy.model.Status;
+import com.shindygo.shindy.model.User;
 
 import java.util.List;
 
@@ -35,6 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static com.shindygo.shindy.Api.getContext;
 
 /**
  * Created by User on 16.03.2018.
@@ -83,7 +89,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
         @BindView(R.id.rl_like)
         RelativeLayout rlLike;
         @BindView(R.id.iv_avatar)
-        CircleImageView ivAvatar;
+        ImageView ivAvatar;
         @BindView(R.id.rv_name)
         TextView rvName;
         @BindView(R.id.tv_text)
@@ -95,7 +101,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
         @BindView(R.id.like)
         ImageView like;
         @BindView(R.id.ll_reply)
-        RelativeLayout llReply;
+        LinearLayout llReply;
         @BindView(R.id.linearLayout3)
         LinearLayout linearLayout3;
         @BindView(R.id.rv_chat_comment)
@@ -140,7 +146,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
             reply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    createMessage(d);
+                    interf.clickReply(d, "");
+                   // createMessage(d);
                   /*  replyVis=!replyVis;
 
                     rlReply.setVisibility(replyVis?View.VISIBLE:View.GONE);*/
@@ -161,7 +168,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
             if (d.isLiked()) {
                 like.setColorFilter(ContextCompat.getColor(context, R.color.navigation_notification_red));
             }
-            RelativeLayout msg = itemView.findViewById(R.id.ll_reply);
+            LinearLayout msg = itemView.findViewById(R.id.ll_reply);
             msg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -247,12 +254,43 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
             send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    try {
+                        final String s = editText.getText().toString();
+                        if(s.trim().length()>1){
+                            EventController eventController = new EventController(context);
+                            eventController.postReply(d.getEventid(), d.getDiscussionId(), s, new Callback<Status>() {
+                                @Override
+                                public void onResponse(Call<Status> call, Response<Status> response) {
+                                    if (response.isSuccessful()){
+                                        User currentuser = User.getCurrentUser();
+                                        d.reply.add(new Reply(s, currentuser.getFullname(),currentuser.getPhoto()));
+                                        notifyDataSetChanged();
+                                        editText.setText("");
+                                        messPopup.dismiss();
+                                        rvChatComment.getAdapter().notifyDataSetChanged();
+                                        Toast.makeText(Api.getContext(),"Success",Toast.LENGTH_SHORT).show();
+                                    }
+                                    else  Toast.makeText(Api.getContext(),"Error",Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<Status> call, Throwable t) {
+                                    t.printStackTrace();
+                                }
+                            });
+                        }
 
 
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+
+                    /*
                     if (editText.getText().toString().trim().length() > 1)
                         interf.clickReply(d, editText.getText().toString().trim());
                     editText.setText("");
-                    messPopup.dismiss();
+                    messPopup.dismiss();*/
                 }
             });
 

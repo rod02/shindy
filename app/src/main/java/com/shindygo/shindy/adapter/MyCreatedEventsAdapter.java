@@ -52,7 +52,7 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        holder.bindModel(mValues.get(position), click);
+        holder.bindModel(mValues.get(position), click, position);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
 
         }
 
-        public void bindModel(final Event event, final Click<Event> click){
+        public void bindModel(final Event event, final Click<Event> click, int position){
             String imagePath = "";
             try{
                 /*imagePath = (event.getImage()==null || event.getImages().size() ==0 )?
@@ -146,11 +146,12 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
             tvFemaleStocks.setText(TextUtils.getRemainingStocks(event,TextUtils.FEMALE));
             // tvSoldOut.setVisibility(TextUtils.getRemainingStocks(event)==0? View.VISIBLE: View.INVISIBLE);
             tvSoldOut.setText(context.getResources().getQuantityString(R.plurals.stocks,  TextUtils.getRemainingStocks(event)));
-
+            rlContent.setTag(position);
 
             rlContent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     final boolean hidden = layBar.getVisibility() != View.VISIBLE;
                     if(hidden){
                         Animation slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down);

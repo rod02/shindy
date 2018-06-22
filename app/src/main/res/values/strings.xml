@@ -124,4 +124,7 @@
     <string name="invite_sent_bam">Invite Sent....BAM !</string>
     <string name="expires_n">Expires: %1$s</string>
 
+    <string name="prompt_double_back_exit">Press back again to exit</string>
+    <string name="long_latin">Lorem ipsum dolor sit amet,Praesent vestibulum non sapien a scelerisque.Lorem ipsum dolor sit amet,Praesent vestibulum non sapien a scelerisque.Lorem ipsum dolor sit amet,Praesent vestibulum non sapien a scelerisque.</string>
+
 </resources>

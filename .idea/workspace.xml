@@ -2,7 +2,12 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <devices>
+          <device id="Nexus 5" />
+          <device id="Nexus One" />
+        </devices>
+      </config>
     </shared>
   </component>
   <component name="AndroidLogFilters">
@@ -10,112 +15,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81b95e82-43a3-4530-a242-32d275a2f872" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_27_0_2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_esafirm_android_image_picker_imagepicker_1_12_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/CreatedEventsFragment.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/adapter/MyCreatedEventsAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/adapter/NewUserCardAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/interfaces/Click.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/interfaces/OnClickShow.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/Cache.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/GlideImage.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/ImageFragment.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/ImageUtils.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/TextUtils.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/left_in.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/left_out.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/right_in.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/right_out.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_down.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_up.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_website.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_website.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_website.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_website.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_event.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_event.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_created_events.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_created_events.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values/plurals.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/widget/MyNestedScrollView.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_back.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_mail.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_back.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_mail.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_back.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_mail.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_back.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_mail.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/drop_shadow.9.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/comment_box.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_discussion.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_reply.xml" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_0_3.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_customtabs_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_customtabs_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_26_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_26_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_26_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_27_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_27_0_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_26_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_26_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_android_sdk_4_31_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_android_sdk_4_31_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_applinks_4_31_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_applinks_4_31_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_common_4_31_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_common_4_31_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_core_4_31_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_core_4_31_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_login_4_31_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_login_4_31_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_messenger_4_31_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_messenger_4_31_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_places_4_31_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_places_4_31_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_share_4_31_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_facebook_android_facebook_share_4_31_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_6_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_6_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_6_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_6_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_rahimlis_badgedtablayout_v1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_rahimlis_badgedtablayout_v1_2.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_11_8_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_11_8_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_license_11_8_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_license_11_8_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_11_8_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_11_8_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_license_11_8_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_license_11_8_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_maps_11_8_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_maps_11_8_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_maps_license_11_8_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_maps_license_11_8_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_11_8_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_11_8_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_license_11_8_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_license_11_8_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_8_8_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_butterknife_8_8_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_makeramen_roundedimageview_2_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_makeramen_roundedimageview_2_3_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_romandanylyk_pageindicatorview_1_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_romandanylyk_pageindicatorview_1_0_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_thoughtbot_expandablerecyclerview_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_thoughtbot_expandablerecyclerview_1_3.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_yuyakaido_android_card_stack_view_1_0_0_beta8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_yuyakaido_android_card_stack_view_1_0_0_beta8.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_2_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_2_2_0.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/Api.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/Api.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/BlockedEventFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/BlockedEventFragment.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/DiscussFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/DiscussFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventFeedbackActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventFeedbackActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventDetailActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/LikedEventFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/LikedEventFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/LoginActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/ProfileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/ProfileActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/api/EventController.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/api/EventController.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/interfaces/ShindiServer.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/interfaces/ShindiServer.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/MyShindigsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/MyShindigsFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/ReviewDetailEventFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/ReviewDetailEventFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/adapter/MyCreatedEventsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/adapter/MyCreatedEventsAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/NewUsersFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/NewUsersFragment.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/UsersFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/UsersFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/EventUserAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/EventUserAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/ChatAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/ChatAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/ChatCommentAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/ChatCommentAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Event.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Event.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Image.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Image.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/User.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/User.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_event_feedback.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_event_feedback.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/Cache.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/Cache.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_event_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_event_detail.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_event.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_event.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_discuss.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_discuss.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/profile_popup.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/profile_popup.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/integers.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/integers.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_liked.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_liked.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_chat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_chat.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_review.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_review.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -133,52 +80,155 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="shindy" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NewUsersFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/NewUsersFragment.java">
+      <file leaf-file-name="EventDetailActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventDetailActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="241" column="39" lean-forward="false" selection-start-line="241" selection-start-column="39" selection-end-line="241" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cache.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/Cache.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="6994">
+              <caret line="574" column="35" lean-forward="false" selection-start-line="574" selection-start-column="35" selection-end-line="574" selection-end-column="35" />
               <folding>
-                <element signature="e#598#599#0" expanded="true" />
-                <element signature="e#629#630#0" expanded="true" />
-                <element signature="e#688#689#0" expanded="true" />
-                <element signature="e#729#730#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="class#5008:5267" expanded="false" />
+                <element signature="e#7023#7914#0" expanded="true" />
+                <element signature="e#7913#7914#0" expanded="true" />
+                <element signature="class#8639:9520" expanded="false" />
+                <element signature="class#10079:10667" expanded="false" />
+                <element signature="class#11778:12470" expanded="false" />
+                <element signature="e#19836#20272#0" expanded="true" />
+                <element signature="e#20271#20272#0" expanded="true" />
+                <element signature="e#20646#21082#0" expanded="true" />
+                <element signature="e#21081#21082#0" expanded="true" />
+                <element signature="e#21734#21735#0" expanded="true" />
+                <element signature="e#21762#21763#0" expanded="true" />
+                <element signature="e#22253#22254#0" expanded="true" />
+                <element signature="e#22285#22286#0" expanded="true" />
+                <element signature="e#22324#22325#0" expanded="true" />
+                <element signature="e#22353#22354#0" expanded="true" />
+                <element signature="e#22589#22590#0" expanded="true" />
+                <element signature="e#22622#22623#0" expanded="true" />
+                <element signature="e#23440#23467#0" expanded="true" />
+                <element signature="e#23520#23550#0" expanded="true" />
+                <element signature="e#23603#23629#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MySharedPref.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/MySharedPref.java">
+      <file leaf-file-name="MapsFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/MapsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+            <state relative-caret-position="374">
+              <caret line="93" column="65" lean-forward="true" selection-start-line="93" selection-start-column="65" selection-end-line="93" selection-end-column="65" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventDetailActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventDetailActivity.java">
+      <file leaf-file-name="activity_maps_fragment.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps_fragment.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_event.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_event.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="-601">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content_event.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_event.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="496">
+              <caret line="131" column="55" lean-forward="true" selection-start-line="131" selection-start-column="55" selection-end-line="131" selection-end-column="55" />
+              <folding>
+                <marker date="1529693053952" expanded="false" signature="9486:9504" ph="&quot;Date End&quot;" />
+                <marker date="1529693053952" expanded="false" signature="9817:9835" ph="&quot;Time End&quot;" />
+                <marker date="1529693053952" expanded="false" signature="11516:11537" ph="&quot;Expiry Date&quot;" />
+              </folding>
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="107" column="51" lean-forward="false" selection-start-line="107" selection-start-column="51" selection-end-line="107" selection-end-column="51" />
+            <state relative-caret-position="374">
+              <caret line="726" column="0" lean-forward="false" selection-start-line="726" selection-start-column="0" selection-end-line="726" selection-end-column="0" />
+              <folding>
+                <element signature="e#22887#22922#0" expanded="true" />
+                <element signature="e#26121#26156#0" expanded="true" />
+                <element signature="e#26326#26361#0" expanded="true" />
+                <element signature="e#27555#27590#0" expanded="true" />
+                <element signature="e#27784#27819#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HostNewFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/HostNewFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="104">
+              <caret line="101" column="59" lean-forward="true" selection-start-line="101" selection-start-column="59" selection-end-line="101" selection-end-column="59" />
+              <folding>
+                <element signature="e#12780#13702#0" expanded="true" />
+                <element signature="e#13701#13702#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="host_new_event_fragment.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/host_new_event_fragment.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="308" column="56" lean-forward="false" selection-start-line="308" selection-start-column="56" selection-end-line="308" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -186,14 +236,24 @@
       </file>
       <file leaf-file-name="activity_event_detail.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_event_detail.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="233" column="48" lean-forward="false" selection-start-line="233" selection-start-column="48" selection-end-line="233" selection-end-column="48" />
+              <folding>
+                <element signature="e#2564#2596#0" expanded="true" />
+                <element signature="e#4088#4128#0" expanded="true" />
+                <element signature="e#4344#4373#0" expanded="true" />
+                <element signature="e#4428#4457#0" expanded="true" />
+                <element signature="e#4742#4771#0" expanded="true" />
+                <element signature="e#4826#4855#0" expanded="true" />
+                <element signature="e#5196#5225#0" expanded="true" />
+                <element signature="e#5280#5309#0" expanded="true" />
+                <element signature="e#6286#6326#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
           <provider selected="true" editor-type-id="android-designer2">
             <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="-357">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
           </provider>
         </entry>
       </file>
@@ -210,36 +270,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>llMai</find>
-      <find>mRelativeLayout</find>
-      <find>recyclerView</find>
-      <find>recycler</find>
-      <find>textView</find>
-      <find>invite_view</find>
-      <find>EventInvite</find>
-      <find>charged</find>
-      <find>ticket</find>
-      <find>zip</find>
-      <find>guest</find>
-      <find>imageChoos</find>
-      <find>imgLo</find>
-      <find>btn_</find>
+      <find>like</find>
+      <find>timePic</find>
+      <find>TimeP</find>
+      <find>create</find>
+      <find>hide</find>
       <find>adapter</find>
-      <find>pagerAdapter</find>
-      <find>pagerAd</find>
-      <find>setLo</find>
-      <find>lat</find>
-      <find>fet</find>
-      <find>ano</find>
-      <find>joineddate</find>
-      <find>update</find>
-      <find>setTa</find>
+      <find>nested</find>
+      <find>str</find>
+      <find>container.set</find>
+      <find>ivAvatar</find>
+      <find>frag</find>
+      <find>rvC</find>
+      <find>instance</find>
+      <find>linearLayout3</find>
+      <find>ll_reply</find>
+      <find>fragment_liked</find>
+      <find>scrol</find>
+      <find>show</find>
+      <find>hideso</find>
+      <find>show()</find>
+      <find>new Create</find>
       <find>Adapter</find>
-      <find>RQC_IMG_CHOOSER</find>
-      <find>setBa</find>
-      <find>save</find>
-      <find>Hide</find>
-      <find>addToL</find>
+      <find>Event</find>
+      <find>ivSend</find>
+      <find>myPhoto</find>
+      <find>sendDiscussionReply</find>
+      <find>Input</find>
+      <find>hideK</find>
+      <find>request</find>
+      <find>ratingBar</find>
     </findStrings>
     <replaceStrings>
       <replace>Event</replace>
@@ -249,7 +309,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="dev-r" />
       </map>
     </option>
   </component>
@@ -2278,15 +2338,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/interfaces/OnClickShow.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/Api.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/adapter/NewUserCardAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/user_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_event_user.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/profile_popup.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/integers.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_event.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/api/EventController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/PageFragment3.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/ImageUtils.java" />
@@ -2294,28 +2349,46 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/ImageFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Image.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_event.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/UsersFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/adapter/MyCreatedEventsAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/plurals.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/CreatedEventsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/TextUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Event.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_event_feedback.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventFeedbackActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/MyShindigsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/NewUser.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/interfaces/ShindiServer.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/MySharedPref.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_discuss.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/DiscussFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/ProfileActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/EventUserAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/NewUsersFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/Cache.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Event.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/NewUsersFragment.java" />
+        <option value="$PROJECT_DIR$/app/build/generated/source/r/debug/com/shindygo/shindy/R.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_reply.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_discussion.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/FixedAppBarLayoutBehaviour.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/comment_box.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_discuss.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_liked.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_review.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/LikedEventFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/BlockedEventFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/ReviewDetailEventFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_chat.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/CreatedEventsFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/adapter/MyCreatedEventsAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/ChatCommentAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/User.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/ChatAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/UsersFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/DiscussFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_event.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_event_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventDetailActivity.java" />
       </list>
     </option>
   </component>
@@ -2340,8 +2413,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2352,6 +2426,11 @@
             <path>
               <item name="shindy" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+            </path>
+            <path>
+              <item name="shindy" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
             </path>
             <path>
@@ -2365,7 +2444,7 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="shindy" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="fragment" type="462c0819:PsiDirectoryNode" />
+              <item name="activity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="shindy" type="1abcf292:AndroidViewProjectNode" />
@@ -2377,23 +2456,32 @@
             <path>
               <item name="shindy" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="shindy" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="shindy" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="shindy" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/layout" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="device.picker.selection" value="920133a9f44f94d7" />
   </component>
   <component name="RecentsManager">
@@ -2401,11 +2489,11 @@
       <recent name="com.shindygo.shindy.utils" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\user\Documents\AndroidStudioProject\shindy\app\src\main\java\com\shindygo\shindy\interfaces" />
+      <recent name="C:\Users\user\Documents\AndroidStudioProject\shindy\app\src\main\res\drawable" />
       <recent name="C:\Users\user\Documents\AndroidStudioProject\shindy\app\src\main\res\layout" />
+      <recent name="C:\Users\user\Documents\AndroidStudioProject\shindy\app\src\main\java\com\shindygo\shindy\widget" />
+      <recent name="C:\Users\user\Documents\AndroidStudioProject\shindy\app\src\main\java\com\shindygo\shindy\interfaces" />
       <recent name="C:\Users\user\Documents\AndroidStudioProject\shindy\app\src\main\java\com\shindygo\shindy" />
-      <recent name="C:\Users\user\Documents\AndroidStudioProject\shindy\app\src\main\res\anim" />
-      <recent name="C:\Users\user\Documents\AndroidStudioProject\shindy\app\src\main\java\com\shindygo\shindy\adapter" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -2586,34 +2674,42 @@
       <option name="presentableId" value="Default" />
       <updated>1529412967853</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added newUser Views&#10;CreatedByUser list&#10;Update Event&#10;Event Discussion&#10;TextWatcher on Filter search">
+      <created>1529636866056</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1529636866056</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="-8" width="1317" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39263803" sideWeight="0.50278443" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37576687" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39263803" sideWeight="0.4972156" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26412094" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19172633" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293556" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293556" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293556" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2624,500 +2720,574 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39263803" sideWeight="0.50278443" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39263803" sideWeight="0.4972156" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293556" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293556" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26412094" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19172633" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293556" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added newUser Views&#10;CreatedByUser list&#10;Update Event&#10;Event Discussion&#10;TextWatcher on Filter search" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added newUser Views&#10;CreatedByUser list&#10;Update Event&#10;Event Discussion&#10;TextWatcher on Filter search" />
+  </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventDetailActivity.java</url>
+          <line>139</line>
+          <properties />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_created_events.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="39" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/interfaces/OnFragmentInteractionListener.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/InviteEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/FixedAppBarLayoutBehavior.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_discussion.xml">
+      <provider editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_created_events.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-952">
-          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/host_new_event_fragment.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-299">
-          <caret line="137" column="18" lean-forward="false" selection-start-line="137" selection-start-column="18" selection-end-line="137" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_event.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="309" column="45" lean-forward="false" selection-start-line="309" selection-start-column="45" selection-end-line="309" selection-end-column="45" />
+          <caret line="7" column="50" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
-            <element signature="e#11568#11585#0" expanded="false" />
-            <element signature="e#14357#14375#0" expanded="false" />
-            <element signature="e#17949#17972#0" expanded="false" />
+            <element signature="e#1026#1039#0" expanded="false" />
+            <element signature="e#2069#2082#0" expanded="false" />
+            <element signature="e#2993#3005#0" expanded="false" />
+            <element signature="e#3124#3144#0" expanded="false" />
+            <element signature="e#3505#3517#0" expanded="false" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.esafirm.android-image-picker/imagepicker/1.12.0/4e71fc55772b241aaf9c8cddefaffce071ed1d31/imagepicker-1.12.0-sources.jar!/com/esafirm/imagepicker/model/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/no_image.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/PageFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-26/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="237" column="12" lean-forward="false" selection-start-line="237" selection-start-column="12" selection-end-line="237" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/PageFragment2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="41" column="62" lean-forward="false" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/GlideImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/ImageUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="30" column="55" lean-forward="false" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/ImageFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="44" column="26" lean-forward="false" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="45" column="35" lean-forward="false" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/HostNewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="175" column="33" lean-forward="false" selection-start-line="153" selection-start-column="36" selection-end-line="175" selection-end-column="33" />
-          <folding>
-            <element signature="e#14179#14180#0" expanded="false" />
-            <element signature="e#14220#14221#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/user_view.xml">
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/com/shindygo/shindy/DiscussFragment_ViewBinding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_event.xml">
-      <provider editor-type-id="android-designer2">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/8.8.1/1de300f9b877d30cea69c2ba84a450549f023ab8/butterknife-8.8.1-sources.jar!/butterknife/internal/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/com/shindygo/shindy/main/adapter/ChatAdapter$ChatHolder_ViewBinding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="55" column="20" lean-forward="false" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/com/shindygo/shindy/LikedEventFragment_ViewBinding.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="54" column="4" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
+        <state relative-caret-position="124">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_review.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1564">
+          <caret line="92" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="94" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_liked.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="35" lean-forward="false" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/BlockedEventFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="123" column="64" lean-forward="false" selection-start-line="123" selection-start-column="64" selection-end-line="123" selection-end-column="64" />
+        <state relative-caret-position="17">
+          <caret line="50" column="26" lean-forward="false" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/plurals.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/LikedEventFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="49" column="19" lean-forward="false" selection-start-line="49" selection-start-column="19" selection-end-line="49" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/ReviewDetailsEventAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-379">
+          <caret line="48" column="83" lean-forward="false" selection-start-line="48" selection-start-column="83" selection-end-line="48" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/ReviewDetailEventFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" column="14" lean-forward="false" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+          <caret line="92" column="55" lean-forward="false" selection-start-line="92" selection-start-column="55" selection-end-line="92" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="66" column="52" lean-forward="false" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/api/EventController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1734">
+          <caret line="129" column="16" lean-forward="false" selection-start-line="129" selection-start-column="16" selection-end-line="129" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/adapter/MyCreatedEventsAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1377">
-          <caret line="105" column="71" lean-forward="false" selection-start-line="105" selection-start-column="71" selection-end-line="105" selection-end-column="71" />
+        <state relative-caret-position="108">
+          <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/TextUtils.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/CreatedEventsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="64" column="76" lean-forward="false" selection-start-line="64" selection-start-column="76" selection-end-line="64" selection-end-column="76" />
+        <state relative-caret-position="224">
+          <caret line="141" column="50" lean-forward="false" selection-start-line="141" selection-start-column="50" selection-end-line="141" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Event.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/interfaces/DiscussionClick.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="842">
-          <caret line="154" column="40" lean-forward="false" selection-start-line="154" selection-start-column="40" selection-end-line="154" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_new_users.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_event_feedback.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+        <state relative-caret-position="136">
+          <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/MyShindigsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1070">
-          <caret line="145" column="16" lean-forward="false" selection-start-line="145" selection-start-column="16" selection-end-line="145" selection-end-column="16" />
-          <folding>
-            <element signature="e#4969#4970#0" expanded="false" />
-            <element signature="e#5020#5021#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/NewUser.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/Api.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="36" column="56" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="36" selection-end-column="56" />
+        <state relative-caret-position="17">
+          <caret line="52" column="13" lean-forward="false" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/api/EventController.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/recyclerview-v7/27.0.2/76f4751bc97ce7fa2362dc5a38b39089066a2c99/recyclerview-v7-27.0.2-sources.jar!/android/support/v7/widget/RecyclerView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="244" column="30" lean-forward="false" selection-start-line="244" selection-start-column="30" selection-end-line="244" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/interfaces/ShindiServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="294" column="6" lean-forward="true" selection-start-line="294" selection-start-column="6" selection-end-line="294" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/CreatedEventsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="150" column="48" lean-forward="false" selection-start-line="150" selection-start-column="48" selection-end-line="150" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventFeedbackActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="100" column="42" lean-forward="false" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
+        <state relative-caret-position="200">
+          <caret line="6786" column="26" lean-forward="false" selection-start-line="6786" selection-start-column="26" selection-end-line="6786" selection-end-column="26" />
           <folding>
-            <marker date="1529605095893" expanded="false" signature="4236:4265" ph="&quot;Blocked Events&quot;" />
-            <marker date="1529605095893" expanded="false" signature="4318:4346" ph="&quot;Event Review&quot;" />
+            <element signature="e#292686#292687#0" expanded="false" />
+            <element signature="e#292737#292738#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-26/android/app/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="704" column="28" lean-forward="false" selection-start-line="704" selection-start-column="28" selection-end-line="704" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-core-ui/27.0.2/304d1a77fad841db2ed31e95322d4efd5cbf6ffb/support-core-ui-27.0.2-sources.jar!/android/support/v4/view/PagerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="285" column="16" lean-forward="false" selection-start-line="285" selection-start-column="16" selection-end-line="285" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="910" column="9" lean-forward="true" selection-start-line="910" selection-start-column="9" selection-end-line="910" selection-end-column="9" />
-          <folding>
-            <element signature="e#6093#6106#0" expanded="false" />
-            <element signature="e#6200#6593#0" expanded="false" />
-            <element signature="e#6592#6593#0" expanded="false" />
-            <element signature="e#7338#7784#0" expanded="false" />
-            <element signature="e#7783#7784#0" expanded="false" />
-            <element signature="e#7994#9699#0" expanded="false" />
-            <element signature="e#8423#9347#0" expanded="false" />
-            <element signature="e#9346#9347#0" expanded="false" />
-            <element signature="e#9698#9699#0" expanded="false" />
-            <element signature="e#9741#11447#0" expanded="false" />
-            <element signature="e#10170#11095#0" expanded="false" />
-            <element signature="e#11094#11095#0" expanded="false" />
-            <element signature="e#11446#11447#0" expanded="false" />
-            <element signature="e#12390#13245#0" expanded="false" />
-            <element signature="e#13244#13245#0" expanded="false" />
-            <element signature="e#14406#14834#0" expanded="false" />
-            <element signature="e#14833#14834#0" expanded="false" />
-            <element signature="e#14879#15031#0" expanded="false" />
-            <element signature="e#15030#15031#0" expanded="false" />
-            <element signature="e#15069#15763#0" expanded="false" />
-            <element signature="e#15762#15763#0" expanded="false" />
-            <element signature="e#20587#20622#0" expanded="false" />
-            <element signature="e#20784#20819#0" expanded="false" />
-            <element signature="e#21953#21988#0" expanded="false" />
-            <element signature="e#22174#22209#0" expanded="false" />
-            <element signature="e#23537#23562#0" expanded="false" />
-            <element signature="e#24646#24681#0" expanded="false" />
-            <element signature="e#24843#24878#0" expanded="false" />
-            <element signature="e#25793#25818#0" expanded="false" />
-            <element signature="e#26665#27384#0" expanded="false" />
-            <element signature="e#27383#27384#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/DiscussFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1683">
-          <caret line="133" column="72" lean-forward="false" selection-start-line="133" selection-start-column="72" selection-end-line="133" selection-end-column="72" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_created_events.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/ProfileActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="158" column="69" lean-forward="false" selection-start-line="158" selection-start-column="69" selection-end-line="158" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/UsersFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="304" column="73" lean-forward="true" selection-start-line="303" selection-start-column="19" selection-end-line="304" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_discuss.xml">
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_discuss.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/message_popup.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Discussion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1728">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_chat.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="143" column="30" lean-forward="false" selection-start-line="143" selection-start-column="30" selection-end-line="143" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/Api.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="210" column="26" lean-forward="false" selection-start-line="210" selection-start-column="26" selection-end-line="210" selection-end-column="26" />
+          <folding>
+            <element signature="e#7495#7496#0" expanded="false" />
+            <element signature="e#7525#7526#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Reply.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-119">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1389">
+          <caret line="191" column="116" lean-forward="false" selection-start-line="191" selection-start-column="116" selection-end-line="191" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_reply.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="36" lean-forward="false" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-331">
+          <caret line="346" column="56" lean-forward="false" selection-start-line="346" selection-start-column="56" selection-end-line="346" selection-end-column="56" />
+          <folding>
+            <element signature="e#4406#4407#0" expanded="false" />
+            <element signature="e#4434#4435#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/ChatAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="148" column="43" lean-forward="false" selection-start-line="148" selection-start-column="43" selection-end-line="148" selection-end-column="43" />
+          <folding>
+            <element signature="e#4343#4685#0" expanded="false" />
+            <element signature="e#4684#4685#0" expanded="false" />
+            <element signature="e#4729#5152#0" expanded="false" />
+            <element signature="e#5151#5152#0" expanded="false" />
+            <element signature="e#8853#9029#0" expanded="false" />
+            <element signature="e#9028#9029#0" expanded="false" />
+            <element signature="e#9130#11274#0" expanded="false" />
+            <element signature="e#11273#11274#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-26/android/widget/TextView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="5203" column="22" lean-forward="false" selection-start-line="5203" selection-start-column="22" selection-end-line="5203" selection-end-column="22" />
+          <folding>
+            <element signature="e#198076#198077#0" expanded="false" />
+            <element signature="e#198118#198119#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/ChatCommentAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="618">
+          <caret line="83" column="32" lean-forward="false" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
+          <folding>
+            <element signature="e#936#937#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/UsersFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="755" column="40" lean-forward="false" selection-start-line="755" selection-start-column="40" selection-end-line="755" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/comment_box.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="34" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/DiscussFragment.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="292" column="78" lean-forward="false" selection-start-line="292" selection-start-column="78" selection-end-line="292" selection-end-column="78" />
+          <folding>
+            <element signature="e#9335#9336#0" expanded="false" />
+            <element signature="e#9393#9394#0" expanded="false" />
+            <element signature="e#11023#11024#0" expanded="false" />
+            <element signature="e#11074#11075#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2040">
+          <caret line="323" column="18" lean-forward="false" selection-start-line="323" selection-start-column="18" selection-end-line="323" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/HostNewFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="101" column="59" lean-forward="true" selection-start-line="101" selection-start-column="59" selection-end-line="101" selection-end-column="59" />
+          <folding>
+            <element signature="e#12780#13702#0" expanded="true" />
+            <element signature="e#13701#13702#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/host_new_event_fragment.xml">
+      <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml">
-      <provider editor-type-id="android-designer2">
+      <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="15" selection-end-column="57" />
+        <state relative-caret-position="208">
+          <caret line="110" column="18" lean-forward="false" selection-start-line="110" selection-start-column="18" selection-end-line="110" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="726" column="0" lean-forward="false" selection-start-line="726" selection-start-column="0" selection-end-line="726" selection-end-column="0" />
+          <folding>
+            <element signature="e#22887#22922#0" expanded="true" />
+            <element signature="e#26121#26156#0" expanded="true" />
+            <element signature="e#26326#26361#0" expanded="true" />
+            <element signature="e#27555#27590#0" expanded="true" />
+            <element signature="e#27784#27819#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+        <state relative-caret-position="224">
+          <caret line="308" column="56" lean-forward="false" selection-start-line="308" selection-start-column="56" selection-end-line="308" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3519">
-          <caret line="293" column="48" lean-forward="false" selection-start-line="293" selection-start-column="48" selection-end-line="293" selection-end-column="48" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/close.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/right_arrow.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/left_arrow.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_event_detail.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="233" column="48" lean-forward="false" selection-start-line="233" selection-start-column="48" selection-end-line="233" selection-end-column="48" />
           <folding>
-            <element signature="e#6559#6560#0" expanded="false" />
-            <element signature="e#6596#6597#0" expanded="false" />
+            <element signature="e#2564#2596#0" expanded="true" />
+            <element signature="e#4088#4128#0" expanded="true" />
+            <element signature="e#4344#4373#0" expanded="true" />
+            <element signature="e#4428#4457#0" expanded="true" />
+            <element signature="e#4742#4771#0" expanded="true" />
+            <element signature="e#4826#4855#0" expanded="true" />
+            <element signature="e#5196#5225#0" expanded="true" />
+            <element signature="e#5280#5309#0" expanded="true" />
+            <element signature="e#6286#6326#0" expanded="true" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-26/java/util/HashMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="955" column="25" lean-forward="false" selection-start-line="955" selection-start-column="25" selection-end-line="955" selection-end-column="25" />
-        </state>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/adapter/EventUserAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/MapsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1887">
-          <caret line="129" column="65" lean-forward="false" selection-start-line="129" selection-start-column="65" selection-end-line="129" selection-end-column="65" />
+        <state relative-caret-position="374">
+          <caret line="93" column="65" lean-forward="true" selection-start-line="93" selection-start-column="65" selection-end-line="93" selection-end-column="65" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/EventDetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="107" column="51" lean-forward="false" selection-start-line="107" selection-start-column="51" selection-end-line="107" selection-end-column="51" />
-          <folding />
+        <state relative-caret-position="6994">
+          <caret line="574" column="35" lean-forward="false" selection-start-line="574" selection-start-column="35" selection-end-line="574" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#5008:5267" expanded="false" />
+            <element signature="e#7023#7914#0" expanded="true" />
+            <element signature="e#7913#7914#0" expanded="true" />
+            <element signature="class#8639:9520" expanded="false" />
+            <element signature="class#10079:10667" expanded="false" />
+            <element signature="class#11778:12470" expanded="false" />
+            <element signature="e#19836#20272#0" expanded="true" />
+            <element signature="e#20271#20272#0" expanded="true" />
+            <element signature="e#20646#21082#0" expanded="true" />
+            <element signature="e#21081#21082#0" expanded="true" />
+            <element signature="e#21734#21735#0" expanded="true" />
+            <element signature="e#21762#21763#0" expanded="true" />
+            <element signature="e#22253#22254#0" expanded="true" />
+            <element signature="e#22285#22286#0" expanded="true" />
+            <element signature="e#22324#22325#0" expanded="true" />
+            <element signature="e#22353#22354#0" expanded="true" />
+            <element signature="e#22589#22590#0" expanded="true" />
+            <element signature="e#22622#22623#0" expanded="true" />
+            <element signature="e#23440#23467#0" expanded="true" />
+            <element signature="e#23520#23550#0" expanded="true" />
+            <element signature="e#23603#23629#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_event_detail.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_event.xml">
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="-357">
+        <state relative-caret-position="-601">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/MySharedPref.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="22" column="23" lean-forward="false" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_maps_fragment.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/main/NewUsersFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="241" column="39" lean-forward="false" selection-start-line="241" selection-start-column="39" selection-end-line="241" selection-end-column="39" />
-          <folding />
-        </state>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/shindygo/shindy/utils/Cache.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_event.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="131" column="55" lean-forward="true" selection-start-line="131" selection-start-column="55" selection-end-line="131" selection-end-column="55" />
           <folding>
-            <element signature="e#598#599#0" expanded="true" />
-            <element signature="e#629#630#0" expanded="true" />
-            <element signature="e#688#689#0" expanded="true" />
-            <element signature="e#729#730#0" expanded="true" />
+            <marker date="1529693053952" expanded="false" signature="9486:9504" ph="&quot;Date End&quot;" />
+            <marker date="1529693053952" expanded="false" signature="9817:9835" ph="&quot;Time End&quot;" />
+            <marker date="1529693053952" expanded="false" signature="11516:11537" ph="&quot;Expiry Date&quot;" />
           </folding>
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
   </component>

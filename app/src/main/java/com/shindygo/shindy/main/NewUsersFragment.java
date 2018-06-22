@@ -229,6 +229,7 @@ public class NewUsersFragment extends Fragment {
     private void reload() {
         cardStackView.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
+        setUpCardViews(Cache.getNewUsers());
         Api api = Api.getInstance();
         Log.v(TAG, "fetchNewUsers "+User.getCurrentUserId());
         api.fetchNewUsers(User.getCurrentUserId(), new Callback<List<User>>() {
@@ -278,6 +279,8 @@ public class NewUsersFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
         }, 1000);*/
+
+
     }
 
     private void setUpCardViews(List<User> users) {
@@ -432,7 +435,7 @@ public class NewUsersFragment extends Fragment {
         //removeFirst();
     }
 
-    private void addToLike(User user){
+    private void addToLike(final User user){
 
         Api api = Api.getInstance();
         final String name = user.getFullname();
@@ -440,15 +443,19 @@ public class NewUsersFragment extends Fragment {
         api.likeUserToGroup(User.getCurrentUserId(), user.getFbid(), new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                if (response.body()==null) return;
+                Log.v(TAG, "addToLike: onResponse "+ response.toString());
                 JSONObject r = response.body();
-                if(r.optString("status","failed").equals("success")){
+
+                if (r==null) return;
+
+                if(response.message().equalsIgnoreCase("OK")){
                     //removeFirst();
                     // adapter.notifyDataSetChanged();
+                    Log.v(TAG, "addToLike: sucess "+ name);
 
-                    Log.v(TAG, "addToLike: "+ name);
                     int n = MySharedPref.getNewUsersCount();
                     MySharedPref.setNewUsersCount(--n);
+                    Cache.removeNewUser(user.getFbid());
 
                 }
             }

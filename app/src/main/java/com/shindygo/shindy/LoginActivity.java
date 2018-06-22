@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -156,12 +157,15 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("name", profile.getName());
             editor.putString("fbid", profile.getId());
-            editor.putString("url", profile.getProfilePictureUri(200, 200).toString());
+            String photo = profile.getProfilePictureUri(200, 200).toString();
+            editor.putString("url",photo );
+            editor.putString("photo",photo);
+
             editor.apply();
             Api api = new Api(this);
             User user = new User(profile.getId(), profile.getName(), email);
 
-            user.setPhoto(profile.getProfilePictureUri(200, 200).toString());
+            user.setPhoto(photo);
             api.checkUser(user, new Callback<Object>() {
 
                 @Override
@@ -169,22 +173,25 @@ public class LoginActivity extends AppCompatActivity {
 
                     Log.v("login", response.message());
                     //no data
-                }
 
-                @Override
-                public void onFailure(Call<Object> call, Throwable t) {
-
-                }
-            });
-            Intent main = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent main = new Intent(LoginActivity.this, MainActivity.class);
 /*
             main.putExtra("name", profile.getFirstName());
             main.putExtra("surname", profile.getLastName());
             main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
 */
-            main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(main);
-            finish();
+                    main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(main);
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {
+                    progressBar.setVisibility(View.GONE);
+                    t.printStackTrace();;
+                    Toast.makeText(LoginActivity.this, "Login Failed, please try again", Toast.LENGTH_LONG).show();;
+                }
+            });
         }
         else
         {

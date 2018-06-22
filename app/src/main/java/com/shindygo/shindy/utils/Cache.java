@@ -86,4 +86,16 @@ public class Cache {
         return list;
     }
 
+    public static void removeNewUser(String fbid) {
+        for (int i = 0; i < getNewUsers().size() ; i++) {
+            User user = getNewUsers().get(i);
+            if(user.getFbid().equals(fbid)){
+                    getNewUsers().remove(i);
+                    i--;
+                    return;
+            }
+
+
+        }
+    }
 }

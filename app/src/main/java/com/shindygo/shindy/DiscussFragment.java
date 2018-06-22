@@ -9,10 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,6 +43,10 @@ import retrofit2.Response;
  */
 
 public class DiscussFragment extends Fragment {
+
+
+    private static final String TAG = "DiscussFragment";
+
     @BindView(R.id.rv_chat)
     RecyclerView rvChat;
     Unbinder unbinder;
@@ -48,16 +54,14 @@ public class DiscussFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     Event event;
     List<Discussion>  listOfDisc;
-    @BindView(R.id.iv_avatar)
-    CircleImageView ivAvatar;
+    /*
     @BindView(R.id.et_message)
     EditText etMessage;
     @BindView(R.id.send)
     TextView send;
-
+*/
     static
     LinearLayout sendMessage;
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     String myName,myPhoto;
@@ -73,7 +77,7 @@ public class DiscussFragment extends Fragment {
     {
         sendMessage.setVisibility(sendMessage.getVisibility()==View.VISIBLE?View.GONE:View.VISIBLE);
     }
-    // TODO: Rename and change types and number of parameters
+
     public static DiscussFragment newInstance(String param1, String param2) {
         DiscussFragment fragment = new DiscussFragment();
         Bundle args = new Bundle();
@@ -104,11 +108,11 @@ public class DiscussFragment extends Fragment {
 //                super.onScrolled(recyclerView, dx, dy);
 //            }
 //        });
-        sendMessage = view.findViewById(R.id.send_message);
+      //  sendMessage = view.findViewById(R.id.send_message);
         final SharedPreferences sharedPref = getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
         myPhoto = sharedPref.getString("url", "");
         myName =sharedPref.getString("name", "");
-        send.setOnClickListener(new View.OnClickListener() {
+        /*send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendMessage();
@@ -126,7 +130,7 @@ public class DiscussFragment extends Fragment {
               }
                 return false;
             }
-        });
+        });*/
         return view;
     }
 
@@ -135,12 +139,46 @@ public class DiscussFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         event = ((EventDetailActivity) this.getActivity()).getEvent();
         getDiscuss();
+        try {
+            rvChat.scrollToPosition(listOfDisc.size()-1);
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         //TODO add image user
        // Glide.with(getContext()).load(event.getImage()).into(ivAvatar);
 
     }
+
+    public void sendMessage(String message) {
+
+        if (listOfDisc != null)
+            rvChat.scrollToPosition(listOfDisc.size()-1);
+        eventController.addDiscussElement(event.getEventid(),message, new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d(TAG, "sendDiscussResponse: "+ response.toString());
+                if(response.message().equalsIgnoreCase("ok")){
+                    Toast.makeText(getContext(), "Send", Toast.LENGTH_SHORT).show();
+
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(),0);
+
+                }
+                //etMessage.setText("");
+                getDiscuss();
+
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
+    }
+
     void sendMessage()
-    {
+    {/*
         if (listOfDisc != null)
             rvChat.scrollToPosition(listOfDisc.size()-1);
         eventController.addDiscussElement(event.getEventid(),etMessage.getText().toString(), new Callback<Object>() {
@@ -156,7 +194,7 @@ public class DiscussFragment extends Fragment {
             public void onFailure(Call<Object> call, Throwable t) {
 
             }
-        });
+        });*/
     }
     void getDiscuss()
     {
@@ -171,7 +209,19 @@ public class DiscussFragment extends Fragment {
 
                     @Override
                     public void clickReply(final Discussion d, final String s) {
+                        try{
+                            getEventDetailActivity().getCommentBox().setTag(d);
+                            getEventDetailActivity().getCommentBox().requestFocus();
+                            getEventDetailActivity().getSendButton().setTag(EventDetailActivity.REPLY);
+                            getEventDetailActivity().hideKeyboard();
+                            getEventDetailActivity().showKeyBoard();
+                        }catch (NullPointerException e){
+                            e.printStackTrace();
+                        }
 
+
+
+/*
                         eventController.postReply(d.getEventid(), d.getDiscussionId(), s, new Callback<Status>() {
                             @Override
                             public void onResponse(Call<Status> call, Response<Status> response) {
@@ -189,7 +239,7 @@ public class DiscussFragment extends Fragment {
                             public void onFailure(Call<Status> call, Throwable t) {
                                 t.printStackTrace();
                             }
-                        });
+                        });*/
                     }
                 });
                 rvChat.setAdapter(chatAdapter);
@@ -203,6 +253,11 @@ public class DiscussFragment extends Fragment {
             }
         });
     }
+
+    EventDetailActivity getEventDetailActivity(){
+        return (EventDetailActivity) getActivity();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -225,6 +280,31 @@ public class DiscussFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    public void sendDiscussionReply(final Discussion discussion, final String reply) {
+        eventController.postReply(discussion.getEventid(), discussion.getDiscussionId(), reply, new Callback<Status>() {
+            @Override
+            public void onResponse(Call<Status> call, Response<Status> response) {
+                if (response.isSuccessful()){
+                    listOfDisc.get(listOfDisc.indexOf(discussion)).reply.add(new Reply(reply,myName,myPhoto));
+                    chatAdapter.notifyDataSetChanged();
+
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(),0);
+
+                    Toast.makeText(getContext(),"Success",Toast.LENGTH_SHORT).show();
+                }
+                else  Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<Status> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

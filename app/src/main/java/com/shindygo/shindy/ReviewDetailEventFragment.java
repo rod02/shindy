@@ -35,7 +35,9 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class ReviewDetailEventFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+
+    private static final String TAG = "ReviewDetailEventFragment";
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -43,7 +45,7 @@ public class ReviewDetailEventFragment extends Fragment {
     ReviewDetailsEventAdapter adapter;
 
     Event event;
-    @BindView(R.id.rv_choose_event)
+    @BindView(R.id.rv_list)
     RecyclerView rvChooseEvent;
     Unbinder unbinder;
 

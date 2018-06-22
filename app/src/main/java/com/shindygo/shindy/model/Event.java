@@ -87,12 +87,15 @@ public class Event implements Parcelable {
     @SerializedName("rating")
     @Expose
     private String rating;
+
     @SerializedName("max_male")
     @Expose
     private String max_male;
+
     @SerializedName("max_female")
     @Expose
     private String max_female;
+
     @SerializedName("website_url")
     @Expose
     private String website_url;
@@ -158,6 +161,14 @@ public class Event implements Parcelable {
 
     public void setAbleGuestInvite(String ableGuestInvite) {
         this.ableGuestInvite = ableGuestInvite;
+    }
+
+    public boolean isAbleGuestInvite(){
+        try {
+           return ableGuestInvite.equals("1");
+        }catch (NullPointerException e){
+            return  false;
+        }
     }
 
     public void setInvited_by_id(String invited_by_id) {
@@ -359,6 +370,10 @@ public class Event implements Parcelable {
         this.rating = "";
         this.website_url = "";
         this.likecode = "";
+        this.ableGuestInvite = "";
+        this.joinFemale = "";
+        this.joinMale = "";
+
     }
 
 
@@ -377,13 +392,13 @@ public class Event implements Parcelable {
         map.put("user_fbid",userFbid);
         map.put("representative",representative);
         map.put("createdate",createdate);
-        map.put("schedEnddate",schedEnddate);
+        map.put("sched_enddate",schedEnddate);
         map.put("modifydate",modifydate);
         map.put("expirydate",expirydate);
-        map.put("schedStartdate",schedStartdate);
+        map.put("sched_startdate",schedStartdate);
         map.put("scheduleid",scheduleid);
-        map.put("startTime",startTime);
-        map.put("endTime",endTime);
+        map.put("start_time",startTime);
+        map.put("end_time",endTime);
         map.put("customPrice",customPrice);
         map.put("spotAvailable",spotAvailable);
         map.put("fbid",userFbid);
@@ -392,6 +407,10 @@ public class Event implements Parcelable {
         map.put("rating",rating);
         map.put("website_url",website_url);
         map.put("likecode",likecode);
+        map.put("guest_invite_friend",ableGuestInvite);
+        map.put("join_male",joinMale);
+        map.put("joinfemale",joinFemale);
+
 
         return map;
     }
