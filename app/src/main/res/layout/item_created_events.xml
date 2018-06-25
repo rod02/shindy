@@ -111,7 +111,10 @@
         android:id="@+id/rlContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp10"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/rounded_corners">
 
         <LinearLayout
@@ -126,8 +129,8 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/rivImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/ted"
                 android:transitionName="@string/transition_event_image"
                 app:riv_corner_radius="@dimen/dp10" />
@@ -140,7 +143,8 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/robotoblack"
                 android:text="Expires:"
-                android:textSize="7dp" />
+                android:textSize="7dp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -150,6 +154,7 @@
             android:layout_marginLeft="@dimen/dp10"
             android:layout_marginStart="@dimen/dp10"
             android:layout_marginTop="@dimen/dp10"
+            android:layout_toLeftOf="@+id/lay_edit"
             android:layout_toRightOf="@+id/start"
             android:orientation="vertical">
 
@@ -157,7 +162,10 @@
                 android:id="@+id/tv_eventName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:fontFamily="@font/robotoregular"
+                android:lines="1"
+                android:maxLines="1"
                 android:text="TED Conference"
                 android:textColor="@android:color/black"
                 android:textSize="13dp"
@@ -171,7 +179,8 @@
                 android:fontFamily="@font/robotoregular"
                 android:text="Private host: Tony Cage"
                 android:textColor="#f8d159"
-                android:textSize="@dimen/dp10" />
+                android:textSize="@dimen/dp10"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvInviter"
@@ -191,98 +200,71 @@
                 android:fontFamily="@font/robotoregular"
                 android:text="Offer to pay if you accept"
                 android:textColor="#fe6b63"
-                android:textSize="@dimen/dp10" />
+                android:textSize="@dimen/dp10"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvEventSched"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/robotoregular"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="Wed Oct 11, 2017 | 6-8 PM "
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/robotoregular"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@string/location"
+                android:textSize="@dimen/dp10"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_expires"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"
                 android:fontFamily="@font/robotoregular"
-                android:text="Wed Oct 11, 2017 | 6-8 PM "
-                android:textSize="@dimen/dp10" />
+                android:text="@string/expiry_date"
+                android:textSize="@dimen/dp10"
+                android:visibility="gone" />
+
+
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/lay_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:visibility="visible">
 
-            <View
-                android:id="@+id/line"
-                android:layout_width="1dp"
-                android:layout_height="80dp"
-                android:layout_centerVertical="true"
-                android:background="@android:color/darker_gray" />
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/iv_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dp10"
-                android:layout_marginStart="@dimen/dp10"
-                android:orientation="vertical">
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_edit" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end">
-
-                    <TextView
-                        android:id="@+id/tv_male_stocks"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="17"
-                        android:textSize="7dp" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="@dimen/dp5"
-                        android:layout_marginStart="@dimen/dp5"
-                        android:src="@drawable/man" />
-                </LinearLayout>
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp10"
-                    android:gravity="end">
-
-                    <TextView
-                        android:id="@+id/tv_female_stocks"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="5"
-                        android:textSize="7dp" />
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="@dimen/dp5"
-                        android:layout_marginStart="@dimen/dp5"
-                        android:src="@drawable/lady" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_sold_out"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/dp5"
-                    android:text="stocks"
-                    android:textColor="#fe6b63"
-                    android:textSize="7sp"
-                    android:textStyle="italic"
-                    android:visibility="visible" />
-            </LinearLayout>
-
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_edit"
+                android:layout_marginEnd="@dimen/dp20"
+                android:layout_marginStart="@dimen/dp20"
+                android:text="@string/edit"
+                android:textSize="12sp" />
         </RelativeLayout>
     </RelativeLayout>
 

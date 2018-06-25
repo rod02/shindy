@@ -123,25 +123,33 @@
         </LinearLayout>
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_chat_comment"
+    <LinearLayout
+        android:id="@+id/ll_reply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/linearLayout3"
+
         android:layout_alignStart="@+id/linearLayout3"
         android:layout_below="@+id/linearLayout3"
         android:layout_marginTop="15dp"
-        android:visibility="gone"
-        tools:listitem="@layout/item_reply">
+        android:animateLayoutChanges="true">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_chat_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:listitem="@layout/item_reply">
 
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/rl_reply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rv_chat_comment"
+        android:layout_below="@+id/ll_reply"
         android:layout_margin="5dp"
         android:visibility="gone">
 

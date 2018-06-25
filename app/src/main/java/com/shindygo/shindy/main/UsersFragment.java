@@ -54,6 +54,7 @@ import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.Filter;
 import com.shindygo.shindy.model.InviteEvent;
 import com.shindygo.shindy.model.User;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -509,6 +510,7 @@ public class UsersFragment extends Fragment {
                                 adapter = new UsersAdapter(users,eventList, new ClickUser() {
                                     @Override
                                     public void Click(final User user) {
+
                                         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
                                         String[] religions = getResources().getStringArray(R.array.religion);
                                         String[] prefs = getResources().getStringArray(R.array.gender_preference);
@@ -519,7 +521,13 @@ public class UsersFragment extends Fragment {
                                         View customView = inflater.inflate(R.layout.profile_popup, null);
                                         ImageView imageView = customView.findViewById(R.id.imageView2);
                                         final ImageView star = customView.findViewById(R.id.iv_star);
-                                        Glide.with(getContext()).load(user.getPhoto()).into(imageView);
+                                        try{
+                                            GlideImage.load(user.getPhoto(),imageView);
+
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                        }
+                                       // Glide.with(getContext()).load(user.getPhoto()).into(imageView);
                                         TextView name = customView.findViewById(R.id.tv_name);
                                         TextView about = customView.findViewById(R.id.tv_desc);
                                         about.setText(user.getAbout());
@@ -537,13 +545,13 @@ public class UsersFragment extends Fragment {
                                         final LinearLayout invite_view = customView.findViewById(R.id.ll_invite_view);
                                         final RecyclerView recycler = customView.findViewById(R.id.rv_event_user);
                                         recycler.setLayoutManager(new LinearLayoutManager(getContext(), 0, false));
-                                        recycler.setAdapter(new EventUserAdapter(new ClickEventCard() {
+                                        /*recycler.setAdapter(new EventUserAdapter(new ClickEventCard() {
                                             @Override
                                             public void Click(boolean b, String eventId) {
-                                                choosenEvent = eventId;
+                                                //choosenEvent = eventId;
                                                 arrow.setVisibility(View.VISIBLE);
                                             }
-                                        }, eventList));
+                                        }, eventList));*/
                                         LinearLayout invite = customView.findViewById(R.id.ll_invite);
                                         invite.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -551,7 +559,7 @@ public class UsersFragment extends Fragment {
                                                 recycler.setAdapter(new EventUserAdapter(new ClickEventCard() {
                                                     @Override
                                                     public void Click(boolean b, String eventId) {
-                                                        choosenEvent = eventId;
+                                                        //choosenEvent = eventId;
                                                         arrow.setVisibility(View.VISIBLE);
                                                     }
                                                 }, eventList));
@@ -593,22 +601,39 @@ public class UsersFragment extends Fragment {
                                         arrow.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                textView.setVisibility(View.VISIBLE);
-                                                //todo send invite
+                                                EventUserAdapter adapter = (EventUserAdapter) recycler.getAdapter();
                                                 EventController eventController = new EventController(getContext());
-                                                eventController.sendinvite(new InviteEvent(choosenEvent, user.getFbid(), isAnon, isPay), new Callback<ResponseBody>() {
-                                                    @Override
-                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                        if (response != null) {
-                                                            Log.v("sendInvite", response.body().toString());
-                                                        }
-                                                    }
+                                                final List<Event> events = adapter.getSelectedItems();
+                                                for (int i = 0; i < events.size(); i++) {
+                                                    final int finalI = i;
+                                                    eventController.sendinvite(new InviteEvent(events.get(i).getEventid(), user.getFbid(), isAnon, isPay), new Callback<ResponseBody>() {
+                                                        @Override
+                                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                            if (response != null) {
+                                                                Log.v("sendInvite", response.toString());
+                                                                textView.setVisibility(View.VISIBLE);
 
-                                                    @Override
-                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                        t.printStackTrace();
-                                                    }
-                                                });
+                                                            }
+
+                                                            if(finalI == events.size()-1){
+                                                                if(response.message().equalsIgnoreCase("ok")){
+                                                                    mPopupWindow.dismiss();
+                                                                    //Snackbar.make(getView(), R.string.invite_sent_bam, Snackbar.LENGTH_LONG).show();
+
+                                                                }
+                                                            }
+
+
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                            t.printStackTrace();
+                                                        }
+                                                    });
+
+
+                                                }
 
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {

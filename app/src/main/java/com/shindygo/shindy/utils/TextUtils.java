@@ -18,6 +18,7 @@ public class TextUtils {
     public static final String SDF_2 = "EEE MMM d,  yyyy";
     public static final String SDF_3 = "HH:mm:ss";
     public static final String SDF_4 = "h:mm a";
+    public static final String SDF_5 = "yyyy-MM-dd HH:mm:ss";
 
 
     public static String getTimeDuration(String startTime, String endTime){

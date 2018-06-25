@@ -208,36 +208,41 @@
     </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/lll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bar">
-    <android.support.v7.widget.RecyclerView
 
-        android:id="@+id/rv_event_user"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:id="@+id/lll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bar"
+            android:visibility="visible">
 
-    <ImageView
-        android:id="@+id/iv_arrow"
-        android:visibility="gone"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="@dimen/dp10"
-        android:layout_toRightOf="@+id/rv_event_user"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/righticon" />
-    </LinearLayout>
-    <TextView
-        android:id="@+id/tv_Bam"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/green_online"
-        android:text="Invite Sent...Bam"
-        android:textColor="@android:color/white"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/lll"/>
+            <android.support.v7.widget.RecyclerView
+
+                android:id="@+id/rv_event_user"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp10"
+                android:layout_toRightOf="@+id/rv_event_user"
+                android:src="@drawable/righticon"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_Bam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lll"
+            android:background="@color/green_online"
+            android:gravity="center_horizontal"
+            android:text="Invite Sent...Bam"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
     </LinearLayout>
 </RelativeLayout>

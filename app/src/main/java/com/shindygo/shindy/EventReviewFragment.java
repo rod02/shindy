@@ -16,8 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
+
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -67,7 +68,7 @@ public class EventReviewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private PopupWindow mPopupWindow;
-    private FrameLayout mRelativeLayout;
+    private LinearLayout mLinearLayout;
 
     public EventReviewFragment() {
         // Required empty public constructor
@@ -107,7 +108,7 @@ public class EventReviewFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRelativeLayout = view.findViewById(R.id.rl);
+        mLinearLayout = view.findViewById(R.id.ll);
 
 
         eventController = new EventController(getContext());
@@ -172,7 +173,7 @@ public class EventReviewFragment extends Fragment {
                             }
                         });
 
-                        mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
+                        mPopupWindow.showAtLocation(mLinearLayout, Gravity.CENTER, 0, 0);
                     }
 
                     @Override

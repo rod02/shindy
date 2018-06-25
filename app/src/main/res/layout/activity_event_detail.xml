@@ -144,18 +144,7 @@
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|left"
-                android:layout_margin="10dp"
-                android:background="@drawable/drop_shadow"
-                android:paddingBottom="9px"
-                android:paddingLeft="6px"
-                android:paddingRight="8px"
-                android:paddingTop="4px"
-                app:srcCompat="@drawable/ic_back" />
+
 
         </android.support.design.widget.AppBarLayout>
 
@@ -524,5 +513,15 @@
         android:layout_alignParentBottom="true"
 
         android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top|left"
+        android:layout_margin="10dp"
+        app:srcCompat="@drawable/ic_back" />
 
 </RelativeLayout>

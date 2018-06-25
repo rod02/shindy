@@ -7,15 +7,13 @@
 <com.makeramen.roundedimageview.RoundedImageView
     android:id="@+id/image"
     android:clickable="true"
-    android:focusable="true"
     android:padding="2dp"
     android:paddingLeft="2dp"
-    android:focusableInTouchMode="true"
     android:layout_width="50dp"
     android:layout_height="50dp"
     app:riv_corner_radius="10dip"
     android:background="@drawable/select_image"
     android:layout_marginEnd="@dimen/dp10"
-    android:src="@drawable/profile_test2"
+    android:src="@mipmap/no_image"
     android:scaleType="centerCrop" />
 </RelativeLayout>

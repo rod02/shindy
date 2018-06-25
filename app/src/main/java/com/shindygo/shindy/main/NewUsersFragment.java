@@ -42,6 +42,7 @@ import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.InviteEvent;
 import com.shindygo.shindy.model.User;
 import com.shindygo.shindy.utils.Cache;
+import com.shindygo.shindy.utils.GlideImage;
 import com.shindygo.shindy.utils.MySharedPref;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.SwipeDirection;
@@ -511,7 +512,9 @@ public class NewUsersFragment extends Fragment {
                         View customView = inflater.inflate(R.layout.profile_popup, null);
                         ImageView imageView = customView.findViewById(R.id.imageView2);
                         final ImageView star = customView.findViewById(R.id.iv_star);
-                        Glide.with(getContext()).load(user.getPhoto()).into(imageView);
+                        GlideImage.load(user.getPhoto(),imageView);
+
+                        //Glide.with(getContext()).load(user.getPhoto()).into(imageView);
                         TextView name = customView.findViewById(R.id.tv_name);
                         TextView about = customView.findViewById(R.id.tv_desc);
                         about.setText(user.getAbout());
@@ -529,25 +532,23 @@ public class NewUsersFragment extends Fragment {
                         final LinearLayout invite_view = customView.findViewById(R.id.ll_invite_view);
                         final RecyclerView recycler = customView.findViewById(R.id.rv_event_user);
                         recycler.setLayoutManager(new LinearLayoutManager(getContext(), 0, false));
-                        recycler.setAdapter(new EventUserAdapter(new ClickEventCard() {
+                        final EventUserAdapter adapter = new EventUserAdapter(new ClickEventCard() {
                             @Override
                             public void Click(boolean b, String eventId) {
-                                choosenEvent = eventId;
+                                //choosenEvent = eventId;
+                                Log.d(TAG, "click "+eventId);
                                 arrow.setVisibility(View.VISIBLE);
+
                             }
-                        }, eventList));
+                        }, eventList);
                         LinearLayout invite = customView.findViewById(R.id.ll_invite);
                         invite.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                recycler.setAdapter(new EventUserAdapter(new ClickEventCard() {
-                                    @Override
-                                    public void Click(boolean b, String eventId) {
-                                        //choosenEvent = eventId;
-                                        arrow.setVisibility(View.VISIBLE);
-                                    }
-                                }, eventList));
+
+                                recycler.setAdapter(adapter);
                                 invite_view.setVisibility(invite_view.getVisibility()==View.VISIBLE?GONE:View.VISIBLE);
+
                             }
                         });
                         pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
@@ -585,18 +586,29 @@ public class NewUsersFragment extends Fragment {
                         arrow.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                textView.setVisibility(View.VISIBLE);
-                                //todo send invite
                                 EventUserAdapter adapter = (EventUserAdapter) recycler.getAdapter();
                                 EventController eventController = new EventController(getContext());
-                                List<Event> events = adapter.getSelectedItems();
+                                final List<Event> events = adapter.getSelectedItems();
                                 for (int i = 0; i < events.size(); i++) {
+                                    final int finalI = i;
                                     eventController.sendinvite(new InviteEvent(events.get(i).getEventid(), user.getFbid(), isAnon, isPay), new Callback<ResponseBody>() {
                                         @Override
                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                             if (response != null) {
-                                                Log.v("sendInvite", response.body().toString());
+                                                Log.v("sendInvite", response.toString());
+                                                textView.setVisibility(View.VISIBLE);
+
                                             }
+
+                                            if(finalI == events.size()-1){
+                                                if(response.message().equalsIgnoreCase("ok")){
+                                                    mPopupWindow.dismiss();
+                                                    //Snackbar.make(getView(), R.string.invite_sent_bam, Snackbar.LENGTH_LONG).show();
+
+                                                }
+                                            }
+
+
                                         }
 
                                         @Override

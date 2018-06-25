@@ -21,6 +21,7 @@ import com.shindygo.shindy.R;
 import com.shindygo.shindy.interfaces.ClickEvent;
 import com.shindygo.shindy.interfaces.ClickUser;
 import com.shindygo.shindy.model.Event;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -90,7 +91,9 @@ public class LikedEventAdapter extends RecyclerView.Adapter<LikedEventAdapter.Li
 
         public void bindModel(final Event e, final ClickEvent clickEvent) {
             try {
-                Glide.with(context).load(e.getImage()).into(ivAvatar);
+                GlideImage.load(e.getImage(), ivAvatar);
+
+              //  Glide.with(context).load(e.getImage()).into(ivAvatar);
             }catch (Exception ee){}
             try {
                 tvEventName.setText(e.getEventname());

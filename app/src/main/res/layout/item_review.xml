@@ -28,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:rating="3.23"
                 android:stepSize="0.1" />
 
             <TextView
@@ -39,7 +38,7 @@
                 android:layout_toEndOf="@+id/rating_bar"
                 android:text="4.0"
                 android:textColor="@android:color/black"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
 
@@ -58,7 +57,7 @@
                 android:text="TED Conference"
                 android:textAlignment="viewStart"
                 android:textColor="#212121"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textStyle="normal|bold" />
 
 
@@ -68,10 +67,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="8dp"
+                android:layout_marginTop="3dp"
                 android:fontFamily="sans-serif"
                 android:text="Feb 12"
                 android:textColor="#424242"
-                android:textSize="12sp"
+                android:textSize="8sp"
                 android:textStyle="normal" />
 
         </RelativeLayout>
@@ -80,8 +80,8 @@
                 android:id="@+id/tv_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp5"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
                 android:fontFamily="sans-serif"
                 android:text="@string/long_latin"
                 android:textColor="#212121"

@@ -20,6 +20,7 @@ import com.shindygo.shindy.Api;
 import com.shindygo.shindy.R;
 import com.shindygo.shindy.interfaces.ClickUser;
 import com.shindygo.shindy.model.User;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,9 @@ public class BlockedUserAdapter extends RecyclerView.Adapter<BlockedUserAdapter.
 
         }
         public void bindModel(final User user, final ClickUser clickUser){
-            Glide.with(context).load(user.getPhoto()).into(avatar);
+            GlideImage.load(user.getPhoto(), avatar);
+
+            //Glide.with(context).load(user.getPhoto()).into(avatar);
             name.setText(user.getFullname());
             unblock.setOnClickListener(new View.OnClickListener() {
                 @Override

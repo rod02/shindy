@@ -14,7 +14,7 @@ public class GlideImage {
     static RequestOptions options = new RequestOptions()
                 //.placeholder(R.drawable.your_placeholder_image)
                 .error(R.mipmap.no_image);
-    static void load(String url, ImageView imageView){
+    public static void load(String url, ImageView imageView){
         Glide.with(Api.getContext()).load(url).apply(options).into(imageView);
     }
     static void load(String path, boolean validate , ImageView imageView){

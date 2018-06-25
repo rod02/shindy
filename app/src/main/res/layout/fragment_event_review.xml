@@ -1,14 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rl"
+    android:orientation="vertical"
     tools:context="com.shindygo.shindy.EventReviewFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recycler_view"></android.support.v7.widget.RecyclerView>
+        android:layout_margin="@dimen/dp20"
+        android:fontFamily="@font/robotoitalic"
+        android:text="@string/strings_event_review_msg"
+        android:textSize="12sp" />
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_review_event">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

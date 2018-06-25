@@ -133,18 +133,22 @@
     <orderEntry type="library" name="Gradle: com.github.esafirm.android-image-picker:imagepicker-1.12.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-basement-license-11.8.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.retrofit2:retrofit:2.3.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-places-license-11.8.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.8.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-location-11.8.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:gifdecoder-4.6.1" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:disklrucache:4.6.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-android-sdk-4.31.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:design-26.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-share-4.31.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-places-11.8.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.rahimlis:badgedtablayout-v1.2" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-maps-11.8.0" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-applinks-4.31.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v4-27.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.jakewharton:butterknife-8.8.1" level="project" />
     <orderEntry type="library" name="Gradle: com.makeramen:roundedimageview-2.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-location-license-11.8.0" level="project" />
     <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-android:1.4.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-tasks:1.4.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.13.0@jar" level="project" />

@@ -1,11 +1,22 @@
 package com.shindygo.shindy;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +25,22 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shindygo.shindy.model.Event;
+import com.shindygo.shindy.utils.MapsUtil;
+
+import java.security.Provider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MapsFragment extends Fragment implements OnMapReadyCallback {
+public class MapsFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     @BindView(R.id.tv_date)
     TextView tvDate;
@@ -54,6 +69,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     Event event;
     private OnFragmentInteractionListener mListener;
 
+    LocationManager locationManager;
+    Location currentLocation;
+    String provider;
+
     public MapsFragment() {
         // Required empty public constructor
     }
@@ -79,10 +98,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        event = ((EventDetailActivity)this.getActivity()).getEvent();
+        event = ((EventDetailActivity) this.getActivity()).getEvent();
 
         tvAddress.setText(event.getFulladdress());
-        tvDate.setText(event.getCreatedate());
+        tvDate.setText(event.getSchedStartdate());
         tvPrice.setText(event.getCustomPrice());
         text.setText(event.getDescription());
         tvSite.setText(event.getWebsite_url());
@@ -92,6 +111,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.activity_maps_fragment, container, false);
+
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        provider = locationManager.getBestProvider(new Criteria(), false);
+        if(MapsUtil.checkLocationPermission(getActivity()))
+            currentLocation = MapsUtil.getLastBestLocation();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
 
@@ -99,7 +125,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mapFragment.getView().setClickable(false);
         unbinder = ButterKnife.bind(this, view);
 
+
         return view;
+    }
+
+    @SuppressLint("MissingPermission")
+    public void requestLocationUpdates(boolean b) {
+        if(true){
+            locationManager.requestLocationUpdates(provider, 400, 1, MapsFragment.this);
+
+        }
     }
 
     /**
@@ -119,8 +154,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
         MarkerOptions markerOptions = new MarkerOptions();
 
+
         // Setting the position for the marker
-        LatLng latLng = new LatLng(Double.parseDouble(event.getLat()),Double.parseDouble(event.getLong()));
+        LatLng latLng = new LatLng(Double.parseDouble(event.getLat()), Double.parseDouble(event.getLong()));
         markerOptions.position(latLng);
 
         // Setting the title for the marker.
@@ -132,10 +168,51 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // Animating to the touched position
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
+        Location loc2 = new Location("");
+        loc2.setLatitude(latLng.latitude);
+        loc2.setLongitude(latLng.longitude);
+
+
+        int distanceInMiles = (int) (currentLocation.distanceTo(loc2) * 0.000621371);
+
+        markerOptions.snippet(getString(R.string.miles_away_d, distanceInMiles));
         // Placing a marker on the touched position
         mMap.addMarker(markerOptions);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                LinearLayout info = new LinearLayout(getContext());
+                info.setOrientation(LinearLayout.VERTICAL);
+
+         /*       TextView title = new TextView(MapsActivity.this);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+*/
+                TextView snippet = new TextView(getContext());
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                // info.addView(title);
+                info.addView(snippet);
+                marker.showInfoWindow();
+                return info;
+            }
+        });
+
+
     }
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -158,6 +235,89 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (MapsUtil.hasPermission())
+            locationManager.requestLocationUpdates(provider, 400, 1, this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (MapsUtil.hasPermission()) {
+
+            locationManager.removeUpdates(this);
+        }
+    }
+
+    /**
+     * Called when the location has changed.
+     * <p>
+     * <p> There are no restrictions on the use of the supplied Location object.
+     *
+     * @param location The new location, as a Location object.
+     */
+    @Override
+    public void onLocationChanged(Location location) {
+        currentLocation = location;
+
+    }
+
+    /**
+     * Called when the provider status changes. This method is called when
+     * a provider is unable to fetch a location or if the provider has recently
+     * become available after a period of unavailability.
+     *
+     * @param provider the name of the location provider associated with this
+     *                 update.
+     * @param status   {@link LocationProvider#OUT_OF_SERVICE} if the
+     *                 provider is out of service, and this is not expected to change in the
+     *                 near future; {@link LocationProvider#TEMPORARILY_UNAVAILABLE} if
+     *                 the provider is temporarily unavailable but is expected to be available
+     *                 shortly; and {@link LocationProvider#AVAILABLE} if the
+     *                 provider is currently available.
+     * @param extras   an optional Bundle which will contain provider specific
+     *                 status variables.
+     *                 <p>
+     *                 <p> A number of common key/value pairs for the extras Bundle are listed
+     *                 below. Providers that use any of the keys on this list must
+     *                 provide the corresponding value as described below.
+     *                 <p>
+     *                 <ul>
+     *                 <li> satellites - the number of satellites used to derive the fix
+     */
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    /**
+     * Called when the provider is enabled by the user.
+     *
+     * @param provider the name of the location provider associated with this
+     *                 update.
+     */
+    @Override
+    public void onProviderEnabled(String provider) {
+        this.provider = provider;
+        requestLocationUpdates(true);
+    }
+
+    /**
+     * Called when the provider is disabled by the user. If requestLocationUpdates
+     * is called on an already disabled provider, this method is called
+     * immediately.
+     *
+     * @param provider the name of the location provider associated with this
+     *                 update.
+     */
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 
     /**

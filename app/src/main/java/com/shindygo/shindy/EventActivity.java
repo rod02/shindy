@@ -268,9 +268,9 @@ public class EventActivity extends Fragment  {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         try {
-
+                            Log.d(TAG, "timePicker: h "+selectedHour + " s "+selectedMinute);
                             Calendar calendar = Calendar.getInstance();
-                            calendar.set(Calendar.HOUR, selectedHour);
+                            calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
                             calendar.set(Calendar.MINUTE, selectedMinute);
                             //  calendar.set(Calendar.SECOND, dayOfMonth);
                             SimpleDateFormat sdf = new SimpleDateFormat(TextUtils.SDF_4);
@@ -303,9 +303,9 @@ public class EventActivity extends Fragment  {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         try {
-
+                            Log.d(TAG, "timePicker: h "+selectedHour + " s "+selectedMinute);
                             Calendar calendar = Calendar.getInstance();
-                            calendar.set(Calendar.HOUR, selectedHour);
+                            calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
                             calendar.set(Calendar.MINUTE, selectedMinute);
                             //  calendar.set(Calendar.SECOND, dayOfMonth);
                             SimpleDateFormat sdf = new SimpleDateFormat(TextUtils.SDF_4);
@@ -318,7 +318,7 @@ public class EventActivity extends Fragment  {
                         }
 
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, false);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 //mTimePicker.findViewById(com.android.internal.R.id.timePicker).setId(v.getId());
 
@@ -872,6 +872,7 @@ public class EventActivity extends Fragment  {
                         zipcode = "0000";
 
                     etLocation.setText(data.getStringExtra("result_text"));
+                    etZipcode.setText(zipcode);
                 }
                 if (resultCode == Activity.RESULT_CANCELED) {
                     //Write your code if there's no result

@@ -17,7 +17,10 @@ import android.widget.TextView;
 import com.shindygo.shindy.R;
 import com.shindygo.shindy.interfaces.ClickUser;
 import com.shindygo.shindy.model.Rating;
+import com.shindygo.shindy.utils.DateUtils;
+import com.shindygo.shindy.utils.TextUtils;
 
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -86,7 +89,12 @@ public class ReviewDetailsEventAdapter extends RecyclerView.Adapter<ReviewDetail
         ) {
 
             tvName.setText(r.getFullname());
-            tvDate.setText(r.getRateDate());
+            try {
+                tvDate.setText(DateUtils.getTimeAgo(r.getRateDate(), TextUtils.SDF_5));
+            } catch (ParseException e) {
+                e.printStackTrace();
+                tvDate.setText(r.getRateDate());
+            }
             tvText.setText(r.getFeedback());
             rating.setText(r.getHostReview());
             ratingBar.setRating(Float.parseFloat(r.getHostReview()));

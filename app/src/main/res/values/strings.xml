@@ -105,9 +105,7 @@
     <string name="zipcode">Zipcode</string>
     <string name="created_events">Created Events</string>
     <string name="save">Save</string>
-    <string name="quick_review">Quick Review</string>
-    <string name="rate_the_event">Rate the Event</string>
-    <string name="rate_host">Rate your Event host</string>
+
     <string name="event_successfully_created">Event Successfully Created</string>
     <string name="event_successfully_updated">Event Successfully Updated</string>
     <string name="event_details">Event Details</string>
@@ -123,8 +121,38 @@
     <string name="event_sched_n_n">%1$s | %2$s</string>
     <string name="invite_sent_bam">Invite Sent....BAM !</string>
     <string name="expires_n">Expires: %1$s</string>
+    <string name="location_n">Location: %1$s</string>
+    <string name="date_n">Date: %1$s</string>
 
     <string name="prompt_double_back_exit">Press back again to exit</string>
     <string name="long_latin">Lorem ipsum dolor sit amet,Praesent vestibulum non sapien a scelerisque.Lorem ipsum dolor sit amet,Praesent vestibulum non sapien a scelerisque.Lorem ipsum dolor sit amet,Praesent vestibulum non sapien a scelerisque.</string>
+    <string name="edit">Edit</string>
+
+    <!-- time ago strings -->
+    <string name="just_now">just now</string>
+    <string name="time_ago">%s ago</string>
+    <string name="yesterday">yesterday</string>
+
+
+
+    <!--string quick review-->
+
+    <string name="quick_review">Quick Review</string>
+    <string name="rate_the_event">Rate the Event</string>
+    <string name="rate_host">Rate your Event host</string>
+    <string name="comments_optional">Comments (optional)</string>
+    <string name="quick_review_remarks">Thanks. This helps make Shindig awesome</string>
+    <string name="submit">Submit</string>
+    <string name="title_location_permission">Location Permission</string>
+    <string name="text_location_permission">Allow app to access location</string>
+    <string name="ok">Ok</string>
+    <string name="strings_event_review_msg">Help us know which events are awesome. Each review literally takes like 5 seconds. Thanks a heap!</string>
+
+    <string name="miles_away_d">%d miles away</string>
+
+    <!--string quick review-->
+
+
+
 
 </resources>

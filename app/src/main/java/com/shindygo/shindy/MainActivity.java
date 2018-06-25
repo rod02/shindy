@@ -44,6 +44,7 @@ import com.shindygo.shindy.main.NewUsersFragment;
 import com.shindygo.shindy.main.UsersFragment;
 import com.shindygo.shindy.utils.ConnectIntentService;
 import com.shindygo.shindy.utils.FontUtils;
+import com.shindygo.shindy.utils.GlideImage;
 import com.shindygo.shindy.utils.MySharedPref;
 
 import java.util.Calendar;
@@ -188,7 +189,14 @@ public class MainActivity extends AppCompatActivity
 
         final SharedPreferences sharedPref = getSharedPreferences("set", Context.MODE_PRIVATE);
         final String url = sharedPref.getString("url", "");
-        Glide.with(getApplicationContext()).load(url).into(imageViewMenu);
+        //Glide.with(getApplicationContext()).load(url).into(imageViewMenu);
+        try {
+            GlideImage.load(url, imageViewMenu);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         menuName = navView.getHeaderView(0).findViewById(R.id.menuName);
         menuName.setText(sharedPref.getString("name",""));
         // Create the adapter that will return a fragment for each of the three

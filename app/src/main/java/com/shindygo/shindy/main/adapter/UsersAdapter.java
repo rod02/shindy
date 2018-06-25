@@ -29,6 +29,7 @@ import com.shindygo.shindy.interfaces.ClickUser;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.InviteEvent;
 import com.shindygo.shindy.model.User;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +122,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersHolder>
 
         public void bindModel(final User user, final ClickUser clickUser, final ClickCard clickCard) {
             name.setText(user.getFullname() + ", " + user.getAge());
-            Glide.with(context).load(user.getPhoto()).into(avatar);
+           // Glide.with(context).load(user.getPhoto()).into(avatar);
+            GlideImage.load(user.getPhoto(), avatar);
+
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

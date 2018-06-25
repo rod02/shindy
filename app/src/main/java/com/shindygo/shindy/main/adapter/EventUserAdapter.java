@@ -6,6 +6,7 @@ package com.shindygo.shindy.main.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.shindygo.shindy.R;
 import com.shindygo.shindy.interfaces.ClickEventCard;
 import com.shindygo.shindy.model.Event;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +29,8 @@ import java.util.List;
  */
 
 public class EventUserAdapter extends RecyclerView.Adapter<EventUserAdapter.EventUserHolder> {
+
+    private static final String TAG = EventUserAdapter.class.getSimpleName();
     Context context;
     ClickEventCard clickCard;
     List<Event> list;
@@ -73,27 +77,43 @@ public class EventUserAdapter extends RecyclerView.Adapter<EventUserAdapter.Even
 
         }
         public void bindModel(final Event event, final ClickEventCard clickCard, final int position){
-            if (event.getImages().size()>0)
+           /* if (event.getImages().size()>0)
                 Glide.with(context).load(event.getImage()).into(imageView);
             else
             {
                 imageView.setImageResource(R.mipmap.no_image);
             }
+*/
+            GlideImage.load(event.getImage(), imageView);
+            //imageView.setTag(position);
+
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.d(TAG,  "imageView.OnCLick "+ position);
+                    Log.d(TAG,  "imageView.OnCLick "+ event.getEventid());
+                    Log.d(TAG,  "imageView.OnCLick "+ event.getEventname());
+
                     clickCard.Click(true,event.getEventid());
-                    imageView.setSelected(true);
+
                     if(isMultiselect){
                         boolean tof = storeChecked.get(position)!=null;
+                        Log.d(TAG,  "imageView.OnCLick "+ "tof "+tof);
 
                         if (tof){
                            // triggerOnItemClickListener(--itemSelected, view); // transfer position to update unselected
                             storeChecked.remove(position);// delete position of unselected position in the fragment
+                            view.setSelected(false);
+                            Log.d(TAG,  "imageView.OnCLick "+ "please deselect");
+
                         }else {
                             //triggerOnItemClickListener(++itemSelected, view);
                             // transfer position to update selected  position in the fragment
                             storeChecked.put(position,event);
+                            view.setSelected(true);
+
+                            Log.d(TAG,  "imageView.OnCLick "+ "please select");
+
                         }
                     }
 
@@ -113,6 +133,8 @@ public class EventUserAdapter extends RecyclerView.Adapter<EventUserAdapter.Even
                     return false;
                 }
             });
+            imageView.setSelected(storeChecked.get(position)!=null);
+            Log.d(TAG,  "bindModel imageView "+ position + " "+ event.getEventname());
 
         }
     }

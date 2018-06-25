@@ -23,6 +23,7 @@ import com.shindygo.shindy.MyInvitesActivity;
 import com.shindygo.shindy.R;
 import com.shindygo.shindy.interfaces.ClickEvent;
 import com.shindygo.shindy.model.Event;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,9 @@ public class ChooseEventAdapter extends RecyclerView.Adapter<ChooseEventAdapter.
 
         public void bindModel(final Event event) {
             tvEventName.setText(event.getEventname());
-            Glide.with(context).load(event.getImage()).into(ivAvatar);
+            GlideImage.load(event.getImage(), ivAvatar);
+
+            //Glide.with(context).load(event.getImage()).into(ivAvatar);
             tvDate.setText(event.getCreatedate());
             tvExprires.setText(event.getExpirydate());
 

@@ -1,10 +1,12 @@
 package com.shindygo.shindy;
 
+import android.Manifest;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,9 +39,13 @@ import com.shindygo.shindy.api.EventController;
 import com.shindygo.shindy.main.model.Respo;
 import com.shindygo.shindy.model.Discussion;
 import com.shindygo.shindy.model.Event;
+import com.shindygo.shindy.model.Image;
 import com.shindygo.shindy.model.Status;
+import com.shindygo.shindy.utils.MapsUtil;
 import com.shindygo.shindy.utils.OnSwipeTouchListener;
 import com.shindygo.shindy.utils.PageFragment2;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +55,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class EventDetailActivity extends AppCompatActivity implements MapsFragment.OnFragmentInteractionListener, DiscussFragment.OnFragmentInteractionListener, ReviewDetailEventFragment.OnFragmentInteractionListener {
+public class EventDetailActivity extends AppCompatActivity implements MapsFragment.OnFragmentInteractionListener,
+        DiscussFragment.OnFragmentInteractionListener, ReviewDetailEventFragment.OnFragmentInteractionListener {
 
 
     private static final String TAG = EventDetailActivity.class.getSimpleName();
@@ -108,6 +115,9 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
     ImageView ivSend;
     @BindView(R.id.etComment)
     EditText etComment;
+
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
 
     private boolean hided = false;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -441,6 +451,12 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
             }
         });
 
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void sendDiscussionReply() {
@@ -517,7 +533,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         try {
 
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getParent().getCurrentFocus().getWindowToken(),0);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
         }catch (NullPointerException e){
             e.printStackTrace();
         }
@@ -619,6 +635,41 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
             return event.getImages().size();
         }
 
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MapsUtil.MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        MapsFragment fragment = (MapsFragment) getPagerFragment(0);
+                        //Request location updates:
+                        fragment.requestLocationUpdates(true);
+
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+        }
     }
 
 }

@@ -29,7 +29,11 @@ import com.shindygo.shindy.model.Discussion;
 import com.shindygo.shindy.model.Reply;
 import com.shindygo.shindy.model.Status;
 import com.shindygo.shindy.model.User;
+import com.shindygo.shindy.utils.DateUtils;
+import com.shindygo.shindy.utils.TextUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -135,7 +139,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
                 rvChatComment.setLayoutManager(new LinearLayoutManager(context));
                 rvChatComment.setAdapter(new ChatCommentAdapter(d.getReply()));
                 tvText.setText(d.getComment());
-                tvCommentDate.setText(d.getCommentDate());
+                SimpleDateFormat sdf = new SimpleDateFormat(TextUtils.SDF_5);
+                Date date = sdf.parse(d.getCommentDate());
+                tvCommentDate.setText(DateUtils.getTimeAgo(date.getTime()));
                 rvName.setText(d.getFullname());
                 ivAvatar.setImageResource(android.R.color.transparent);
                 if (d.getPhoto() != null)

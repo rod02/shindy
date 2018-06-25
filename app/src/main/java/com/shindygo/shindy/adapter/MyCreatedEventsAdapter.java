@@ -18,6 +18,7 @@ import com.shindygo.shindy.Api;
 import com.shindygo.shindy.R;
 import com.shindygo.shindy.interfaces.Click;
 import com.shindygo.shindy.model.Event;
+import com.shindygo.shindy.utils.GlideImage;
 import com.shindygo.shindy.utils.TextUtils;
 
 import java.text.ParseException;
@@ -37,12 +38,14 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
     String userFbId;
     int size;
     Click<Event> click;
+    RecyclerView rv;
 
-    public MyCreatedEventsAdapter(List<Event> mValues, Context context, Click<Event> click) {
+    public MyCreatedEventsAdapter(List<Event> mValues, RecyclerView rv, Click<Event> click) {
         this.mValues = mValues;
-        this.context = context;
+        this.context = rv.getContext() ;
         this.click = click;
         this.size = mValues.size();
+        this.rv = rv;
     }
 
     @Override
@@ -52,7 +55,7 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        holder.bindModel(mValues.get(position), click, position);
+        holder.bindModel(mValues.get(position), click, position, rv);
     }
 
     @Override
@@ -63,19 +66,24 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
     public class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView avatar;
         TextView tvEventName;
-        TextView tvEventExpiry;
-        TextView tvEventHost;
-        TextView tvInviter;
-        TextView tvEventPrice;
         TextView tvEventSched;
+        TextView tvAddress;
+
+        /*
+        TextView tvEventExpiry;
+
+        TextView tvEventHost;
+    ///    TextView tvInviter;
+       // TextView tvEventPrice;
         TextView tvMaleStocks;
         TextView tvFemaleStocks;
-        TextView tvSoldOut;
+        TextView tvSoldOut;*/
         LinearLayout layBar;
         LinearLayout layInvited;
         LinearLayout layInvite;
         LinearLayout layDetails;
         RelativeLayout rlContent;
+        RelativeLayout layEdit;
 
         Api api =  new Api(context);
 
@@ -83,24 +91,27 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
             super(v);
             avatar = v.findViewById(R.id.rivImage);
             tvEventName = v.findViewById(R.id.tv_eventName);
+            tvEventSched = v.findViewById(R.id.tvEventSched);
+            tvAddress = v.findViewById(R.id.tv_address);
+
+/*
             tvEventExpiry = v.findViewById(R.id.tvEventExpiry);
             tvEventHost = v.findViewById(R.id.tvEventHost);
            // tvInviter = v.findViewById(R.id.tvInviter);
             tvEventPrice = v.findViewById(R.id.tvEventPrice);
-            tvEventSched = v.findViewById(R.id.tvEventSched);
             tvMaleStocks = v.findViewById(R.id.tv_male_stocks);
             tvFemaleStocks = v.findViewById(R.id.tv_female_stocks);
-            tvSoldOut = v.findViewById(R.id.tv_sold_out);
+            tvSoldOut = v.findViewById(R.id.tv_sold_out);*/
             layBar = v.findViewById(R.id.bar);
             layDetails = v.findViewById(R.id.ll_details);
             layInvite = v.findViewById(R.id.ll_invite);
             layInvited = v.findViewById(R.id.ll_invited);
             rlContent = v.findViewById(R.id.rlContent);
-
+            layEdit = v.findViewById(R.id.lay_edit);
 
         }
 
-        public void bindModel(final Event event, final Click<Event> click, int position){
+        public void bindModel(final Event event, final Click<Event> click, final int position, final RecyclerView rv){
             String imagePath = "";
             try{
                 /*imagePath = (event.getImage()==null || event.getImages().size() ==0 )?
@@ -110,7 +121,10 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
             }catch (Exception e){
                 Log.e(TAG, "imagePath");
             }
-            Glide.with(context).load(imagePath).into(avatar);
+
+            GlideImage.load(imagePath, avatar);
+
+          //  Glide.with(context).load(imagePath).into(avatar);
 
  /*           if(event.getImage().equals("")){
                 Glide.with(context).load(imagePath).into(avatar);
@@ -119,14 +133,6 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
                 Glide.with(context).load(R.mipmap.ic_launcher).into(avatar);
             }*/
             tvEventName.setText(event.getEventname());
-            tvEventExpiry.setText(context.getString(R.string.expires_n, event.getExpirydate()));
-            if(event.getPrivate_host()!=null){
-                tvEventHost.setText(context.getString(R.string.private_host_n, event.getPrivate_host()));
-            }else{
-                tvEventHost.setVisibility(View.GONE);
-            }
-           // tvInviter.setText(context.getString(R.string.invited_by_n, event.getInvitedby()));
-            tvEventPrice.setText(context.getString(R.string.offer_to_pay,event.getTicketprice()));
             String schedStartDate = event.getSchedStartdate();
             try {
                 schedStartDate = TextUtils.formatDate(event.getSchedStartdate(), TextUtils.SDF_1, TextUtils.SDF_2);
@@ -142,15 +148,30 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
             tvEventSched.setText(context.getString(R.string.event_sched_n_n,
                     schedStartDate,
                     timeDuration));
+            tvAddress.setText(event.getFulladdress());
+
+            /*
+            tvEventExpiry.setText(context.getString(R.string.expires_n, event.getExpirydate()));
+            if(event.getPrivate_host()!=null){
+                tvEventHost.setText(context.getString(R.string.private_host_n, event.getPrivate_host()));
+            }else{
+                tvEventHost.setVisibility(View.GONE);
+            }
+           // tvInviter.setText(context.getString(R.string.invited_by_n, event.getInvitedby()));
+            tvEventPrice.setText(context.getString(R.string.offer_to_pay,event.getTicketprice()));
+
             tvMaleStocks.setText(TextUtils.getRemainingStocks(event,TextUtils.MALE));
             tvFemaleStocks.setText(TextUtils.getRemainingStocks(event,TextUtils.FEMALE));
             // tvSoldOut.setVisibility(TextUtils.getRemainingStocks(event)==0? View.VISIBLE: View.INVISIBLE);
-            tvSoldOut.setText(context.getResources().getQuantityString(R.plurals.stocks,  TextUtils.getRemainingStocks(event)));
+            tvSoldOut.setText(context.getResources().getQuantityString(R.plurals.stocks,  TextUtils.getRemainingStocks(event)));*/
             rlContent.setTag(position);
 
             rlContent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    rv.getLayoutManager().smoothScrollToPosition(rv,null, position);
+
 
                     final boolean hidden = layBar.getVisibility() != View.VISIBLE;
                     if(hidden){
@@ -189,9 +210,11 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
 
                 }
             };
+            layEdit.setOnClickListener(listener);
             layDetails.setOnClickListener(listener);
             layInvited.setOnClickListener(listener);
             layInvite.setOnClickListener(listener);
+
 
         }
 

@@ -139,26 +139,13 @@ public class CreatedEventsFragment extends Fragment {
 
     private void listEvents(List<Event> eventsList, RecyclerView rv) {
 
-        MyCreatedEventsAdapter adapter = new MyCreatedEventsAdapter(eventsList, rv.getContext(),
+        MyCreatedEventsAdapter adapter = new MyCreatedEventsAdapter(eventsList, rv,
                 new Click<Event>() {
             @Override
             public void onClick(int id, View view, Event event) {
                 switch (id) {
                     case R.id.ll_details: {
-                        String json = event.toJSON();
-                        Log.v(TAG,json );
-                        Bundle args = new Bundle();
-                        args.putString(EventActivity.EXTRA_MODEL, json);
-                        args.putString(EventActivity.EXTRA_EVENT_ID, event.getEventid());
-
-                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                        Fragment fragment = new EventActivity();
-                        fragment.setArguments(args);
-                        fm.beginTransaction()
-                                .replace(R.id.frame, fragment)
-                                .addToBackStack("my_fragment")
-                                .commit();
-
+                        openEventEditor(event);
                         break;
                     }
                     case R.id.ll_invite: {
@@ -171,10 +158,32 @@ public class CreatedEventsFragment extends Fragment {
 
                         break;
                     }
+                    case R.id.lay_edit: {
+
+                        openEventEditor(event);
+                        break;
+                    }
                 }
             } });
         rv.setAdapter(adapter);
 
+
+    }
+
+    private void openEventEditor(Event event) {
+        String json = event.toJSON();
+        Log.v(TAG,json );
+        Bundle args = new Bundle();
+        args.putString(EventActivity.EXTRA_MODEL, json);
+        args.putString(EventActivity.EXTRA_EVENT_ID, event.getEventid());
+
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        Fragment fragment = new EventActivity();
+        fragment.setArguments(args);
+        fm.beginTransaction()
+                .replace(R.id.frame, fragment)
+                .addToBackStack("my_fragment")
+                .commit();
 
     }
 

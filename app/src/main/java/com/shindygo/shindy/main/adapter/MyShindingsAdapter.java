@@ -23,6 +23,7 @@ import com.shindygo.shindy.R;
 import com.shindygo.shindy.activity.SendInviteActivity;
 import com.shindygo.shindy.interfaces.ClickEvent;
 import com.shindygo.shindy.model.Event;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.util.List;
 
@@ -138,7 +139,9 @@ public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.
                 womenCount.setText(event.getMax_female());
                 tvEventName.setText(event.getEventname());
                 ivAvatar.setImageResource(android.R.color.transparent);
-                Glide.with(context).load(event.getImage()).into(ivAvatar);
+                //Glide.with(context).load(event.getImage()).into(ivAvatar);
+                GlideImage.load(event.getImage(), ivAvatar);
+
                 rl.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

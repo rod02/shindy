@@ -22,6 +22,7 @@ import com.shindygo.shindy.interfaces.ClickEvent;
 import com.shindygo.shindy.interfaces.ClickUser;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.User;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -98,8 +99,9 @@ public class BlockedEventAdapter extends RecyclerView.Adapter<BlockedEventAdapte
 
         public void bindModel(final Event e) {
 
+            //GlideImage.load(e.getImage(), ivAvatar);
 
-            Glide.with(context).load(e.getImage()).into(ivAvatar);
+            //Glide.with(context).load(e.getImage()).into(ivAvatar);
             tvEventName.setText(e.getEventname());
             tvExprires.setText(MessageFormat.format("Expires: {0}", e.getExpirydate()));
             if (e.getSchedStartdate() != null)
@@ -138,8 +140,9 @@ public class BlockedEventAdapter extends RecyclerView.Adapter<BlockedEventAdapte
                 tvDate.setText(e.getSchedStartdate());
                 tvExprires.setText(e.getExpirydate());
                 tvEventName.setText(e.getEventname());
-                ivAvatar.setImageResource(android.R.color.transparent);
-                Glide.with(context).load(e.getImage()).into(ivAvatar);
+                //ivAvatar.setImageResource(android.R.color.transparent);
+                //Glide.with(context).load(e.getImage()).into(ivAvatar);
+                GlideImage.load(e.getImage(), ivAvatar);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
