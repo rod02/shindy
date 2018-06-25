@@ -135,7 +135,7 @@ public class MyShindigsFragment extends Fragment {
 
                             }
                         }));
-                    rvShindingsAttending.setNestedScrollingEnabled(true);
+                   // rvShindingsAttending.setNestedScrollingEnabled(true);
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }

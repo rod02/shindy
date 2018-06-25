@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,9 @@ import butterknife.ButterKnife;
  */
 
 public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.MyShindingsHolder> {
+
+    private static final String TAG = MyShindingsAdapter.class.getSimpleName();
+
     Context context;
     List<Event> list;
     String id;
@@ -117,16 +121,17 @@ public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.
 
 
             try {
-                if (event.getPrivate_host()!=null||!event.getPrivate_host().equals("")){
+                if (event.getCreatedby() != null || !event.getCreatedby().equals("")){
+                    Log.d(TAG, "adapter:privateHost: "+event.getPrivate_host() + " createdBy: "+ event.getCreatedby());
                 tvPrivateHost.setVisibility(View.VISIBLE);
-                tvPrivateHost.setText("Private host: "+event.getPrivate_host());
+                tvPrivateHost.setText(context.getResources().getString(R.string.private_host_n, event.getCreatedby()));
                 }
                 else
                     tvPrivateHost.setVisibility(View.GONE);
 
                 if (event.getInvitedby().toString().length()>0){
                     tvInvitedBy.setVisibility(View.VISIBLE);
-                    tvInvitedBy.setText("Invited by: "+event.getInvitedby());
+                    tvInvitedBy.setText(context.getResources().getString(R.string.invited_by_n, event.getInvitedby()));
                 }
                 else
                     tvInvitedBy.setVisibility(View.GONE);

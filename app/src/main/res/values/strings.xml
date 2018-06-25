@@ -149,6 +149,7 @@
     <string name="strings_event_review_msg">Help us know which events are awesome. Each review literally takes like 5 seconds. Thanks a heap!</string>
 
     <string name="miles_away_d">%d miles away</string>
+    <string name="guest_can_invite">Guest can invite friends</string>
 
     <!--string quick review-->
 

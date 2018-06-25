@@ -116,7 +116,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Event Name"
-                    android:textSize="22sp"/>
+                    android:inputType="textCapWords"
+                    android:textSize="22sp" />
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
@@ -252,6 +253,7 @@ da                    android:textSize="18sp" />-->
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_expiry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp10"
@@ -264,7 +266,7 @@ da                    android:textSize="18sp" />-->
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/dp20"
                     android:src="@drawable/calender_stop" />
-<!--
+                <!--
 
                 <TextView
                     android:id="@+id/tvDateExpire"
@@ -302,6 +304,7 @@ da                    android:textSize="18sp" />-->
                 android:background="@android:color/darker_gray" />
 
             <LinearLayout
+                android:id="@+id/ll_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp10"
@@ -328,7 +331,8 @@ da                    android:textSize="18sp" />-->
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:hint="@string/location" />
+                        android:hint="@string/location"
+                        android:imeOptions="actionGo|actionSearch|actionDone" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -341,7 +345,8 @@ da                    android:textSize="18sp" />-->
                 android:layout_marginBottom="@dimen/dp10"
                 android:layout_marginLeft="@dimen/dp10"
                 android:layout_marginRight="@dimen/dp10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="@dimen/dp20"
@@ -400,6 +405,7 @@ da                    android:textSize="18sp" />-->
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -414,7 +420,6 @@ da                    android:textSize="18sp" />-->
                     android:layout_height="@dimen/dp20"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/dp20"
-                    android:layout_marginTop="@dimen/dp5"
                     android:src="@drawable/persons" />
 
                 <android.support.design.widget.TextInputLayout
@@ -422,12 +427,15 @@ da                    android:textSize="18sp" />-->
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                    <android.support.design.widget.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/et_co_host"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:hint="@string/co_hosts" />
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:hint="@string/co_hosts"
+                        android:lines="1"
+                        android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -502,21 +510,23 @@ da                    android:textSize="18sp" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/et_description"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dp10"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_edit_text_border"
                     android:gravity="top"
                     android:hint="@string/event_details"
-                    android:lines="4"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:lines="3"
                     android:maxLength="131"
-                    android:maxLines="5"
+                    android:maxLines="6"
+                    android:minLines="3"
                     android:padding="5dp"
                     android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@android:color/black" />
@@ -571,14 +581,16 @@ da                    android:textSize="18sp" />-->
                     android:layout_height="@dimen/dp30"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/dp10"
-                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginTop="2dp"
                     android:src="@android:drawable/sym_action_email" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Guest can invite Friends"
+                    android:fontFamily="@font/robotoregular"
+                    android:text="@string/guest_can_invite"
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
@@ -619,6 +631,7 @@ da                    android:textSize="18sp" />-->
                         android:layout_height="wrap_content"
 
                         android:hint="@string/ticket_price"
+                        android:imeOptions="actionDone"
                         android:inputType="numberDecimal"
                         android:singleLine="true" />
 
@@ -632,6 +645,7 @@ da                    android:textSize="18sp" />-->
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="50dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/robotoregular"
                 android:text="@string/we_charged__"
                 android:textSize="12sp" />
 

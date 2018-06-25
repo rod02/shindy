@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,6 +18,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -177,7 +179,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
 
         markerOptions.snippet(getString(R.string.miles_away_d, distanceInMiles));
         // Placing a marker on the touched position
-        mMap.addMarker(markerOptions);
+        Marker marker = mMap.addMarker(markerOptions);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
@@ -192,19 +194,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
                 LinearLayout info = new LinearLayout(getContext());
                 info.setOrientation(LinearLayout.VERTICAL);
 
-         /*       TextView title = new TextView(MapsActivity.this);
+               TextView title = new TextView(getContext());
                 title.setTextColor(Color.BLACK);
                 title.setGravity(Gravity.CENTER);
                 title.setTypeface(null, Typeface.BOLD);
                 title.setText(marker.getTitle());
-*/
+
                 TextView snippet = new TextView(getContext());
                 snippet.setTextColor(Color.GRAY);
                 snippet.setText(marker.getSnippet());
 
                 // info.addView(title);
                 info.addView(snippet);
-                marker.showInfoWindow();
                 return info;
             }
         });

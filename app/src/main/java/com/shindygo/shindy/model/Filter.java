@@ -52,6 +52,10 @@ public class Filter implements Parcelable {
         this.genderPref = genderPref;
     }
 
+    public Filter() {
+
+    }
+
     protected Filter(Parcel in) {
         ageTo = in.readInt();
         ageFrom = in.readInt();

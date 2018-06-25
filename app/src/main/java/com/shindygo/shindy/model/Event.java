@@ -14,6 +14,12 @@ import java.util.Map;
 
 public class Event implements Parcelable {
 
+
+
+    @SerializedName("invitation_id")
+    @Expose
+    private String invitationId;
+
     @SerializedName("eventid")
     @Expose
     private String eventid;
@@ -87,7 +93,9 @@ public class Event implements Parcelable {
     @SerializedName("rating")
     @Expose
     private String rating;
-
+    @SerializedName("host_review")
+    @Expose
+    private String hostReview;
     @SerializedName("max_male")
     @Expose
     private String max_male;
@@ -117,6 +125,9 @@ public class Event implements Parcelable {
     @SerializedName("private_host")
     @Expose
     private String private_host;
+    @SerializedName("private_host_fbid")
+    @Expose
+    private String privateHostFbId;
     @SerializedName("invitedby")
     @Expose
     private String invitedby;
@@ -149,11 +160,21 @@ public class Event implements Parcelable {
     @Expose
     String joinFemale;
 
+    @SerializedName("number_joinevent")
+    @Expose
+    String numberJoinEvent;
 
     @SerializedName("guest_invite_friend")
     @Expose
     String ableGuestInvite;               //1 and 0
 
+    public String getNumberJoinEvent() {
+        return numberJoinEvent;
+    }
+
+    public void setNumberJoinEvent(String numberJoinEvent) {
+        this.numberJoinEvent = numberJoinEvent;
+    }
 
     public String getAbleGuestInvite() {
         return ableGuestInvite;
@@ -169,6 +190,22 @@ public class Event implements Parcelable {
         }catch (NullPointerException e){
             return  false;
         }
+    }
+
+    public String getInvitationId() {
+        return invitationId;
+    }
+
+    public void setInvitationId(String invitationId) {
+        this.invitationId = invitationId;
+    }
+
+    public String getPrivateHostFbId() {
+        return privateHostFbId;
+    }
+
+    public void setPrivateHostFbId(String privateHostFbId) {
+        this.privateHostFbId = privateHostFbId;
     }
 
     public void setInvited_by_id(String invited_by_id) {
@@ -260,7 +297,8 @@ public class Event implements Parcelable {
     }
 
     public String getCreatedby() {
-        return createdby;
+
+        return createdby == null? "" : createdby;
     }
 
     public String getBlock_status() {
@@ -342,6 +380,7 @@ public class Event implements Parcelable {
 
 
     public Event() {
+        this.invitationId = "";
         this.eventid = "";
         this.eventcode = "";
         this.eventname = "";
@@ -373,12 +412,16 @@ public class Event implements Parcelable {
         this.ableGuestInvite = "";
         this.joinFemale = "";
         this.joinMale = "";
+        this.createdby = "";
+
 
     }
 
 
     public Map<String ,Object> toMap (){
         Map<String ,Object> map = new HashMap<>();
+        map.put("invitation_id",invitationId);
+
         if (eventid!=null)
         map.put("eventid",eventid);
         map.put("eventname",eventname);
@@ -408,8 +451,11 @@ public class Event implements Parcelable {
         map.put("website_url",website_url);
         map.put("likecode",likecode);
         map.put("guest_invite_friend",ableGuestInvite);
-        map.put("join_male",joinMale);
-        map.put("joinfemale",joinFemale);
+     //   map.put("join_male",joinMale);
+     //   map.put("joinfemale",joinFemale);
+        map.put("createdby",createdby);
+        map.put("private_host_fbid",privateHostFbId);
+        map.put("private_host",private_host);
 
 
         return map;
@@ -460,7 +506,7 @@ public class Event implements Parcelable {
     }
 
     public String getLong() {
-        return _long;
+        return _long == null? "0" : _long;
     }
 
     public void setLong(String _long) {
@@ -468,7 +514,8 @@ public class Event implements Parcelable {
     }
 
     public String getLat() {
-        return lat;
+
+        return lat == null? "0" : lat;
     }
 
     public void setLat(String lat) {
@@ -627,6 +674,14 @@ public class Event implements Parcelable {
         return invitedby==null?"":invitedby;
     }
 
+    public String getHostReview() {
+        return hostReview;
+    }
+
+    public void setHostReview(String hostReview) {
+        this.hostReview = hostReview;
+    }
+
     protected Event(Parcel in) {
         if (image==null||image.size()==0)
             image=new ArrayList<>();
@@ -668,6 +723,15 @@ public class Event implements Parcelable {
         offer_to_pay = in.readString();
         invited_by_id = in.readString();
         invitecode = in.readString();
+        privateHostFbId = in.readString();
+        hostReview = in.readString();
+        invitationId = in.readString();
+        joinFemale = in.readString();
+        joinMale = in.readString();
+        numberJoinEvent = in.readString();
+
+
+
     }
 
     @Override
@@ -710,6 +774,13 @@ public class Event implements Parcelable {
         parcel.writeString(offer_to_pay);
         parcel.writeString(invited_by_id);
         parcel.writeString(invitecode);
+
+        parcel.writeString(privateHostFbId);
+        parcel.writeString(hostReview);
+        parcel.writeString(invitationId);
+        parcel.writeString(joinFemale);
+        parcel.writeString(joinMale);
+        parcel.writeString(numberJoinEvent);
     }
 
 

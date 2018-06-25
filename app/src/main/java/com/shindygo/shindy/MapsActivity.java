@@ -57,6 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager locationManager;
     Location currentLocation;
     String provider;
+    private final static String TAG = MapsActivity.class.getSimpleName();
 
 
     @Override
@@ -109,7 +110,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
     }
 
 
@@ -133,17 +133,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(latLng)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                 Geocode(latLng);
+
                 coord = latLng;
+            }
+        });
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                LinearLayout info = new LinearLayout(MapsActivity.this);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(MapsActivity.this);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+                TextView snippet = new TextView(MapsActivity.this);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                 info.addView(title);
+                info.addView(snippet);
+              //  marker.showInfoWindow();
+                return info;
             }
         });
 
         if(currentLocation!=null){
             LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        }
+
+        Bundle arg = getIntent().getExtras();
+        Log.d(TAG, "arg");
+        if(arg!=null){
+            Log.d(TAG, "arg not null");
+            LatLng latLng = new LatLng(
+                        (arg.getDouble("latitude", 0)),
+                        (arg.getDouble("longitude", 0)));
+            String title =  (arg.getString("title", ""));
+            if(!title.equalsIgnoreCase("")) addMarker(latLng, title);
+
 
         }
     }
@@ -158,8 +197,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     try {
 
                         addresses = geocoder.getFromLocation(coord.latitude, coord.longitude, 1);
-                        editText.setText(addresses.get(0).getAddressLine(0));
+                        Address address = addresses.get(0);
+                        editText.setText(address.getAddressLine(0));
+
                         zipcode =  addresses.get(0).getPostalCode();
+                        addMarker(coord,address.getAddressLine(0));
+
+                      //  addMarker(coord, addresses.get(0));
+                        /*mMap.clear();
+                        Marker marker = mMap.addMarker(new MarkerOptions().position(coord)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        marker.showInfoWindow();*/
+
                     }
                     catch (Exception e) {
                         e.printStackTrace();
@@ -171,29 +220,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     public void addMarker(Place p){
+        LatLng latLng = p.getLatLng();
+
+        Geocode(latLng);
 
         MarkerOptions markerOptions = new MarkerOptions();
-        LatLng latLng = p.getLatLng();
 
         markerOptions.position(latLng);
         markerOptions.title(p.getName()+"");
+        markerOptions.snippet(p.getAddress()+" \n"+p.getPhoneNumber()+" \n"+p.getPlaceTypes()
+        +" \n"+p.getWebsiteUri() );
+
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
         //Location loc2 = new Location("");
    /*     loc2.setLatitude(latLng.latitude);
         loc2.setLongitude(latLng.longitude);*/
         mMap.clear();
-        Geocode(latLng);
         coord = latLng;
 
 /*
         int distanceInMiles = (int) (currentLocation.distanceTo(loc2) * 0.000621371);
 
         markerOptions.snippet(getString(R.string.miles_away_d, distanceInMiles));*/
-        mMap.addMarker(markerOptions);
+        Marker marker = mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(p.getLatLng()));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+        marker.showInfoWindow();
 
+    }
+
+    public void addMarker(LatLng latLng, String title){
+        Log.d(TAG, "addMarker");
+
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.title(title);
+        markerOptions.position(latLng);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+        mMap.clear();
+
+        coord = latLng;
+
+/*
+        int distanceInMiles = (int) (currentLocation.distanceTo(loc2) * 0.000621371);
+
+        markerOptions.snippet(getString(R.string.miles_away_d, distanceInMiles));*/
+        Marker marker = mMap.addMarker(markerOptions);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+        marker.showInfoWindow();
 
     }
 

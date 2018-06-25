@@ -6,9 +6,11 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
@@ -20,15 +22,20 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -47,12 +54,21 @@ import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.IpCons;
 import com.google.gson.Gson;
 import com.rd.PageIndicatorView;
+import com.shindygo.shindy.adapter.SimpleUsersAdapter;
 import com.shindygo.shindy.api.EventController;
+import com.shindygo.shindy.interfaces.ClickCard;
+import com.shindygo.shindy.interfaces.ClickEventCard;
+import com.shindygo.shindy.interfaces.ClickUser;
+import com.shindygo.shindy.main.adapter.EventUserAdapter;
+import com.shindygo.shindy.main.adapter.UsersAdapter;
 import com.shindygo.shindy.model.CreateEventCallBack;
 import com.shindygo.shindy.model.Event;
+import com.shindygo.shindy.model.Filter;
 import com.shindygo.shindy.model.Image;
+import com.shindygo.shindy.model.InviteEvent;
 import com.shindygo.shindy.model.User;
 import com.shindygo.shindy.utils.FontUtils;
+import com.shindygo.shindy.utils.GlideImage;
 import com.shindygo.shindy.utils.ImageFragment;
 import com.shindygo.shindy.utils.ImageUtils;
 import com.shindygo.shindy.utils.TextUtils;
@@ -68,11 +84,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static android.view.View.GONE;
 
 
 public class EventActivity extends Fragment  {
@@ -117,7 +136,6 @@ public class EventActivity extends Fragment  {
     TextInputEditText etLocation;
     @BindView(R.id.imgCoHost)
     ImageView imgCohost;
-    TextInputEditText etCoHost;
     @BindView(R.id.imgTicketPrice)
     ImageView imgTicketPrice;
 
@@ -126,6 +144,8 @@ public class EventActivity extends Fragment  {
     TextInputEditText etMaxMale;
     TextInputEditText etMaxFemale;
     TextInputEditText etWebsite;
+    AutoCompleteTextView etCoHost;
+
     @BindView(R.id.et_description)
     EditText etDescription;
     @BindView(R.id.bt_save)
@@ -148,6 +168,11 @@ public class EventActivity extends Fragment  {
     TextView tvLeft;
     @BindView(R.id.cpAbleInvite)
     CheckBox cpAbleInvite;
+    @BindView(R.id.ll_location)
+    LinearLayout llLocation;
+
+    @BindView(R.id.ll_expiry)
+    LinearLayout llExiry;
 
  /*   @BindView(R.id.bt_add)
     Button btAdd;*/
@@ -157,10 +182,11 @@ public class EventActivity extends Fragment  {
     Uri linkIm;
     private double lon, lat;
     private String zipcode;
+    private String coHostId;
 
     TextInputEditText etEventName;
 
-
+    List<User> users;
 
 
     private PopupWindow mPopupWindow;
@@ -174,6 +200,7 @@ public class EventActivity extends Fragment  {
 
     ViewPager pager;
     PagerAdapter pagerAdapter;
+    private SimpleUsersAdapter usersAdapter;
     //OnFragmentInteractionListener activityListener;
 
     @Override
@@ -198,7 +225,26 @@ public class EventActivity extends Fragment  {
 
         FontUtils.setFont(title, FontUtils.Be_Bright);
         Activity mActivity = getActivity();
+        Api.getInstance().getUsers(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                Log.d(TAG, "getUsersList ");
+                Log.d(TAG, "getUsersList "+response.toString());
+                if(response.message().equalsIgnoreCase("ok")){
+                    users = response.body();
+                    Log.d(TAG, "getUsersList size: "+users.size());
 
+                    usersAdapter = new SimpleUsersAdapter(getContext(), users);
+                    etCoHost.setAdapter(usersAdapter);
+                    etCoHost.setOnItemClickListener(onItemClickListener);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
         if(event == null){
             //
             event = null;
@@ -253,6 +299,7 @@ public class EventActivity extends Fragment  {
             }
         };
 
+        llExiry.setOnClickListener(onClickDateView);
         tvDateStart.setOnClickListener(onClickDateView);
         tvDateEnd.setOnClickListener(onClickDateView);
         tvDateExpire.setOnClickListener(onClickDateView);
@@ -260,7 +307,6 @@ public class EventActivity extends Fragment  {
 
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -387,7 +433,6 @@ public class EventActivity extends Fragment  {
 
 
 
-
      /*   btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -397,14 +442,22 @@ public class EventActivity extends Fragment  {
             }
         });
 */
-        imgLocation.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View view) {
-                                              Intent i = new Intent(getContext(), MapsActivity.class);
-                                              startActivityForResult(i, RQ_LOCATION);
-                                          }
-                                      }
-        );
+
+        View.OnClickListener onClickLocation =  new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), MapsActivity.class);
+                    i.putExtra("longitude", lon);
+                    i.putExtra("latitude", lat);
+                    i.putExtra("title", etLocation.getText().toString());
+
+                startActivityForResult(i, RQ_LOCATION);
+
+            }
+        };
+
+        imgLocation.setOnClickListener(onClickLocation);
+        llLocation.setOnClickListener(onClickLocation);
 
        btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -487,6 +540,8 @@ public class EventActivity extends Fragment  {
         etEventName.setText(event.getEventname());
         etLocation.setText(event.getFulladdress());
         Log.d(TAG, "getZipcode : "+event.getZipcode());
+        if (lon==0) lon= Double.parseDouble(event.getLong());
+        if(lat==0) lat = Double.parseDouble(event.getLat());
 
         etZipcode.setText(event.getZipcode());
         etDescription.setText(event.getDescription());
@@ -651,6 +706,8 @@ public class EventActivity extends Fragment  {
                             Log.v(TAG,"onResponse " +response.isSuccessful());
 
                             if(response.isSuccessful()){
+                                CreateEventCallBack callBack = response.body();
+
                                 for (int i = 0; i < images.size() ; i++) {
                                     Image image = images.get(i);
                                     if(image.id ==null || image.id.equals("0")){
@@ -680,7 +737,7 @@ public class EventActivity extends Fragment  {
                                 }
                                 showProgressBar(true);
                                 for (final String url : images64) {
-                                    new EventController(getContext()).pushImage(event.getEventid(), url, new Callback<Object>() {
+                                    new EventController(getContext()).pushImage(callBack.getEventid(), url, new Callback<Object>() {
                                         @Override
                                         public void onResponse(Call<Object> call, Response<Object> response) {
                                             if (url == images64.get(images64.size() - 1)) {
@@ -759,8 +816,16 @@ public class EventActivity extends Fragment  {
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat(TextUtils.SDF_1);
+                int id = view.getId();
+                switch (id){
+                    case R.id.ll_expiry:
+                        tvDateExpire.setText(sdf.format(calendar.getTime()));
+                        break;
+                    default:
+                        ((TextView)getView().findViewById(view.getId())).setText(sdf.format(calendar.getTime()));
+                        break;
 
-                ((TextView)getView().findViewById(view.getId())).setText(sdf.format(calendar.getTime()));
+                }
             }catch (NullPointerException e){
                 e.printStackTrace();
             }
@@ -793,7 +858,7 @@ public class EventActivity extends Fragment  {
         event.setDescription(getText(etDescription));
   //      String notes;                   //	sample event notes
         event.setTicketprice(getText(etTicketPrice));
-        event.setRepresentative(etCoHost.getTag()==null?"": (String) etCoHost.getTag());
+        event.setRepresentative(coHostId==null? "":coHostId);
         SimpleDateFormat sdf1 = new SimpleDateFormat(TextUtils.SDF_1);
         event.setCreatedate(sdf1.format(new Date()));
 
@@ -808,11 +873,11 @@ public class EventActivity extends Fragment  {
         event.setMax_male(getText(etMaxMale));
         event.setMax_female(getText(etMaxFemale));
         event.setWebsite_url(getText(etWebsite));
+        event.setRepresentative(coHostId==null? "":coHostId);
+        event.setCreatedby(User.getCurrentUser().getFullname());
+        event.setPrivate_host(User.getCurrentUser().getFullname());
+        event.setPrivateHostFbId(User.getCurrentUser().getFbid());
         event.setAbleGuestInvite(cpAbleInvite.isChecked()? "1":"0");
-        Log.d(TAG, "createEvent: isChecked() " + cpAbleInvite.isChecked());
-        Log.d(TAG, "createEvent: isChecked() " + event.getAbleGuestInvite());
-        Log.d(TAG, "createEvent: getEventId() " + event.getEventid());
-        Log.d(TAG, "createEvent: getFbId() " + event.getUserFbid());
 
         try {
            // event.setImage(Image.from(pageViews));
@@ -833,35 +898,70 @@ public class EventActivity extends Fragment  {
         return "";
     }
 
+
+    private AdapterView.OnItemClickListener onItemClickListener =
+            new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    User user = (User) adapterView.getItemAtPosition(position);
+                    coHostId = user.getFbid();
+                    etCoHost.setText(user.getFullname());
+                    etCoHost.clearFocus();
+
+/*
+                    Toast.makeText(getContext(),
+                            "Clicked item from auto completion list "
+                                    + adapterView.getItemAtPosition(i)
+                            , Toast.LENGTH_SHORT).show();*/
+                }
+            };
+
+/*
+
+    private  void seachF(String text){
+        Api.getInstance().searchUserF(text,null,0,new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                try {
+                    if(users==null) users = new ArrayList<>();
+                    users.clear();
+                    if (response.body()!=null) {
+                        users = response.body();
+                        usersAdapter = new SimpleUsersAdapter(getContext(), users);
+                        etCoHost.setAdapter(usersAdapter);
+                        etCoHost.setOnItemClickListener(onItemClickListener);
+
+                    }
+                    Log.i("Search", response.message());
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                try {
+
+                    users.clear();
+                    usersAdapter.notifyDataSetChanged();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+    }
+
+*/
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.v(TAG, "onActivityResult requestCode:" +requestCode
                                     + " resultCode:"+resultCode
                                     + "  intent=="+String.valueOf(data==null));
-        /*
-        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-            // Get a list of picked images
-            //List<Image> images = Image.from(ImagePicker.getImages(data));
-            try {
-                if(pageViews==null)pageViews = new ArrayList<>();
-                Log.v(TAG, "onActivityResult ImagePicker");
-
-                pageViews.addAll(Image.fromImagePickerToPage(ImagePicker.getImages(data)));
-                if(pageViews!=null){
-                    Log.v(TAG, "onActivityResult pagviews != null");
-                    Log.v(TAG, "page.res " + pageViews.get(0).res  );
-                    Log.v(TAG, "page.data " + pageViews.get(0).data  );
-
-                    imageSlider(pageViews);
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-        }
-*/
-
-
         switch (requestCode) {
             case RQ_LOCATION: {
                 if (resultCode == RESULT_OK) {
@@ -887,21 +987,6 @@ public class EventActivity extends Fragment  {
                         //List<Image> images = Image.from(ImagePicker.getImages(data));
 
                         List<com.esafirm.imagepicker.model.Image> images = ImagePicker.getImages(data);
-/*                        try {
-                            if(pageViews==null)pageViews = new ArrayList<>();
-                            Log.v(TAG, "onActivityResult ImagePicker");
-
-                            pageViews.addAll(Image.fromImagePickerToPage(ImagePicker.getImages(data)));
-                            if(pageViews!=null){
-                                Log.v(TAG, "onActivityResult pagviews != null");
-                                Log.v(TAG, "page.res " + pageViews.get(0).res  );
-                                Log.v(TAG, "page.data " + pageViews.get(0).data  );
-
-                                imageSlider(pageViews);
-                            }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }*/
                         Log.d(TAG, "resp image: ");
 
                         if (images!=null){
@@ -913,26 +998,6 @@ public class EventActivity extends Fragment  {
                             }
                             pagerAdapter.notifyDataSetChanged();
                         }
-
-
-
-                     /*   try {
-                          *//*  Log.d(TAG, "resp image: "+images.get(0).getPath());
-                            final Uri imageUri = data.getData();
-                            linkIm = imageUri;
-
-                            final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            selectedImage.compress(Bitmap.CompressFormat.JPEG, 50, baos); //bm is the bitmap object
-                            images64.add(Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT));
-                            pagerAdapter.notifyDataSetChanged();*//*
-
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
-                        }
-*/
 
                     }
 

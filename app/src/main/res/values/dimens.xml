@@ -19,6 +19,7 @@
     <dimen name="tab_button_icon_size">25dp</dimen>
 
     <dimen name="bg_rounded_box_radius">5dp</dimen>
+    <dimen name="toolbar_icon_size">30dp</dimen>
 
 
 </resources>
