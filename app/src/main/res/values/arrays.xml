@@ -32,9 +32,11 @@
         <item>Protestant</item>
         <item>Latter Day Saint(mormon)</item>
         <item>7th Day Adventist</item>
-
-
-
+    </string-array>
+    <string-array name="religion_with_others">
+        <item>Optional</item>
+        <item>Not Applicable</item>
+        <item>Applicable</item>
     </string-array>
     <string-array name="gender">
         <item>Optional</item>

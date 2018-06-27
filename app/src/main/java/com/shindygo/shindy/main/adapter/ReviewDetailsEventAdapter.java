@@ -96,7 +96,7 @@ public class ReviewDetailsEventAdapter extends RecyclerView.Adapter<ReviewDetail
                 tvDate.setText(r.getRateDate());
             }
             tvText.setText(r.getFeedback());
-            rating.setText(r.getHostReview());
+            rating.setText(r.getRating());
             ratingBar.setRating(Float.parseFloat(r.getHostReview()));
 
 

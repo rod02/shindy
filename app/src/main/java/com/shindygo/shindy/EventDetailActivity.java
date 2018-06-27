@@ -167,9 +167,9 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
                 menu.setVisibility(View.VISIBLE);
             }
         });
-        ratingBar.setNumStars(5);
-        if (event.getRating() != null)
-            ratingBar.setRating(Float.parseFloat(event.getRating()));
+       // ratingBar.setNumStars(5);
+        if (event.getHostReview() != null)
+            ratingBar.setRating(Float.parseFloat(event.getHostReview()));
 
         if (event.isLiked())
             ivLike.setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.navigation_notification_red));
@@ -179,9 +179,9 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
             iamInImage.setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.green_online));
             tvMan.setText(event.getMax_male());
         tvWoman.setText(event.getMax_female());
-        tvRate.setText(event.getRating());
+        tvRate.setText(event.getHostReview());
         tvEventName.setText(event.getEventname());
-        tvHostedBy.setText(event.getPrivate_host());
+        tvHostedBy.setText(getString(R.string.hosted_by_n , event.getPrivate_host()));
         container.setAdapter(mSectionsPagerAdapter);
         container.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -276,6 +276,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
                                 .replace(R.id.frame, fragment)
                                 .addToBackStack("my_fragment")
                                 .commit();
+                        findViewById(R.id.frame).setVisibility(View.VISIBLE);
                     }
                 }
                 else

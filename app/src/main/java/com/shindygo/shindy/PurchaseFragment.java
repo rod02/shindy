@@ -20,6 +20,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.shindygo.shindy.api.EventController;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.Status;
+import com.shindygo.shindy.utils.GlideImage;
+import com.shindygo.shindy.utils.TextUtils;
 
 import java.text.MessageFormat;
 
@@ -40,30 +42,27 @@ public class PurchaseFragment extends Fragment {
     LinearLayout top;
     @BindView(R.id.start)
     LinearLayout start;
-    @BindView(R.id.tv_eventName)
-    TextView tvEventName;
     @BindView(R.id.middle)
     LinearLayout middle;
-    @BindView(R.id.line)
-    View line;
-    @BindView(R.id.tv_sold_out)
-    TextView tvSoldOut;
-    @BindView(R.id.textView4)
-    TextView textView4;
-    @BindView(R.id.editText)
-    EditText editText;
-    @BindView(R.id.btn_clear)
-    Button btnClear;
-    @BindView(R.id.desc)
-    RelativeLayout desc;
+
+
+    @BindView(R.id.btn_submit)
+    Button btnSubmit;
+
     Unbinder unbinder;
     Event event;
+
+
     @BindView(R.id.iv_avatar)
     RoundedImageView ivAvatar;
-    @BindView(R.id.tv_expires)
-    TextView tvExpires;
+
+    @BindView(R.id.tv_eventName)
+    TextView tvEventName;
     @BindView(R.id.tv_date)
     TextView tvDate;
+    @BindView(R.id.tv_invited_by)
+    TextView tvInvitedBy;
+
     @BindView(R.id.tv_local_tax)
     TextView tvLocalTax;
     @BindView(R.id.tv_ticket_price)
@@ -72,6 +71,7 @@ public class PurchaseFragment extends Fragment {
     TextView tvPriceTotal;
     @BindView(R.id.btn_checkout)
     Button btnCheckout;
+
 
     @Nullable
     @Override
@@ -93,15 +93,18 @@ public class PurchaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         event = ((EventDetailActivity) this.getActivity()).getEvent();
 
-        Glide.with(this).load(event.getImage()).into(ivAvatar);
+        GlideImage.load(event.getImage(), ivAvatar);
         tvEventName.setText(event.getEventname());
+        tvInvitedBy.setText(getString(R.string.invited_by_n, event.getInvitedby()));
+        tvDate.setText(TextUtils.getEventSched(event));
+
         tvLocalTax.setText(event.getCustomPrice() + "$");
         tvTicketPrice.setText(event.getTicketprice() + "$");
         try {
             double v = Double.parseDouble(event.getTicketprice()) + Double.parseDouble(event.getCustomPrice());
             tvPriceTotal.setText(v + "$");
         }catch (Exception e){}
-        tvExpires.setText(MessageFormat.format("Expires: {0}", event.getExpirydate()));
+       // tvExpires.setText(MessageFormat.format("Expires: {0}", event.getExpirydate()));
         if (event.getSchedStartdate() != null)
             tvDate.setText(event.getSchedStartdate().toString());
         else
@@ -109,26 +112,31 @@ public class PurchaseFragment extends Fragment {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new EventController(getContext()).joinIamInEvent(event.getEventid(),event.getInvitecode(), new Callback<Status>() {
-                    @Override
-                    public void onResponse(Call<Status> call, Response<Status> response) {
-                        Status status = response.body();
-                        if(status.getStatus().equals("success")) {
-                            ((EventDetailActivity) getActivity()).setEventAttandeeStatus();
-                            Toast.makeText(getContext(), "You are in", Toast.LENGTH_LONG).show();
-                            getActivity().onBackPressed();
-                        }
-                        else
-                            Toast.makeText(getContext(), status.getResult(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onFailure(Call<Status> call, Throwable t) {
-                        getActivity().onBackPressed();
-                    }
-                });
 
             }
         });
+    }
+
+    private void join(Event event){
+
+        new EventController(getContext()).joinIamInEvent(event.getEventid(),event.getInvitecode(), new Callback<Status>() {
+            @Override
+            public void onResponse(Call<Status> call, Response<Status> response) {
+                Status status = response.body();
+                if(status.getStatus().equals("success")) {
+                    ((EventDetailActivity) getActivity()).setEventAttandeeStatus();
+                    Toast.makeText(getContext(), "You are in", Toast.LENGTH_LONG).show();
+                    getActivity().onBackPressed();
+                }
+                else
+                    Toast.makeText(getContext(), status.getResult(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Status> call, Throwable t) {
+                getActivity().onBackPressed();
+            }
+        });
+
     }
 }

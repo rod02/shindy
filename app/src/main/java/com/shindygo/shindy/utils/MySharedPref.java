@@ -8,6 +8,7 @@ import com.shindygo.shindy.Api;
 public class MySharedPref {
     private static final String SHARED_PREF = "my_shared_pref";
     private static final String NEW_USERS_COUNT = "new_users_count";
+    private static final String ALERT_INVITE_ANONYM = "alert_invite_anonymous";
 
 
     private static  SharedPreferences getPref(){
@@ -34,5 +35,17 @@ public class MySharedPref {
 
     }
 
+    public static  boolean showInviteAnonymousAlert(){
+        return  getPref().getBoolean(ALERT_INVITE_ANONYM, true);
+
+
+    }
+    public static  void setInviteAnonymous(boolean show){
+        SharedPreferences.Editor editor = getEditor();
+        editor.putBoolean(ALERT_INVITE_ANONYM, show);
+        editor.apply();
+
+
+    }
 
 }

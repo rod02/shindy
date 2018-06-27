@@ -411,5 +411,31 @@ public class User {
 
     }
 
+    public String getShowMyGenderPref() {
+        return showMyGenderPref;
+    }
 
+    public void setShowMyGenderPref(String showMyGenderPref) {
+        this.showMyGenderPref = showMyGenderPref;
+    }
+
+    public String getInviteMeOtherShareGenderPref() {
+        return inviteMeOtherShareGenderPref;
+    }
+
+    public void setInviteMeOtherShareGenderPref(String inviteMeOtherShareGenderPref) {
+        this.inviteMeOtherShareGenderPref = inviteMeOtherShareGenderPref;
+    }
+
+    public String getAllowAnonymousInvite() {
+        return allowAnonymousInvite;
+    }
+
+    public void setAllowAnonymousInvite(String allowAnonymousInvite) {
+        this.allowAnonymousInvite = allowAnonymousInvite;
+    }
+
+    public boolean showMyGender(){
+        return (getShowMyGenderPref()==null || getShowMyGenderPref().equals("")? false :true );
+    }
 }

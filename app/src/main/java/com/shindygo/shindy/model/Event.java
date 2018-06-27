@@ -6,7 +6,11 @@ import android.os.Parcelable;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.shindygo.shindy.Api;
+import com.shindygo.shindy.R;
+import com.shindygo.shindy.utils.TextUtils;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -799,5 +803,23 @@ public class Event implements Parcelable {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public String getEventSched() {
+        String schedStartDate = getSchedStartdate();
+        try {
+            schedStartDate = TextUtils.formatDate(getSchedStartdate(), TextUtils.SDF_1, TextUtils.SDF_2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String timeDuration = TextUtils.getTimeDuration(this);
+        try {
+            timeDuration = TextUtils.formatTime(this, TextUtils.SDF_3, TextUtils.SDF_4);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return Api.getContext().getString(R.string.event_sched_n_n,
+                schedStartDate,
+                timeDuration);
     }
 }

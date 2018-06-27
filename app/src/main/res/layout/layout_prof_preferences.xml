@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/rl_button_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dark_gray">
+
+                    <RelativeLayout
+                        android:id="@+id/button_age"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center">
+
+                        <View
+                            android:layout_width="@dimen/expandable_triangle_size"
+                            android:layout_height="@dimen/expandable_triangle_size"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:background="@drawable/triangle" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="40dp"
+                        android:layout_toStartOf="@id/button_age"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center_vertical"
+                        android:text="@string/age_preferences"
+                        android:textAllCaps="true" />
+                </RelativeLayout>
+
+                <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                    android:id="@+id/exl_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_button_age"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:orientation="vertical"
+                    app:ael_duration="400"
+                    app:ael_expanded="false"
+                    app:ael_interpolator="fastOutSlowIn">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp30"
+                        android:layout_marginStart="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:layout_weight="1"
+                            android:text="@string/age_pref_to_be_invited"
+                            android:textSize="14sp" />
+
+                        <Spinner
+                            android:id="@+id/sp_age"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="@dimen/prof_pref_spinner_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_weight="0"
+                            android:entries="@array/age_list"
+                            android:gravity="center_vertical"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_dist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_age">
+
+                <RelativeLayout
+                    android:id="@+id/rl_button_dist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dark_gray">
+
+                    <RelativeLayout
+                        android:id="@+id/button_distance"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center">
+
+                        <View
+                            android:layout_width="@dimen/expandable_triangle_size"
+                            android:layout_height="@dimen/expandable_triangle_size"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:background="@drawable/triangle" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="40dp"
+                        android:layout_toStartOf="@id/button_distance"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center_vertical"
+                        android:text="@string/distance"
+                        android:textAllCaps="true" />
+                </RelativeLayout>
+
+                <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                    android:id="@+id/exl_dist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_button_dist"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:orientation="vertical"                    
+                    app:ael_interpolator="fastOutSlowIn"
+                    app:ael_duration="400"
+                    app:ael_expanded="false">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginStart="40dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="false"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:text="@string/prof_pref_show_distance"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/textView6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/does_not_apply_extreme_events"
+                                android:textSize="8sp" />
+                        </LinearLayout>
+
+                        <Spinner
+                            android:id="@+id/sp_distance"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="@dimen/prof_pref_spinner_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:layout_weight="0"
+                            android:entries="@array/distance"
+                            android:paddingBottom="15dp"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+                </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_dist">
+
+                <RelativeLayout
+                    android:id="@+id/rl_button_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dark_gray">
+
+                    <RelativeLayout
+                        android:id="@+id/button_gender"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center">
+
+                        <View
+                            android:layout_width="@dimen/expandable_triangle_size"
+                            android:layout_height="@dimen/expandable_triangle_size"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:background="@drawable/triangle" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="40dp"
+                        android:layout_toStartOf="@id/button_gender"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center_vertical"
+                        android:text="@string/gender_preference"
+                        android:textAllCaps="true" />
+                </RelativeLayout>
+
+                <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                    android:id="@+id/exl_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_button_gender"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:orientation="vertical"
+                    app:ael_duration="400"
+                    app:ael_expanded="false"
+                    app:ael_interpolator="fastOutSlowIn">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="false"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:layout_weight="1"
+                            android:gravity="clip_vertical"
+                            android:text="@string/interested_in"
+                            android:textSize="14sp" />
+
+                        <Spinner
+                            android:id="@+id/sp_gender"
+                            style="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:layout_width="@dimen/prof_pref_spinner_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:entries="@array/religion"
+                            android:paddingBottom="15dp"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/dp30"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="false"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:layout_weight="1"
+                            android:text="@string/show_my_gender_pref_on_profile"
+                            android:textSize="14sp" />
+
+                        <Switch
+                            android:id="@+id/sw_gender_show"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:layout_weight="0"
+                            android:padding="@dimen/dp10" />
+
+                    </LinearLayout>
+
+
+                </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_gender">
+
+                <RelativeLayout
+                    android:id="@+id/rl_button_religion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dark_gray">
+
+                    <RelativeLayout
+                        android:id="@+id/button_religion"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center">
+
+                        <View
+                            android:layout_width="@dimen/expandable_triangle_size"
+                            android:layout_height="@dimen/expandable_triangle_size"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:background="@drawable/triangle" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="40dp"
+                        android:layout_toStartOf="@id/button_religion"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center_vertical"
+                        android:text="@string/religion"
+                        android:textAllCaps="true" />
+                </RelativeLayout>
+
+                <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                    android:id="@+id/exl_religion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_button_religion"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:orientation="vertical"
+                    app:ael_duration="400"
+                    app:ael_expanded="false"
+                    app:ael_interpolator="fastOutSlowIn">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp30"
+                        android:layout_marginStart="40dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="false"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:layout_weight="1"
+                                android:gravity="clip_vertical"
+                                android:text="@string/religion_que"
+                                android:textSize="14sp" />
+
+                            <Spinner
+                                android:id="@+id/sp_religion"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"
+                                android:layout_width="@dimen/prof_pref_spinner_width"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:entries="@array/religion"
+                                android:paddingBottom="15dp"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="@dimen/dp5"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="false"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:layout_weight="1"
+                                android:gravity="clip_vertical"
+                                android:text="@string/show_my_religion_on_profile"
+                                android:textSize="14sp" />
+
+                            <Switch
+                                android:id="@+id/sw_religion_show"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:padding="@dimen/dp10" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="@dimen/dp10"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="false"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:layout_weight="1"
+                                android:gravity="clip_vertical"
+                                android:text="@string/invite_me_to_events_other_religion"
+                                android:textSize="14sp" />
+
+                            <Spinner
+                                android:id="@+id/sp_religion_able_invite"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"
+                                android:layout_width="@dimen/prof_pref_spinner_width"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:entries="@array/religion_with_others"
+                                android:paddingBottom="15dp"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_avail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_rel">
+
+                <RelativeLayout
+                    android:id="@+id/rl_button_avail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dark_gray">
+
+                    <RelativeLayout
+                        android:id="@+id/button_avail"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:gravity="center">
+
+                        <View
+                            android:layout_width="@dimen/expandable_triangle_size"
+                            android:layout_height="@dimen/expandable_triangle_size"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dp20"
+                            android:background="@drawable/triangle" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="40dp"
+                        android:layout_toStartOf="@id/button_avail"
+                        android:fontFamily="@font/robotobold"
+                        android:gravity="center_vertical"
+                        android:text="@string/availability"
+                        android:textAllCaps="true" />
+                </RelativeLayout>
+
+                <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                    android:id="@+id/exl_avail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_button_avail"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:orientation="vertical"
+                    app:ael_duration="400"
+                    app:ael_expanded="false"
+                    app:ael_interpolator="fastOutSlowIn">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/dp30"
+                                android:layout_marginStart="40dp"
+                                android:layout_marginTop="@dimen/dp10"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginEnd="@dimen/dp20"
+                                    android:layout_weight="1"
+                                    android:text="@string/times_not_available"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/does_not_apply_extreme_events"
+                                    android:textSize="8sp" />
+                            </LinearLayout>
+
+                            <Spinner
+                                android:id="@+id/sp_avaiba"
+                                style="@style/Widget.AppCompat.Spinner.Underlined"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp20"
+                                android:layout_weight="1"
+                                android:entries="@array/availability"
+                                android:paddingBottom="15dp"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/button3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:text="@string/add" />
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+
+                </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

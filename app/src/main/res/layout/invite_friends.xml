@@ -33,15 +33,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/top"
         android:layout_marginStart="@dimen/dp20"
-        android:layout_marginTop="@dimen/dp20"
-        android:layout_below="@+id/top">
+        android:layout_marginTop="@dimen/dp10">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="EVENT"
-            android:textColor="@android:color/black"
-           />
+            android:textColor="@android:color/black" />
 
         <View
             android:layout_width="match_parent"
@@ -54,35 +54,33 @@
 
     <include
         android:id="@+id/item"
-        layout="@layout/item_my_shindings"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_height="wrap_content"
+        layout="@layout/item_invite_friends_event"
         android:layout_width="wrap_content"
-        android:layout_marginTop="@dimen/dp10"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2" />
 
     <RelativeLayout
         android:id="@+id/rl1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="35dp"
         android:layout_below="@+id/item"
-        android:layout_marginTop="@dimen/dp20"
         android:background="#ffc105">
+
         <TextView
             android:id="@+id/tetx1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/robotoregular"
             android:shadowColor="#19020304"
             android:shadowDx="1.2246467991473532e-16"
             android:shadowDy="2"
             android:shadowRadius="6"
-            android:textSize="15sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:textColor="#fafafa"
             android:text="SELECT FRIENDS BELOW"
-            />
+            android:textColor="#fafafa"
+            android:textSize="12sp"
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/text2"
@@ -91,23 +89,24 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="52dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/robotoregular"
             android:shadowColor="#19020304"
             android:shadowDx="1.2246467991473532e-16"
             android:shadowDy="2"
             android:shadowRadius="6"
             android:text="INVITE BY"
             android:textColor="#fafafa"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:textStyle="normal" />
+
         <ImageView
             android:id="@+id/send_invite_email"
             android:layout_width="20dp"
             android:layout_height="15dp"
-            android:src="@drawable/envelope"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
-            android:layout_centerVertical="true"/>
+            android:src="@drawable/envelope" />
     </RelativeLayout>
     <RelativeLayout android:layout_below="@+id/rl1"
         android:id="@+id/ll1"

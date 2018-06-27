@@ -1,5 +1,7 @@
 package com.shindygo.shindy.utils;
 
+import com.shindygo.shindy.Api;
+import com.shindygo.shindy.R;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.Event;
 
@@ -119,5 +121,23 @@ public class TextUtils {
         return getTimeDuration(formatTime(event.getStartTime(),formatFrom,formatTo),
                 formatTime(event.getEndTime(),formatFrom,formatTo)
                 );
+    }
+
+    public static String getEventSched(Event event) {
+        String schedStartDate = event.getSchedStartdate();
+        try {
+            schedStartDate = TextUtils.formatDate(event.getSchedStartdate(), TextUtils.SDF_1, TextUtils.SDF_2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String timeDuration = TextUtils.getTimeDuration(event);
+        try {
+            timeDuration = TextUtils.formatTime(event, TextUtils.SDF_3, TextUtils.SDF_4);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return Api.getContext().getString(R.string.event_sched_n_n,
+                schedStartDate,
+                timeDuration);
     }
 }

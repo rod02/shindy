@@ -346,7 +346,7 @@ da                    android:textSize="18sp" />-->
                 android:layout_marginLeft="@dimen/dp10"
                 android:layout_marginRight="@dimen/dp10"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <ImageView
                     android:layout_width="@dimen/dp20"

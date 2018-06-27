@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.shindygo.shindy.api.EventController;
 import com.shindygo.shindy.main.adapter.ReviewDetailsEventAdapter;
@@ -47,6 +49,13 @@ public class ReviewDetailEventFragment extends Fragment {
     Event event;
     @BindView(R.id.rv_list)
     RecyclerView rvChooseEvent;
+    @BindView(R.id.rb_total)
+    RatingBar rbTotal;
+    @BindView(R.id.tv_rating_total)
+    TextView tvRatingTotal;
+    @BindView(R.id.tv_total_reviews)
+    TextView tvTotalReviews;
+
     Unbinder unbinder;
 
     // TODO: Rename and change types of parameters
@@ -90,7 +99,7 @@ public class ReviewDetailEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_liked, container, false);
+        View view = inflater.inflate(R.layout.fragment_review_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
         rvChooseEvent.setLayoutManager(new LinearLayoutManager(getContext()));
         try {
@@ -100,8 +109,22 @@ public class ReviewDetailEventFragment extends Fragment {
                 public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
                     try {
                         List<Rating> resp = (List<Rating>)response.body();
-                        adapter = new ReviewDetailsEventAdapter(resp);
-                        rvChooseEvent.setAdapter(adapter);
+                        if(resp!=null){
+                            tvTotalReviews.setText(String.valueOf(resp.size()));
+                            adapter = new ReviewDetailsEventAdapter(resp);
+                            rvChooseEvent.setAdapter(adapter);
+                            float i = 0;
+                            for (Rating  r : resp){
+                                try {
+                                    i=+Float.parseFloat(r.getRating());
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+                            rbTotal.setRating(i);
+                            tvRatingTotal.setText(String.valueOf(i));
+                        }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

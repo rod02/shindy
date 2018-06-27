@@ -39,6 +39,9 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.shindygo.shindy.Api;
@@ -55,6 +58,10 @@ import com.shindygo.shindy.model.Filter;
 import com.shindygo.shindy.model.InviteEvent;
 import com.shindygo.shindy.model.User;
 import com.shindygo.shindy.utils.GlideImage;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -189,68 +196,6 @@ public class UsersFragment extends Fragment {
                 startActivityForResult(intent,96);
             }
         });
-//        adapter = new UsersAdapter(users, eventList, new ClickUser() {
-//            @Override
-//            public void Click(User user) {
-//
-//            }
-//        }, new ClickCard() {
-//            @Override
-//            public void Click(boolean b) {
-//
-//            }
-//        });
-
-
-/*
-
-        searchUserImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchView.setVisibility(searchView.getVisibility()==View.VISIBLE?GONE:View.VISIBLE);
-                etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                        seachF(etSearch.getText().toString());
-                        return true;
-                    }
-                });
-            }
-        });
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etSearch.setText("");
-            }
-        });
-        //seach("");
-       searchUserSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               seachF(etSearch.getText().toString());
-           }
-
-           @Override
-           public void onNothingSelected(AdapterView<?> adapterView) {
-
-           }
-       });
-        return view;
-    }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-
-
-
-*/
-
 
         searchUserImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -349,6 +294,8 @@ public class UsersFragment extends Fragment {
                     case FACEBOOK:
                         users.clear();
                         adapter.notifyDataSetChanged();
+                        /*
+                        */
                        /*AccessToken accessToken = AccessToken.getCurrentAccessToken();
                        Log.v(TAG,"fb accessToken");
                        Log.v(TAG,"size: "+accessToken.getPermissions().size());
@@ -373,6 +320,8 @@ public class UsersFragment extends Fragment {
                            request.executeAsync();
                        }
 */
+
+                      // fetchFbFriends();
                         break;
 
                     default:
@@ -387,8 +336,54 @@ public class UsersFragment extends Fragment {
             }
         });
 
-        //fbInit();
+       // fbInit();
+        seachF("");
         return view;
+    }
+
+    private void fetchFbFriends() {
+        final GraphRequest request_getFriends = new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/" + AccessToken.getCurrentAccessToken().getUserId() + "/friends?",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+
+                    @Override
+                    public void onCompleted(GraphResponse response) {
+                        Log.d(TAG, "request fb OnCompleted");
+                        Log.d(TAG, "request fb OnCompleted " + response.toString());
+
+                        JSONObject object = response.getJSONObject();
+                        try {
+                            if (object !=null){
+                                Log.d(TAG, "request fb OnCompleted not null "+ object.toString());
+                                JSONArray data = object.getJSONArray("data");
+                                for (int i = 0; i < data.length(); i++) {
+                                    String id = data.getJSONObject(i).getString("id");
+                                    String name = data.getJSONObject(i).getString("name");
+                                    Log.d(TAG, "request fb OnCompleted not null "+ id + " "+name);
+
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                }
+        );
+
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                request_getFriends.executeAndWait();
+            }
+        }
+        );
+
+        t.start();
     }
 
     private void fbInit() {
@@ -396,8 +391,8 @@ public class UsersFragment extends Fragment {
         if(!hasPermission(FB_RQ_FRIENDS)){
             LoginManager mLoginManager = LoginManager.getInstance();
             mLoginManager.logInWithReadPermissions(this, Arrays.asList(FB_RQ_FRIENDS));
-            mLoginManager.logInWithPublishPermissions(this,
-                    Arrays.asList(new String[]{"publish_actions"}));
+            /*mLoginManager.logInWithPublishPermissions(this,
+                    Arrays.asList(new String[]{"publish_actions"}));*/
             mLoginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
@@ -724,9 +719,10 @@ public class UsersFragment extends Fragment {
                                             star.setColorFilter(null);
                                         mPopupWindow = new PopupWindow(
                                                 customView,
-                                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                                ViewGroup.LayoutParams.WRAP_CONTENT
+                                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                                ViewGroup.LayoutParams.MATCH_PARENT
                                         );
+
                                         if (Build.VERSION.SDK_INT >= 21) {
                                             mPopupWindow.setElevation(5.0f);
                                         }

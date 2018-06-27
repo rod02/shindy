@@ -709,8 +709,8 @@ public class NewUsersFragment extends Fragment {
                             star.setColorFilter(null);
                         mPopupWindow = new PopupWindow(
                                 customView,
-                                ViewGroup.LayoutParams.WRAP_CONTENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT
                         );
                         if (Build.VERSION.SDK_INT >= 21) {
                             mPopupWindow.setElevation(5.0f);

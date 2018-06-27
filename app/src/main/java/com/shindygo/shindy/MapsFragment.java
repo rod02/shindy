@@ -178,6 +178,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         int distanceInMiles = (int) (currentLocation.distanceTo(loc2) * 0.000621371);
 
         markerOptions.snippet(getString(R.string.miles_away_d, distanceInMiles));
+        markerOptions.snippet(markerOptions.getSnippet()   +" \n"
+                + event.getFulladdress());
+        markerOptions.title(event.getEventname());
         // Placing a marker on the touched position
         Marker marker = mMap.addMarker(markerOptions);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
@@ -204,11 +207,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
                 snippet.setTextColor(Color.GRAY);
                 snippet.setText(marker.getSnippet());
 
-                // info.addView(title);
+                info.addView(title);
                 info.addView(snippet);
                 return info;
             }
         });
+        marker.showInfoWindow();
 
 
     }

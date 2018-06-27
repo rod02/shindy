@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp10"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/close"
+            android:layout_width="@dimen/toolbar_icon_size"
+            android:layout_height="@dimen/toolbar_icon_size"
+            android:layout_alignParentEnd="true"
+            android:alpha=".7"
+            android:background="@android:drawable/presence_offline" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp10"
+            android:text="@string/mark_invite_anonymous"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:fontFamily="@font/robotoitalic"
+            android:text="@string/mark_anonymous_message" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="false"
+            android:layout_below="@+id/tv_message"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp20">
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="@dimen/btn_reg_width_size"
+                android:layout_height="@dimen/btn_reg_height_size"
+                android:layout_marginEnd="@dimen/dp20"
+                android:layout_weight="1"
+                android:background="@drawable/messenger_button_blue_bg_selector"
+                android:text="@string/ok"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                style="@android:style/Widget.Holo.Light.CompoundButton.CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:text="@string/dont_show_again" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

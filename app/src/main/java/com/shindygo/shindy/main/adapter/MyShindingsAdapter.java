@@ -1,8 +1,5 @@
 package com.shindygo.shindy.main.adapter;
 
-/**
- * Created by User on 16.03.2018.
- */
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,15 +22,13 @@ import com.shindygo.shindy.activity.SendInviteActivity;
 import com.shindygo.shindy.interfaces.ClickEvent;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.utils.GlideImage;
+import com.shindygo.shindy.utils.TextUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Sergey on 24.10.2017.
- */
 
 public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.MyShindingsHolder> {
 
@@ -124,7 +119,7 @@ public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.
                 if (event.getCreatedby() != null || !event.getCreatedby().equals("")){
                     Log.d(TAG, "adapter:privateHost: "+event.getPrivate_host() + " createdBy: "+ event.getCreatedby());
                 tvPrivateHost.setVisibility(View.VISIBLE);
-                tvPrivateHost.setText(context.getResources().getString(R.string.private_host_n, event.getCreatedby()));
+                tvPrivateHost.setText(context.getResources().getString(R.string.private_host_n, event.getPrivate_host()));
                 }
                 else
                     tvPrivateHost.setVisibility(View.GONE);
@@ -138,14 +133,19 @@ public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.
 
                     tvOffer.setVisibility(event.getOffer_to_pay().equals("1")?View.VISIBLE:View.GONE);
 
-                tvDate.setText(event.getSchedStartdate());
+                tvDate.setText(event.getEventSched());
                 tvExpires.setText(event.getExpirydate());
                 manCount.setText(event.getMax_male());
                 womenCount.setText(event.getMax_female());
                 tvEventName.setText(event.getEventname());
                 ivAvatar.setImageResource(android.R.color.transparent);
                 //Glide.with(context).load(event.getImage()).into(ivAvatar);
-                GlideImage.load(event.getImage(), ivAvatar);
+                try {
+                    GlideImage.load(event.getImage(), ivAvatar);
+
+                }catch (Exception e){
+                    Log.e(TAG, "glide");
+                }
 
                 rl.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -158,23 +158,32 @@ public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.
                     public void onClick(View v) {
                         Intent intent = new Intent(context, EventDetailActivity.class);
                         intent.putExtra("event", event);
+                        bar.setVisibility(bar.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+
                         context.startActivity(intent);
                     }
                 });
                 llFavorite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        bar.setVisibility(bar.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+
                         context.startActivity(new Intent(context, MyInvitesActivity.class).putExtra("event", event));
+
                     }
                 });
                 llMessage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        bar.setVisibility(bar.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+
                         context.startActivity(new Intent(context, SendInviteActivity.class).putExtra("event", event));
                     }
                 });
             } catch (Exception e) {
-                e.printStackTrace();
+               // e.printStackTrace();
+                Log.e(TAG, "aadapater");
+
             }
 
         }

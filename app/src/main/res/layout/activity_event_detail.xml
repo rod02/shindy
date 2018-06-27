@@ -136,7 +136,7 @@
                         app:tabMode="fixed"
                         app:tabSelectedTextColor="@android:color/black"
                         app:tabTextColor="@android:color/black"
-                        app:tabTextSize="7sp" />
+                        app:tabTextSize="8sp" />
 
 
                 </LinearLayout>
@@ -491,12 +491,6 @@
 
         </com.shindygo.shindy.widget.MyNestedScrollView>
 
-        <FrameLayout
-            android:id="@+id/frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
 
         <RelativeLayout
             android:id="@+id/menu"
@@ -512,6 +506,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
 
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="auto"
+        android:focusableInTouchMode="false"
         android:visibility="gone" />
 
     <ImageView

@@ -57,6 +57,7 @@ public class Rating {
     }
 
     public String getRating() {
+        if(rating==null || rating.equals(""))return "0";
         return rating;
     }
 

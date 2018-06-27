@@ -104,8 +104,8 @@ public class SendInviteActivity extends AppCompatActivity {
     String event;
     @BindView(R.id.tv_date)
     TextView tvDate;
-    @BindView(R.id.tv_expires)
-    TextView tvExpires;
+   /* @BindView(R.id.tv_expires)
+    TextView tvExpires;*/
     @BindView(R.id.iv_avatar)
     RoundedImageView ivAvatar;
     @BindView(R.id.man_count)
@@ -139,8 +139,8 @@ public class SendInviteActivity extends AppCompatActivity {
             finish();
         }
         tvEventName.setText(eventFull.getEventname());
-        tvDate.setText(eventFull.getStartTime());
-        tvExpires.setText(eventFull.getExpirydate());
+        tvDate.setText(eventFull.getEventSched());
+      //  tvExpires.setText(eventFull.getExpirydate());
         manCount.setText(eventFull.getMax_male());
         womenCount.setText(eventFull.getMax_female());
         Glide.with(getApplicationContext()).load(eventFull.getImage()).into(ivAvatar);

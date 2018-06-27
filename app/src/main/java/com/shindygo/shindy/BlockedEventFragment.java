@@ -93,7 +93,7 @@ public class BlockedEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_liked, container, false);
+        View view = inflater.inflate(R.layout.fragment_blocked_event, container, false);
         unbinder = ButterKnife.bind(this, view);
         eventController = new EventController(getContext());
 
@@ -116,31 +116,36 @@ public class BlockedEventFragment extends Fragment {
                     blockedEventAdapter = new BlockedEventAdapter(events, new ClickEvent() {
                         @Override
                         public void Click(Event event) {
-                            events.remove(event);
-                            blockedEventAdapter.notifyDataSetChanged();
-                            eventController.unblockEvent(event.getEventid(), event.getBlockCode(), new Callback<Respo>() {
-                                @Override
-                                public void onResponse(Call<Respo> call, Response<Respo> response) {
-                                    try {
-                                        if(response.body().isSuccses())
-                                            Toast.makeText(getContext(),"Event Unblocked",Toast.LENGTH_SHORT).show();
-                                        else
+                            try {
+                                events.remove(event);
+                                blockedEventAdapter.notifyDataSetChanged();
+                                eventController.unblockEvent(event.getEventid(), event.getBlockCode(), new Callback<Respo>() {
+                                    @Override
+                                    public void onResponse(Call<Respo> call, Response<Respo> response) {
+                                        try {
+                                            if(response.body().isSuccses())
+                                                Toast.makeText(getContext(),"Event Unblocked",Toast.LENGTH_SHORT).show();
+                                            else
+                                                Toast.makeText(getContext(),"You can`t unblock event",Toast.LENGTH_SHORT).show();
+
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
                                             Toast.makeText(getContext(),"You can`t unblock event",Toast.LENGTH_SHORT).show();
+                                        }
 
-
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                        Toast.makeText(getContext(),"You can`t unblock event",Toast.LENGTH_SHORT).show();
                                     }
 
-                                }
+                                    @Override
+                                    public void onFailure(Call<Respo> call, Throwable t) {
+                                        t.printStackTrace();
 
-                                @Override
-                                public void onFailure(Call<Respo> call, Throwable t) {
-                                    t.printStackTrace();
+                                    }
+                                });
+                            }catch (NullPointerException e){
+                                e.printStackTrace();
+                            }
 
-                                }
-                            });
                         }
 
                         @Override
@@ -150,16 +155,26 @@ public class BlockedEventFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
-                    if (events!=null)
-                        rvChooseEvent.setAdapter(blockedEventAdapter);
+                    try {
+                        if (events!=null)
+                            rvChooseEvent.setAdapter(blockedEventAdapter);
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+
                 }
 
                 @Override
                 public void onFailure(Call<List<Event>> call, Throwable t) {
                     t.printStackTrace();
-                    events.clear();
-                    if (blockedEventAdapter!=null)
-                        blockedEventAdapter.notifyDataSetChanged();
+                    try {
+                        events.clear();
+                        if (blockedEventAdapter!=null)
+                            blockedEventAdapter.notifyDataSetChanged();
+                    }catch (NullPointerException e){
+
+                    }
+
                 }
             });
         } catch (Exception e) {

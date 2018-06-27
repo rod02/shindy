@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#007aff</color>
     <color name="colorPrimaryDark">#B2B2B2</color>
+    <color name="white">#FFF</color>
     <color name="gray">#616161</color>
     <color name="colorAccent">#FFC000</color>
     <color name="fb_blue">#3B5998</color>
@@ -16,4 +17,9 @@
     <color name="green_online">#4CD964</color>
     <color name="new_user_bg">#FFFFFF</color>
     <color name ="emptydots">#91bce2</color>
+
+    <color name="text_link_pressed">#03ffe2</color>
+    <color name="btn_post_pressed">#FF1493</color>
+    <color name="text_link_color">#0000ff</color>
+
 </resources>

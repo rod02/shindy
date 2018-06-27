@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_item_invited_event"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp10">
+
+
+    <LinearLayout
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp10"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/item_invited_event_icon_width_size"
+            android:layout_height="@dimen/item_invited_event_icon_height_size"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ted"
+            android:transitionName="@string/transition_event_image"
+            app:riv_corner_radius="0dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_toLeftOf="@+id/lay_edit"
+        android:layout_toRightOf="@+id/start"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_eventName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/robotoregular"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="TED Conference"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_invited_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/robotoregular"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@string/invited_by_n"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/robotoregular"
+            android:text="@string/date_n"
+            android:textSize="12sp"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

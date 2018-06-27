@@ -1,51 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
-    
+    android:paddingBottom="20dp"
+    android:paddingEnd="@dimen/dp10"
+    android:paddingStart="@dimen/dp10"
+    android:paddingTop="@dimen/dp20">
+
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="80dp"
         android:id="@+id/iv_avatar"
-        android:src="@drawable/ic_launcher_background"
+        android:layout_width="@dimen/item_list_avatar_size"
+        android:layout_height="@dimen/item_list_avatar_size"
         android:layout_centerVertical="true"
-        android:layout_height="80dp" />
+        android:src="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
         android:layout_centerVertical="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginEnd="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp10"
         android:layout_toEndOf="@+id/iv_avatar"
-        android:text="Tony Cage, 23" />
+        android:layout_toStartOf="@+id/lay_icons"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Tony Cage, 23"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
 
     <LinearLayout
-        android:layout_width="149dp"
+        android:id="@+id/lay_icons"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/doller"
             android:layout_width="@dimen/image_invite"
             android:layout_height="@dimen/image_invite"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:visibility="invisible"
             android:src="@drawable/doller"
-            android:tint="@color/gray_tint" />
+            android:tint="@color/gray_tint"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/anonim"
             android:layout_width="@dimen/image_invite"
             android:layout_height="@dimen/image_invite"
-            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/dp10"
 
-            android:visibility="invisible"
+            android:layout_weight="1"
             android:src="@drawable/invisible"
-            android:tint="@color/gray_tint" />
+            android:tint="@color/gray_tint"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/check"

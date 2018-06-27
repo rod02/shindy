@@ -24,7 +24,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/profile_pic" />
 
             <TextView
@@ -42,14 +42,57 @@
                 android:textColor="@android:color/white" />
 
             <ImageView
+                android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_margin="@dimen/dp16"
-                android:id="@+id/back"
                 android:scaleType="centerInside"
                 android:src="@drawable/navigation_lines"
                 android:tint="@android:color/white" />
+
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignBaseline="@+id/imageView2"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_weight="1"
+                android:autoLink="all"
+                android:linksClickable="false"
+                android:selectAllOnFocus="false"
+                android:text="@string/preview"
+                android:textColor="@color/navigation_notification_yellow" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/tv_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp10"
+                android:layout_weight="1"
+                android:autoLink="all"
+                android:linksClickable="false"
+                android:selectAllOnFocus="false"
+                android:text="@string/logout"
+                android:textColor="@color/navigation_notification_yellow" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,7 +112,9 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@string/profile_preferences"
-                android:textColor="@android:color/black" />
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -78,16 +123,6 @@
                 android:layout_weight="1"
                 android:background="@android:color/darker_gray" />
 
-            <TextView
-                android:id="@+id/tv_preview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp10"
-                android:autoLink="all"
-                android:linksClickable="false"
-                android:selectAllOnFocus="false"
-                android:text="@string/preview"
-                android:textColor="@color/navigation_notification_yellow" />
         </LinearLayout>
 
         <LinearLayout
@@ -100,13 +135,13 @@
                 android:id="@+id/et_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edit_text_border"
+                android:background="@drawable/rounded_border_gray"
                 android:gravity="top"
                 android:hint="write about yourself..."
                 android:lines="4"
-                android:maxLines="5"
                 android:maxLength="131"
-                android:padding="5dp"
+                android:maxLines="5"
+                android:padding="10dp"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@android:color/black" />
 
@@ -123,12 +158,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Zip code:"
+                    android:textAllCaps="true"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -139,41 +177,32 @@
                     android:inputType="number"
                     android:padding="@dimen/dp10" />
             </LinearLayout>
-        <!--    <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ALLOW ANONYMOUS USERS" />
-
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp10"
-                android:layout_weight="1"
+               android:layout_weight="1"
                 android:background="@android:color/darker_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="@dimen/dp5"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Allow anonimous invite"
+                    android:text="@string/allow_anonym_invite"
+                    android:textAllCaps="true"
                     android:textColor="@android:color/black" />
 
                 <Switch
+                    android:id="@+id/sw_allow_anonym"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -187,122 +216,54 @@
                 android:layout_weight="1"
                 android:background="@android:color/darker_gray" />
 
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Age preferences"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/et_age"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="3"
-                    android:padding="@dimen/dp10" />
-                <Spinner
-                    android:visibility="gone"
-                    android:id="@+id/sp_age"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/age_list"
-                    android:padding="@dimen/dp10" />
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp10"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/distance"
+                    android:layout_marginEnd="@dimen/dp10"
+                    android:text="@string/groups"
+                    android:textAllCaps="true"
                     android:textColor="@android:color/black" />
-
-                <Spinner
-                    android:id="@+id/sp_distance"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/distance"
-                    android:padding="@dimen/dp10" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_join_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/religion"
-                    android:textColor="@android:color/black" />
-
-                <Spinner
-                    android:id="@+id/sp_religion"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/religion"
-                    android:padding="@dimen/dp10" />
+                    android:text="@string/join_groups"
+                    android:textColor="@color/text_link" />
             </LinearLayout>
 
-            <LinearLayout
+
+            <include
+                layout="@layout/layout_prof_preferences"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/gender_preference"
-                    android:textColor="@android:color/black" />
-
-                <Spinner
-                    android:id="@+id/gender"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/gender_preference"
-                    android:padding="@dimen/dp10" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/availability"
-                    android:textColor="@android:color/black" />
-
-                <Spinner
-                    android:id="@+id/sp_avaiba"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/availability"
-                    android:padding="@dimen/dp10" />
-            </LinearLayout>
+                android:layout_height="wrap_content" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="@dimen/dp20"
                 android:layout_weight="1"
                 android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:layout_marginEnd="@dimen/dp20"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="20dp"
+                android:text="@string/all_rights_reserved" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
 
@@ -349,12 +310,6 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@android:color/darker_gray" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

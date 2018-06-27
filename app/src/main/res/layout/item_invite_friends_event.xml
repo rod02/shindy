@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_item_invited_event"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp10">
+
+
+    <LinearLayout
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp10"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/item_invited_event_icon_width_size"
+            android:layout_height="@dimen/item_invited_event_icon_height_size"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ted"
+            android:transitionName="@string/transition_event_image"
+            app:riv_corner_radius="0dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_toLeftOf="@+id/lay_edit"
+        android:layout_toRightOf="@+id/start"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_eventName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/robotoregular"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="TED Conference"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/robotoregular"
+            android:text="@string/date_n"
+            android:textSize="12sp"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="1dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginStart="@dimen/dp10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/man_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="17"
+                    android:textSize="7dp" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:src="@drawable/man" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/women_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="5"
+                    android:textSize="7dp" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:src="@drawable/lady" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_sold_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp5"
+                android:text="sold out"
+                android:textColor="#fe6b63"
+                android:textSize="@dimen/dp5"
+                android:textStyle="italic"
+                android:visibility="gone" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

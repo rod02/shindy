@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="false" android:state_selected="false" android:drawable="@color/green_online" android:textColor="@color/white" />
+
+    <item android:state_pressed="true"   android:drawable="@drawable/box_border_green" android:textColor="@color/green_online"/>
+    <item android:state_pressed="false" android:state_selected="true" android:drawable="@drawable/box_border_green" android:textColor="@color/green_online"/>
+</selector>

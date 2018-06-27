@@ -133,21 +133,7 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
                 Glide.with(context).load(R.mipmap.ic_launcher).into(avatar);
             }*/
             tvEventName.setText(event.getEventname());
-            String schedStartDate = event.getSchedStartdate();
-            try {
-                schedStartDate = TextUtils.formatDate(event.getSchedStartdate(), TextUtils.SDF_1, TextUtils.SDF_2);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            String timeDuration = TextUtils.getTimeDuration(event);
-            try {
-                timeDuration = TextUtils.formatTime(event, TextUtils.SDF_3, TextUtils.SDF_4);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            tvEventSched.setText(context.getString(R.string.event_sched_n_n,
-                    schedStartDate,
-                    timeDuration));
+            tvEventSched.setText(TextUtils.getEventSched(event));
             tvAddress.setText(event.getFulladdress());
 
             /*

@@ -22,7 +22,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="profile_preferences"><![CDATA[Profile & Preferences]]></string>
+    <string name="profile_preferences"><![CDATA[Profile & Prefs]]></string>
     <string name="event_mgmt">Event Mgmt</string>
     <string name="users_mgmt">Users Mgmt</string>
 
@@ -150,6 +150,35 @@
 
     <string name="miles_away_d">%d miles away</string>
     <string name="guest_can_invite">Guest can invite friends</string>
+    <string name="coupon_code">Coupon Code</string>
+    <string name="purchase_notice_string">All sales are final and non-refundable. You will receive an email with your ticket and additional information.</string>
+
+
+    <!--string profile review-->
+    <string name="allow_anonym_invite">Allow anonymous invites</string>
+    <string name="join_groups">Join groups with your interests</string>
+    <string name="age_preferences">Age Preferences</string>
+    <string name="age_pref_to_be_invited">Prefer to be invited with others within</string>
+    <string name="prof_pref_show_distance">Show Events Within</string>
+    <string name="does_not_apply_extreme_events">Does not apply to extreme events</string>
+    <string name="religion_que">Religion?</string>
+    <string name="show_my_religion_on_profile">Show My Religion on Profile</string>
+    <string name="invite_me_to_events_other_religion">Invite me to events with others from my religion</string>
+    <string name="interested_in">Interested in</string>
+    <string name="show_my_gender_pref_on_profile">Show my gender preference on my Profile</string>
+    <string name="all_rights_reserved">Shindy All Rights Reserved \\nFor assistance or feedback please contact us at \nsupport@shindygo.com</string>
+    <string name="pay_for_invitee">Pay for Invitee</string>
+    <string name="pay_for_invitee_message">By clicking the button below you agree to pay for the invitees ticket if the accept your invitation to attend the event. Your credit card will not be charged unless they agree to attend. You can retract your offer at any time as long as the invitee has not already accepted. All ticket sales are final and non-refundable.</string>
+    <string name="i_agree">I agree</string>
+    <string name="mark_invite_anonymous">Mark Invite Anonymous</string>
+    <string name="mark_anonymous_message">The recipient won\'t know it was you who sent them an invitation to attend your event.</string>
+    <string name="dont_show_again">Don\'t show again</string>
+    <string name="blocked_event_fragment_header">These are events that have been thumbed down and blocked. Click the block symbol to remove them from your block list.</string>
+    <string name="liked_fragment_message">These are events that have been thumbed up. This helps our super secret sauce to algorithm find related events that you might like. Click the thumb to remove them from your like list.</string>
+    <string name="blocked_users_view_message_string">Blocked users are banned from messaging you and will not be invited to your small events. (Note another user attending your event may still invite a user on your blocked list)</string>
+    <string name="times_not_available">Times not available to attend events</string>
+    <string name="add">add</string>
+    <string name="total_reviews">Total Reviews</string>
 
     <!--string quick review-->
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="com.shindygo.shindy.ReviewDetailEventFragment"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_below="@+id/top"
+    tools:context=".ReviewDetailEventFragment"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RatingBar
+            android:id="@+id/rb_total"
+            style="@android:style/Widget.Holo.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp20"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:stepSize="0.1" />
+
+        <TextView
+            android:id="@+id/tv_rating_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotobold"
+            android:text="4.7"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_total_reviews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif-monospace"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/total_reviews" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="11dp"
+        android:nestedScrollingEnabled="true"
+
+
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/item_review">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
