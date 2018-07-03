@@ -2,15 +2,22 @@ package com.shindygo.shindy;
 
 
 import android.animation.ObjectAnimator;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,6 +36,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
@@ -36,11 +44,26 @@ import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.github.aakira.expandablelayout.Utils;
+import com.shindygo.shindy.adapter.UserAvailabilityAdapter;
+import com.shindygo.shindy.dialog.TimePicker;
 import com.shindygo.shindy.model.User;
+import com.shindygo.shindy.model.UserAvailability;
 import com.shindygo.shindy.utils.GlideImage;
+import com.shindygo.shindy.utils.TextUtils;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,6 +72,8 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 
 public class ProfileActivity extends Fragment {
+
+    private static final String TAG = ProfileActivity.class.getSimpleName();
 
     @BindView(R.id.imageView2)
     ImageView imageView2;
@@ -73,12 +98,22 @@ public class ProfileActivity extends Fragment {
     Spinner gender;
     @BindView(R.id.sp_avaiba)
     Spinner spAvaiba;
+    @BindView(R.id.btn_add_availability)
+    Button btnAddAvailability;
+    @BindView(R.id.rv_not_available)
+    RecyclerView rvListNotAvailable;
     @BindView(R.id.sw_allow_anonym)
     Switch swAllowAnonymInvite;
     @BindView(R.id.sw_gender_show)
     Switch swShowMyGender;
     @BindView(R.id.sw_religion_show)
-    Switch swInviteOther;
+    Switch swShowReligion;
+    @BindView(R.id.sp_religion_able_invite)
+    Spinner spReligionAbleInvite;
+    @BindView(R.id.sp_invite_other_same_gender_pref)
+    Spinner spInviteSameGenderPref;
+
+
     @BindView(R.id.rl)
     RelativeLayout rl;
     /*@BindView(R.id.et_age)
@@ -127,11 +162,17 @@ public class ProfileActivity extends Fragment {
     LinearLayout logout;
     @BindView(R.id.tv_logout)
     TextView tvLogout;
+    @BindView(R.id.tv_join_group)
+    TextView tvJoinGroup;
 
     private PopupWindow mPopupWindow;
     private RelativeLayout mRelativeLayout;
     private Api api;
     User user;
+    List<UserAvailability> userAvailabilities = new ArrayList<>();
+    UserAvailabilityAdapter userAvailabilityAdapter ;
+
+
     public static final String BASE_URL = "http://shindygo.com/rest_webservices/restapicontroller/";
 
     private int getIndex(Spinner spinner, String myString) {
@@ -162,18 +203,24 @@ public class ProfileActivity extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 try {
-                    Log.e("124231", response.toString());
+                    Log.e(TAG, response.toString());
                     user = response.body();
                     //Glide.with(getApplicationContext()).load(user.getPhoto()).into(imageView2);
                     tvNameAge.setText(user.getFullname());
                     etZip.setText(user.getZipcode());
                     etAbout.setText(user.getAbout());
+                    swAllowAnonymInvite.setChecked(user.allowAnonymousInvite());
                   //  etAge.setText(user.getAgePref());
                     spAge.setSelection(getIndex(spAge, user.getAgePref()));
                     spDistance.setSelection(Integer.parseInt(user.getDistance()));
                     spReligion.setSelection(Integer.parseInt(user.getReligion()));
+                    swShowReligion.setChecked(user.showMyReligion());
+                    spReligionAbleInvite.setSelection(Integer.parseInt(user.getInviteMeOtherReligion()));
                     gender.setSelection(Integer.parseInt(user.getGenderPref()));
+                    swShowMyGender.setChecked(user.showMyGender());
                     spAvaiba.setSelection(getIndex(spAvaiba, user.getAvailability()));
+                    spInviteSameGenderPref.setSelection(Integer.parseInt(user.getInviteMeOtherShareGenderPref()));
+
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
@@ -184,6 +231,39 @@ public class ProfileActivity extends Fragment {
                 Log.e("124231", t.getMessage());
             }
         });
+        api.fetchUserNotAvailableTime(User.getCurrentUserId(), new Callback<List<UserAvailability>>() {
+            @Override
+            public void onResponse(Call<List<UserAvailability>> call, Response<List<UserAvailability>> response) {
+             //   Log.d(TAG, "onResponse");
+              //  Log.d(TAG, "onResponse " + response.toString());
+                try {
+                    if (response.message().equalsIgnoreCase("ok")) {
+
+                        userAvailabilities = response.body();
+                       // Log.d(TAG, "onResponseuser Availabilities size " + userAvailabilities.size());
+
+                        if(userAvailabilities !=null){
+                            setUserAvailabilities(userAvailabilities);
+                        }
+
+                    }
+
+                 //   Log.d(TAG, "onResponse " + userAvailabilities.size());
+
+
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<UserAvailability>> call, Throwable t) {
+                Log.d(TAG, "onFailure List UserAvailability");
+                Log.d(TAG, "onFailure "+ t.getLocalizedMessage());
+
+            }
+        });
+
         View.OnClickListener onClickLogout = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,43 +287,10 @@ public class ProfileActivity extends Fragment {
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 InputMethodManager imm = (InputMethodManager)getActivity(). getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(),0);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
-                User user = new User(sharedPref.getString("fbid", ""), sharedPref.getString("name", ""), sharedPref.getString("email", ""));
-                if (etZip.getText().toString().length() > 0)
-                    user.setZipcode(etZip.getText().toString());
-                if (etAbout.getText().toString().length() > 0)
-                    user.setAbout(etAbout.getText().toString());
-                user.setAgePref((String) spAge.getSelectedItem());
-                user.setDistance(String.valueOf(spDistance.getSelectedItemPosition()));
-                user.setReligion("" + spReligion.getSelectedItemPosition());
-                user.setGenderPref("" + gender.getSelectedItemPosition());
-                user.setAvailability(spAvaiba.getSelectedItem().toString());
-                user.setAllowAnonymousInvite(swAllowAnonymInvite.isChecked()? "1":"0");
-                user.setShowMyGenderPref(swShowMyGender.isChecked()? "1":"0");
-                user.setInviteMeOtherShareGenderPref(swInviteOther.isChecked()? "1":"0");
-
-                SharedPreferences.Editor editor = sharedPref.edit();
-       //         editor.putInt("prefAge", Integer.parseInt(etAge.getText().toString()));
-                editor.putInt("spDistance", spDistance.getSelectedItemPosition());
-                editor.putInt("spReligion", spReligion.getSelectedItemPosition());
-                editor.putInt("spGender", gender.getSelectedItemPosition());
-                editor.putInt("spAva", spAvaiba.getSelectedItemPosition());
-                editor.apply();
-
-                api.updateUser(user, new Callback<Object>() {
-                    @Override
-                    public void onResponse(Call<Object> call, Response<Object> response) {
-                        Log.e("124231", "asdgdsg");
-                        getFragmentManager().beginTransaction().remove(ProfileActivity.this).commit();
-                    }
-
-                    @Override
-                    public void onFailure(Call<Object> call, Throwable t) {
-                        Log.e("124231", "asdgdsg");
-                    }
-                });
+                attemptSave();
             }
         });
 
@@ -299,7 +346,7 @@ public class ProfileActivity extends Fragment {
                 // Inflate the custom layout/view
                 View customView = inflater.inflate(R.layout.profile_popup, null);
                 ImageView imageView = customView.findViewById(R.id.imageView2);
-                GlideImage.load(url,imageView);
+                GlideImage.load(getContext(), url,imageView);
                 //Glide.with(getContext()).load(url).into(imageView);
                 TextView name = customView.findViewById(R.id.tv_name);
                 name.setText(sharedPref.getString("name", ""));
@@ -317,8 +364,8 @@ public class ProfileActivity extends Fragment {
                 menubar.setVisibility(View.GONE);
                 mPopupWindow = new PopupWindow(
                         customView,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
                 );
                 if (Build.VERSION.SDK_INT >= 21) {
                     mPopupWindow.setElevation(5.0f);
@@ -337,6 +384,8 @@ public class ProfileActivity extends Fragment {
                 });
 
                 mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
+
+
             }
         });
 
@@ -446,8 +495,247 @@ public class ProfileActivity extends Fragment {
         rlAvail.setOnClickListener(onClickExpToggle);
 
         //exlAge.setExpanded(expandState.get(exlAge));
+
+        btnAddAvailability.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddAvailabilityDialog();
+            }
+        });
+
+        tvJoinGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
         return view;
     }
+
+    private void setUserAvailabilities(List<UserAvailability> userAvailabilities) {
+        userAvailabilityAdapter = new UserAvailabilityAdapter(userAvailabilities);
+        rvListNotAvailable.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvListNotAvailable.setAdapter(userAvailabilityAdapter);
+     //   userAvailabilityAdapter.notifyDataSetChanged();
+        exlAvail.initLayout(); // Recalculate size of children
+        userAvailabilityAdapter.notifyItemInserted(userAvailabilities.size() - 1);
+
+
+    }
+
+    private void showAddAvailabilityDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View view = LayoutInflater.from(getContext())
+                .inflate(R.layout.alert_add_not_available, null, false);
+        Button close = view.findViewById(R.id.close);
+        Button btnAdd = view.findViewById(R.id.btn_add);
+        final TextInputEditText etTimeFrom = view.findViewById(R.id.et_time_from);
+        final TextInputEditText etTimeTo = view.findViewById(R.id.et_time_to);
+        TextInputLayout tlFrom = view.findViewById(R.id.til_time_from);
+        TextInputLayout tlTo = view.findViewById(R.id.til_time_to);
+        final Spinner spDays = view.findViewById(R.id.sp_days);
+        etTimeFrom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePicker newFragment = new TimePicker();
+                newFragment.setListener(new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(android.widget.TimePicker timePicker, int i, int i1) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(calendar.get(Calendar.YEAR),
+                                calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH), i, i1);
+                        Date date = calendar.getTime();
+                      //  final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM dd/yyyy | h:mm a");
+
+                        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm a");
+                        etTimeFrom.setText(simpleDateFormat.format(date));
+                    }
+                });
+                newFragment.show(getChildFragmentManager(), "timePicker");
+
+            }
+        });
+
+        etTimeTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePicker newFragment = new TimePicker();
+                newFragment.setListener(new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(android.widget.TimePicker timePicker, int i, int i1) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(calendar.get(Calendar.YEAR),
+                                calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH), i, i1);
+                        Date date = calendar.getTime();
+                        //  final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM dd/yyyy | h:mm a");
+
+                        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TextUtils.SDF_4);
+                        etTimeTo.setText(simpleDateFormat.format(date));
+                    }
+                });
+                newFragment.show(getChildFragmentManager(), "timePicker");
+
+            }
+        });
+
+        builder.setView(view);
+        final AlertDialog dialog = builder.show();
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String days = String.valueOf(spDays.getSelectedItemPosition());
+                String timeFrom = etTimeFrom.getText().toString();
+                String timeTo = etTimeTo.getText().toString();
+                try {
+                    if(days.equals("0")) {
+                        showAlert(getString(R.string.please_select_day));
+                        return;
+                    }
+                    if(timeFrom.equals("0") || timeTo.equals("") ) {
+                        showAlert(getString(R.string.please_select_time));
+                        return;
+                    }
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+                SimpleDateFormat sdf1 =new SimpleDateFormat(TextUtils.SDF_4);
+                SimpleDateFormat sdf2 =new SimpleDateFormat(TextUtils.SDF_6);
+
+
+                UserAvailability availability = new UserAvailability();
+                availability.setFbid(User.getCurrentUserId());
+                availability.setDay(days);
+                availability.setTimezone(sdf1.getTimeZone().getDisplayName(false, TimeZone.SHORT));
+                try {
+                    availability.setStartTime(sdf2.format(sdf1.parse(timeFrom)));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    availability.setEndTime(sdf2.format(sdf1.parse(timeTo)));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                addAvailability(availability);
+
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void addAvailability(final UserAvailability availability) {
+        Api.getInstance().notAvailableTime(availability, new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.d(TAG,"onResponse");
+                    Log.d(TAG,"onResponse " + response.toString());
+                    try {
+                        Log.d(TAG,"onResponse " + response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if(response.message().equalsIgnoreCase("ok")){
+                        if(userAvailabilityAdapter!=null){
+                            userAvailabilities.add(availability);
+                           // userAvailabilityAdapter.notifyDataSetChanged();
+                            userAvailabilityAdapter.notifyItemInserted(userAvailabilities.size() - 1);
+
+                            exlAvail.initLayout(); // Recalculate size of children
+
+                        }else{
+                            userAvailabilities = new ArrayList<UserAvailability>();
+                            userAvailabilities.add(availability);
+                            setUserAvailabilities(userAvailabilities);
+                        }
+
+                        exlAvail.expand();
+                    }
+
+                }catch (NullPointerException e){
+                    Log.d(TAG,"onResponse " + "null views");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    void showAlert(String message){
+        AlertDialog.Builder builder =  new AlertDialog.Builder(getContext());
+        builder.setMessage(message);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+
+    private void attemptSave() {
+
+        SharedPreferences sharedPref = getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
+        User user = new User(sharedPref.getString("fbid", ""), sharedPref.getString("name", ""), sharedPref.getString("email", ""));
+        if (etZip.getText().toString().length() > 0)
+            user.setZipcode(etZip.getText().toString());
+        if (etAbout.getText().toString().length() > 0)
+            user.setAbout(etAbout.getText().toString());
+        user.setAgePref(spAge.getSelectedItem().toString());
+        user.setDistance(String.valueOf(spDistance.getSelectedItemPosition()));
+        user.setReligion("" + spReligion.getSelectedItemPosition());
+        user.setGenderPref("" + gender.getSelectedItemPosition());
+        user.setAvailability(spAvaiba.getSelectedItem().toString());
+        user.setAllowAnonymousInvite(swAllowAnonymInvite.isChecked()? "1":"0");
+        user.setShowMyGenderPref(swShowMyGender.isChecked()? "1":"0");
+        user.setShowMyReligion(swShowReligion.isChecked()? "1":"0");
+        user.setInviteMeOtherReligion(String.valueOf(spReligionAbleInvite.getSelectedItemPosition()));
+
+        user.setInviteMeOtherShareGenderPref(String.valueOf(spInviteSameGenderPref.getSelectedItemPosition()));
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        //         editor.putInt("prefAge", Integer.parseInt(etAge.getText().toString()));
+        editor.putInt("spDistance", spDistance.getSelectedItemPosition());
+        editor.putInt("spReligion", spReligion.getSelectedItemPosition());
+        editor.putInt("spGender", gender.getSelectedItemPosition());
+        editor.putInt("spAva", spAvaiba.getSelectedItemPosition());
+
+        editor.apply();
+
+        api.updateUser(user, new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d("onResponse", response.toString());
+                getFragmentManager().beginTransaction().remove(ProfileActivity.this).commit();
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.e("onFailure", call.request().body().toString());
+                Log.e("onFailure", t.getMessage());
+
+            }
+        });
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void OnClickLogout() {
         LoginManager.getInstance().logOut();

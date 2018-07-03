@@ -2,6 +2,7 @@ package com.shindygo.shindy.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
@@ -245,6 +246,7 @@ public class Event implements Parcelable {
     }
 
     public String getOffer_to_pay() {
+        if(offer_to_pay == null || offer_to_pay.equals(""))return "0";
         return offer_to_pay;
     }
 
@@ -821,5 +823,40 @@ public class Event implements Parcelable {
         return Api.getContext().getString(R.string.event_sched_n_n,
                 schedStartDate,
                 timeDuration);
+    }
+
+    public String getMaleSpot() {
+        try {
+            int m= 0;
+            int f=0;
+            m = TextUtils.subtractString(getMax_male(), getJoinMale());
+            if (m>0){
+                f =TextUtils.subtractString(getMax_female(), getJoinFemale());
+                if(f<0){
+                    m = m+f;
+                }
+            }else m=0;
+            return String.valueOf(m);
+        }catch (Exception e){
+            return getMax_male();
+        }
+    }
+    public String getFeMaleSpot() {
+        try {
+            int f= 0;
+            int m=0;
+            f =TextUtils.subtractString(getMax_female(), getJoinFemale());
+
+            if (f>0){
+                m = TextUtils.subtractString(getMax_male(), getJoinMale());
+
+                if(m<0){
+                    f = f+m;
+                }
+            }else f=0;
+            return String.valueOf(f);
+        }catch (Exception e){
+            return getMax_female();
+        }
     }
 }

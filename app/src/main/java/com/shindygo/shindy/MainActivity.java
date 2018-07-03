@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
+import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.rahimlis.badgedtablayout.BadgedTabLayout;
 import com.shindygo.shindy.fragment.MessagesFragment;
 import com.shindygo.shindy.main.MyShindigsFragment;
@@ -47,6 +48,7 @@ import com.shindygo.shindy.utils.FontUtils;
 import com.shindygo.shindy.utils.GlideImage;
 import com.shindygo.shindy.utils.MySharedPref;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager mViewPager;
     ImageView imageViewMenu;
     TextView menuName;
-
+    BroadcastReceiver broadcastReceiver;
 
 
 
@@ -154,6 +156,7 @@ public class MainActivity extends AppCompatActivity
             finish();
         }
 
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -191,7 +194,7 @@ public class MainActivity extends AppCompatActivity
         final String url = sharedPref.getString("url", "");
         //Glide.with(getApplicationContext()).load(url).into(imageViewMenu);
         try {
-            GlideImage.load(url, imageViewMenu);
+            GlideImage.load(this, url, imageViewMenu);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -239,7 +242,18 @@ public class MainActivity extends AppCompatActivity
         drawer.openDrawer(GravityCompat.START);
     }
 
-/*
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            unregisterReceiver(broadcastReceiver);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /*
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -400,8 +414,10 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if (getFragmentManager().getBackStackEntryCount() > 0) {
+
                 getFragmentManager().popBackStack();
-                navView.getMenu().getItem(0).setChecked(true);            }
+                navView.getMenu().getItem(0).setChecked(true);
+            }
             else{
 
                 long now = Calendar.getInstance().getTimeInMillis();

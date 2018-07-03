@@ -101,7 +101,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tv_ticket_price"
+                        android:id="@+id/tv_local_tax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/tv_lbl_local_tax"
@@ -113,7 +113,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tv_local_tax"
+                        android:id="@+id/tv_ticket_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/tv_lbl_ticket_price"
@@ -227,6 +227,30 @@
                 android:textSize="12sp" />
 
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/lay_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                app:srcCompat="@color/dark_gray" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center" />
+        </FrameLayout>
 
     </RelativeLayout>
 </RelativeLayout>

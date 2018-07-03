@@ -108,6 +108,7 @@ public class CreatedEventsFragment extends Fragment {
         api.fetchCreatedEvents(User.getCurrentUserId(),new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+
                 List<Event> eventsList = new ArrayList<>();
                 Log.v(TAG, response.toString());
 
@@ -120,7 +121,8 @@ public class CreatedEventsFragment extends Fragment {
 
                     listEvents(eventsList, rv);
                 }catch (NullPointerException e){
-                    e.printStackTrace();
+                  //  e.printStackTrace();
+                    Log.d(TAG, "fetch on response");
                 }
 
             }

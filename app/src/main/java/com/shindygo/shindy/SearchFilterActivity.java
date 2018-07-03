@@ -1,9 +1,11 @@
 package com.shindygo.shindy;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,6 +60,8 @@ public class SearchFilterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finishWithResult();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(),0);
             }
         });
         btnClear.setOnClickListener(new View.OnClickListener() {

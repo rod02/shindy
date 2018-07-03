@@ -21,7 +21,7 @@ public class TextUtils {
     public static final String SDF_3 = "HH:mm:ss";
     public static final String SDF_4 = "h:mm a";
     public static final String SDF_5 = "yyyy-MM-dd HH:mm:ss";
-
+    public static final String SDF_6 = "HH:mm:ss EEE";
 
     public static String getTimeDuration(String startTime, String endTime){
 
@@ -43,7 +43,7 @@ public class TextUtils {
                     if(f<0){
                         m = m+f;
                     }
-                }
+                }else m=0;
                 n = m;
                 break;
 
@@ -72,7 +72,7 @@ public class TextUtils {
 
 
 
-    static  int subtractString(String x, String y){
+    public static  int subtractString(String x, String y){
         try {
             return Integer.parseInt(x) - Integer.parseInt(y);
 

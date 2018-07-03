@@ -144,6 +144,7 @@ public class MyShindigsFragment extends Fragment {
         eventController.getInvitedEvent(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                try {
                     invited_list = response.body();
                     rvShindingsInvited.setLayoutManager(new LinearLayoutManager(getActivity()));
                     if (invited_list != null)
@@ -159,6 +160,10 @@ public class MyShindigsFragment extends Fragment {
                             }
                         }));
                     rvShindingsInvited.setNestedScrollingEnabled(false);
+                }catch (NullPointerException e){
+
+                }
+
                 }
 
             @Override

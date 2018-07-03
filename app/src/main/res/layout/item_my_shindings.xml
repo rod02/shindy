@@ -4,64 +4,77 @@
     android:layout_height="wrap_content"
 
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp10"
         android:background="@drawable/rounded_corners"
-        android:layout_margin="@dimen/dp10">
+        android:paddingBottom="@dimen/dp10"
+        android:paddingTop="@dimen/dp10">
+
         <LinearLayout
             android:id="@+id/start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp10"
-            android:layout_marginTop="@dimen/dp10"
             android:orientation="vertical">
+
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/iv_avatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ted"
-                app:riv_corner_radius="@dimen/dp10"/>
+                android:layout_width="@dimen/item_list_avatar_width"
+                android:layout_height="@dimen/item_list_avatar_height"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/no_image"
+                app:riv_corner_radius="@dimen/dp10" />
+
             <TextView
                 android:id="@+id/tv_expires"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="7dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/robotoblack"
-                android:text="Expires: Mon Oct 16, 2017"/>
+                android:text="Expires: Mon Oct 16, 2017"
+                android:textSize="7dp" />
         </LinearLayout>
+
         <LinearLayout
 
             android:id="@+id/middle"
-            android:orientation="vertical"
-            android:layout_marginStart="@dimen/dp10"
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_toStartOf="@+id/left"
-         android:layout_toEndOf="@+id/start"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_toEndOf="@+id/start"
+            android:layout_toStartOf="@+id/left"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_eventName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TED Conference"
-                android:textSize="13dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/robotoregular"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:maxLines="1"
+                android:text="TED Conference"
+                android:textColor="@android:color/black"
+                android:textSize="13dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_private_host"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"
+                android:ellipsize="end"
                 android:fontFamily="@font/robotoregular"
+                android:maxLines="1"
                 android:text="Private host: Tony Cage"
                 android:textColor="#f8d159"
                 android:textSize="@dimen/dp10"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_invited_by"
@@ -71,93 +84,108 @@
                 android:fontFamily="@font/robotoregular"
                 android:text="Invited by: Shindings"
                 android:textSize="@dimen/dp10"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_offer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp5"
+                android:ellipsize="end"
                 android:fontFamily="@font/robotoregular"
+                android:maxLines="1"
                 android:text="Offer to pay if you accept"
                 android:textColor="#fe6b63"
                 android:textSize="@dimen/dp10"
-                android:visibility="invisible" />
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/tv_date"
-                android:layout_marginTop="@dimen/dp5"
                 android:layout_width="wrap_content"
-                android:textSize="@dimen/dp10"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:ellipsize="end"
                 android:fontFamily="@font/robotoregular"
-                android:text="Wed Oct 11, 2017 | 6-8 PM " />
+                android:maxLines="1"
+                android:text="Wed Oct 11, 2017 | 6-8 PM "
+                android:textSize="@dimen/dp10" />
         </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/left"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true">
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
             <View
                 android:id="@+id/line"
                 android:layout_width="1dp"
                 android:layout_height="80dp"
-                android:background="@android:color/darker_gray"
-                android:layout_centerVertical="true"/>
-            <LinearLayout
-                android:layout_marginStart="@dimen/dp10"
-                android:layout_marginEnd="@dimen/dp10"
                 android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp10"
+                android:layout_marginStart="@dimen/dp10"
                 android:orientation="vertical">
+
                 <LinearLayout
-                    android:gravity="end"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="7dp"
-                android:id="@+id/man_count"
-                android:layout_gravity="center_vertical"
-                android:text="17"/>
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/man_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="17"
+                        android:textSize="7dp" />
+
                     <ImageView
-                        android:layout_marginStart="@dimen/dp5"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/man"/>
+                        android:layout_marginStart="@dimen/dp5"
+                        android:src="@drawable/man" />
                 </LinearLayout>
+
                 <LinearLayout
 
-                    android:layout_marginTop="@dimen/dp10"
                     android:layout_width="match_parent"
-                    android:gravity="end"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:gravity="end">
+
                     <TextView
-                        android:layout_width="wrap_content"
                         android:id="@+id/women_count"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="7dp"
                         android:layout_gravity="center_vertical"
-                        android:text="5"/>
+                        android:text="5"
+                        android:textSize="7dp" />
+
                     <ImageView
-                        android:layout_marginStart="@dimen/dp5"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/lady"/>
+                        android:layout_marginStart="@dimen/dp5"
+                        android:src="@drawable/lady" />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/tv_sold_out"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sold out"
-                    android:visibility="gone"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp5"
+                    android:text="sold out"
                     android:textColor="#fe6b63"
                     android:textSize="@dimen/dp5"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:visibility="gone" />
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>

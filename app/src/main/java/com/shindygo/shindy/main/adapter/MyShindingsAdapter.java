@@ -132,20 +132,23 @@ public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.
                     tvInvitedBy.setVisibility(View.GONE);
 
                     tvOffer.setVisibility(event.getOffer_to_pay().equals("1")?View.VISIBLE:View.GONE);
-
-                tvDate.setText(event.getEventSched());
-                tvExpires.setText(event.getExpirydate());
-                manCount.setText(event.getMax_male());
-                womenCount.setText(event.getMax_female());
-                tvEventName.setText(event.getEventname());
-                ivAvatar.setImageResource(android.R.color.transparent);
-                //Glide.with(context).load(event.getImage()).into(ivAvatar);
                 try {
-                    GlideImage.load(event.getImage(), ivAvatar);
+                    tvDate.setText(event.getEventSched());
 
                 }catch (Exception e){
-                    Log.e(TAG, "glide");
+                    Log.d(TAG, "adapter:tvDate: ");
+                    tvDate.setText(event.getSchedStartdate());
+
                 }
+                tvExpires.setText(context.getString(R.string.expires_n ,event.getExpirydate()));
+                manCount.setText(event.getMaleSpot());
+                womenCount.setText(event.getFeMaleSpot());
+                tvEventName.setText(event.getEventname());
+               // ivAvatar.setImageResource(android.R.color.transparent);
+                //Glide.with(context).load(event.getImage()).into(ivAvatar);
+                    GlideImage.load(context,event.getImage(), ivAvatar);
+
+
 
                 rl.setOnClickListener(new View.OnClickListener() {
                     @Override

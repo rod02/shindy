@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center_vertical|center_horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/dp10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/sp_days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/days"
+                android:paddingBottom="@dimen/dp10"
+                android:paddingStart="2dp"
+                android:paddingTop="@dimen/dp10"
+                tools:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:paddingStart="@dimen/dp10"
+                android:text="@string/choose_time" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_time_from"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:layout_weight="1">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_time_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:focusable="false"
+                        android:hint="@string/from"
+                        android:paddingStart="@dimen/dp10"
+                        android:paddingEnd="@dimen/dp10" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_time_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:layout_weight="1">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_time_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:focusable="false"
+                        android:hint="@string/to"
+                        android:paddingStart="@dimen/dp10"
+                        android:paddingEnd="@dimen/dp10"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="@dimen/btn_reg_width_size"
+                android:layout_height="@dimen/btn_reg_height_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dp20"
+                android:background="@drawable/btn_green_selector"
+                android:text="@string/add"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/close"
+            android:layout_width="@dimen/toolbar_icon_size"
+            android:layout_height="@dimen/toolbar_icon_size"
+            android:layout_alignParentEnd="true"
+            android:alpha=".7"
+            android:background="@android:drawable/presence_offline" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -217,7 +217,7 @@ public class ReviewEventAdapter extends RecyclerView.Adapter<ReviewEventAdapter.
                 tvExprires.setText(context.getString(R.string.expires_n, e.getExpirydate()));
                 tvEventName.setText(e.getEventname());
                 // Glide.with(context).load(e.getImage()).into(ivAvatar);
-                GlideImage.load(e.getImage(), ivAvatar);
+                GlideImage.load(context, e.getImage(), ivAvatar);
 
 
                 tvQuickReview.setOnClickListener(new View.OnClickListener() {

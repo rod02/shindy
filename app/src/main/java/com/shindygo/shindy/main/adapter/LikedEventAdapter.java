@@ -91,7 +91,7 @@ public class LikedEventAdapter extends RecyclerView.Adapter<LikedEventAdapter.Li
 
         public void bindModel(final Event e, final ClickEvent clickEvent) {
             try {
-                GlideImage.load(e.getImage(), ivAvatar);
+                GlideImage.load(context, e.getImage(), ivAvatar);
 
               //  Glide.with(context).load(e.getImage()).into(ivAvatar);
             }catch (Exception ee){}

@@ -24,6 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp10"
+            android:paddingStart="@dimen/dp20"
+            android:paddingTop="@dimen/dp10"
             android:text="@string/mark_invite_anonymous"
             android:textSize="20sp" />
 
@@ -33,6 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
             android:fontFamily="@font/robotoitalic"
+            android:freezesText="false"
+            android:paddingEnd="@dimen/dp20"
+            android:paddingStart="@dimen/dp20"
             android:text="@string/mark_anonymous_message" />
 
         <LinearLayout

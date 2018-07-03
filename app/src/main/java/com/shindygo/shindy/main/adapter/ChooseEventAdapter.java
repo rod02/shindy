@@ -100,7 +100,7 @@ public class ChooseEventAdapter extends RecyclerView.Adapter<ChooseEventAdapter.
 
         public void bindModel(final Event event) {
             tvEventName.setText(event.getEventname());
-            GlideImage.load(event.getImage(), ivAvatar);
+            GlideImage.load(context, event.getImage(), ivAvatar);
 
             //Glide.with(context).load(event.getImage()).into(ivAvatar);
             tvDate.setText(event.getCreatedate());

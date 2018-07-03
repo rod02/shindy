@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.shindygo.shindy.api.EventController;
 import com.shindygo.shindy.interfaces.ClickUninviteUser;
@@ -21,6 +21,7 @@ import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.MyInvites;
 import com.shindygo.shindy.model.MyInvitesUser;
 import com.shindygo.shindy.model.Status;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyInvitesActivity extends AppCompatActivity {
+
+    private static final String TAG= MyInvitesActivity.class.getSimpleName();
+
     EventController eventController;
     Event event;
     @BindView(R.id.back)
@@ -44,6 +48,8 @@ public class MyInvitesActivity extends AppCompatActivity {
     RoundedImageView ivAvatar;
     @BindView(R.id.tv_expires)
     TextView tvExpires;
+    @BindView(R.id.tv_invited_by)
+    TextView tvInvitedBy;
     @BindView(R.id.start)
     LinearLayout start;
     @BindView(R.id.tv_eventName)
@@ -91,6 +97,8 @@ public class MyInvitesActivity extends AppCompatActivity {
     List<MyInvitesUser> userList = new ArrayList<>();
     List<MyInvitesUser> userList2 = new ArrayList<>();
     MyInvitesAdapter myInvitesAdapter;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,8 +109,17 @@ public class MyInvitesActivity extends AppCompatActivity {
         eventController = new EventController(this);
 
         tvEventName.setText(event.getEventname());
-        tvDate.setText(event.getStartTime());
-        tvExpires.setText(event.getExpirydate());
+
+        try {
+            tvDate.setText(event.getEventSched());
+
+        }catch (Exception e){
+            Log.d(TAG, "adapter:tvDate: ");
+            tvDate.setText(event.getSchedStartdate());
+
+        }        tvExpires.setText(getString(R.string.expires_n ,event.getExpirydate()));
+        tvInvitedBy.setText(getString(R.string.invited_by_n ,event.getInvitedby()));
+
         manCount.setText(event.getMax_male());
         womenCount.setText(event.getMax_female());
         back.setOnClickListener(new View.OnClickListener() {
@@ -111,42 +128,51 @@ public class MyInvitesActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        try {
+            GlideImage.load(this, event.getImage(), ivAvatar);
 
-        Glide.with(this).load(event.getImage()).into(ivAvatar);
+        }catch (Exception e){
+            Log.d(TAG, "glide error");
+        }
 
 
         eventController.getWhoIsInvited_Event(event.getEventid(), new Callback<MyInvites>() {
             @Override
             public void onResponse(Call<MyInvites> call, Response<MyInvites> response) {
+                try {
 
+                    if (response.body() != null) {
+                        userList = response.body().myInvites;
+                        userList2 = response.body().othersInvite;
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MyInvitesActivity.this));
+                        recyclerView2.setLayoutManager(new LinearLayoutManager(MyInvitesActivity.this));
+                        myInvitesAdapter = new MyInvitesAdapter(userList, false, new ClickUninviteUser() {
+                            @Override
+                            public void uninvite(final MyInvitesUser myInvitesUser) {
+                                new EventController(MyInvitesActivity.this).cancelInvite(myInvitesUser.getEventid(),myInvitesUser.getFbid(), new Callback<Status>() {
+                                    @Override
+                                    public void onResponse(Call<Status> call, Response<Status> response) {
+                                        try {
+                                            Status status = response.body();
+                                            if(status.getStatus().equals("success")) {
+                                                Toast.makeText(MyInvitesActivity.this, "User uninvite", Toast.LENGTH_SHORT).show();
+                                                userList.remove(myInvitesUser);
+                                                myInvitesAdapter.notifyDataSetChanged();
+                                            }
+                                        }catch (NullPointerException e){
+                                            Log.d(TAG, "onResponse uninvite");
+                                        }
 
-
-                if (response.body() != null) {
-                    userList = response.body().myInvites;
-                    userList2 = response.body().othersInvite;
-                    recyclerView.setLayoutManager(new LinearLayoutManager(MyInvitesActivity.this));
-                    recyclerView2.setLayoutManager(new LinearLayoutManager(MyInvitesActivity.this));
-                    myInvitesAdapter = new MyInvitesAdapter(userList, false, new ClickUninviteUser() {
-                        @Override
-                        public void uninvite(final MyInvitesUser myInvitesUser) {
-                            new EventController(MyInvitesActivity.this).cancelInvite(myInvitesUser.getEventid(),myInvitesUser.getFbid(), new Callback<Status>() {
-                                @Override
-                                public void onResponse(Call<Status> call, Response<Status> response) {
-                                    Status status = response.body();
-                                    if(status.getStatus().equals("success")) {
-                                        Toast.makeText(MyInvitesActivity.this, "User uninvite", Toast.LENGTH_SHORT).show();
-                                        userList.remove(myInvitesUser);
-                                        myInvitesAdapter.notifyDataSetChanged();
                                     }
-                                }
 
-                                @Override
-                                public void onFailure(Call<Status> call, Throwable t) {
+                                    @Override
+                                    public void onFailure(Call<Status> call, Throwable t) {
+                                        Log.d(TAG, "onFailure uninvite");
 
-                                }
-                            });
-                        }
-                    });
+                                    }
+                                });
+                            }
+                        });
                         recyclerView.setAdapter(myInvitesAdapter);
                         recyclerView2.setAdapter(new MyInvitesAdapter(userList2, true, new ClickUninviteUser() {
                             @Override
@@ -156,8 +182,13 @@ public class MyInvitesActivity extends AppCompatActivity {
                         }));
 
 
-                            recyclerView.setNestedScrollingEnabled(false);
-                    recyclerView2.setNestedScrollingEnabled(false);
+                        recyclerView.setNestedScrollingEnabled(false);
+                        recyclerView2.setNestedScrollingEnabled(false);
+                    }
+
+
+                }catch (NullPointerException e){
+                    Log.d(TAG, "NullPointerException");
                 }
 
 
@@ -166,6 +197,7 @@ public class MyInvitesActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<MyInvites> call, Throwable t) {
                 t.printStackTrace();
+                Log.d(TAG, "onFailure");
             }
         });
     }

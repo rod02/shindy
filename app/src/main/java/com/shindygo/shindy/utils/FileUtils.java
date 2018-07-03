@@ -20,6 +20,8 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 
+import com.shindygo.shindy.Api;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.text.DecimalFormat;
@@ -511,5 +513,23 @@ public class FileUtils {
         // Only return URIs that can be opened with ContentResolver
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         return intent;
+    }
+
+
+    public static String getFilename() {
+
+        File mediaStorageDir = new File( Api.getContext().getExternalFilesDir(null)
+                + "/compressed");
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            mediaStorageDir.mkdirs();
+        }
+
+        String mImageName = "IMG_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
+        String uriString = (mediaStorageDir.getAbsolutePath() + "/" + mImageName);
+
+        return uriString;
+
     }
 }

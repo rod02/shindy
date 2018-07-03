@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -143,7 +144,7 @@ public class SendInviteActivity extends AppCompatActivity {
       //  tvExpires.setText(eventFull.getExpirydate());
         manCount.setText(eventFull.getMax_male());
         womenCount.setText(eventFull.getMax_female());
-        Glide.with(getApplicationContext()).load(eventFull.getImage()).into(ivAvatar);
+        Glide.with(getContext()).load(eventFull.getImage()).into(ivAvatar);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -390,10 +391,12 @@ public class SendInviteActivity extends AppCompatActivity {
         date = customView.findViewById(R.id.date);
         title.setText(eventFull.getEventname());
         date.setText(eventFull.getCreatedate());
-        Glide.with(getApplicationContext()).load(eventFull.getImage()).into(imageView);
+        Glide.with(getContext()).load(eventFull.getImage()).into(imageView);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(note.getWindowToken(),0);
                 if(!TextUtils.isEmpty(email.getText().toString()))
                 new EventController(SendInviteActivity.this).inviteByEmail(eventFull.getEventid(), email.getText().toString(), note.getText().toString(), new Callback<Status>() {
                     @Override

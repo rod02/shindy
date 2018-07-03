@@ -103,16 +103,16 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
             }
 
             if (u.isAnonymous_inviteB()){
-                anonim.setColorFilter(ContextCompat.getColor(context, R.color.fb_blue));
+                anonim.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
             }
             else {
-                anonim.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
+                anonim.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
             }
 
             anonim.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(MySharedPref.showInviteAnonymousAlert() ){
+                    if(MySharedPref.showInviteAnonymousAlert() && !u.isAnonymous_inviteB() ){
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         View payforin = LayoutInflater.from(context)
                                 .inflate(R.layout.alert_mark_anonymous, null, false);
@@ -129,10 +129,10 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
 
                                 u.setAnonymous_invite(!u.isAnonymous_inviteB());
                                 if (u.isAnonymous_inviteB()){
-                                    anonim.setColorFilter(ContextCompat.getColor(context, R.color.fb_blue));
+                                    anonim.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
                                 }
                                 else {
-                                    anonim.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
+                                    anonim.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
                                 }
                                 alert.dismiss();
                             }
@@ -172,20 +172,20 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
 
                         u.setAnonymous_invite(!u.isAnonymous_inviteB());
                         if (u.isAnonymous_inviteB()){
-                            anonim.setColorFilter(ContextCompat.getColor(context, R.color.fb_blue));
+                            anonim.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
                         }
                         else {
-                            anonim.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
+                            anonim.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
                         }
 
                     }
                 }
             });
             if (u.isOffer_to_payB()){
-                doller.setColorFilter(ContextCompat.getColor(context, R.color.fb_blue));
+                doller.setColorFilter(ContextCompat.getColor(context, R.color.green_online));
             }
             else {
-                doller.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
+                doller.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
             }
             doller.setOnClickListener(new View.OnClickListener() {
                                           @Override
@@ -205,10 +205,10 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
                                                       public void onClick(View v) {
                                                           u.setOffer_to_pay(!u.isOffer_to_payB());
                                                           if (u.isOffer_to_payB()){
-                                                              doller.setColorFilter(ContextCompat.getColor(context, R.color.fb_blue));
+                                                              doller.setColorFilter(ContextCompat.getColor(context, R.color.green_online));
                                                           }
                                                           else {
-                                                              doller.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
+                                                              doller.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
                                                           }
                                                           alert.dismiss();
                                                       }
@@ -240,7 +240,7 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
 
                                               } else {
                                                   u.setOffer_to_pay(!u.isOffer_to_payB());
-                                                  doller.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
+                                                  doller.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
                                               }
 
                                           }

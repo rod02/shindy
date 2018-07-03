@@ -13,7 +13,7 @@
     <dimen name="dp25">25dp</dimen>
     <dimen name="sp12">12sp</dimen>
     <dimen name="dp20">20dp</dimen>
-    <dimen name="image_invite">20dp</dimen>
+    <dimen name="image_invite">30dp</dimen>
     <dimen name="progress_bar_size">150dp</dimen>
     <dimen name="event_title_text_size">20sp</dimen>
     <dimen name="tab_button_icon_size">25dp</dimen>
@@ -28,5 +28,7 @@
     <dimen name="btn_reg_width_size">90dp</dimen>
     <dimen name="btn_reg_height_size">35dp</dimen>
 
+    <dimen name="item_list_avatar_height">70dp</dimen>
+    <dimen name="item_list_avatar_width">80dp</dimen>
 
 </resources>

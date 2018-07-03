@@ -77,7 +77,7 @@ public class BlockedUserAdapter extends RecyclerView.Adapter<BlockedUserAdapter.
 
         }
         public void bindModel(final User user, final ClickUser clickUser){
-            GlideImage.load(user.getPhoto(), avatar);
+            GlideImage.load(context, user.getPhoto(), avatar);
 
             //Glide.with(context).load(user.getPhoto()).into(avatar);
             name.setText(user.getFullname());

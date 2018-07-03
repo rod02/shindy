@@ -7,6 +7,7 @@ package com.shindygo.shindy.main.adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,13 @@ import com.shindygo.shindy.Api;
 import com.shindygo.shindy.R;
 import com.shindygo.shindy.interfaces.ClickUninviteUser;
 import com.shindygo.shindy.model.MyInvitesUser;
+import com.shindygo.shindy.utils.GlideImage;
 
 import java.util.List;
 
 public class MyInvitesAdapter extends RecyclerView.Adapter<MyInvitesAdapter.MyInvitesHolder> {
+    private static final String TAG = MyInvitesAdapter.class.getSimpleName();
+
     Context context;
     List<MyInvitesUser> list;
     String id;
@@ -58,6 +62,9 @@ public class MyInvitesAdapter extends RecyclerView.Adapter<MyInvitesAdapter.MyIn
        ImageView confirm;
         ImageView avatar;
         TextView name;
+        TextView tvOffer;
+        TextView tvAnonym;
+
 
         Api api =  new Api(context);
 
@@ -66,34 +73,54 @@ public class MyInvitesAdapter extends RecyclerView.Adapter<MyInvitesAdapter.MyIn
             confirm = v.findViewById(R.id.iv_confirm);
             avatar = v.findViewById(R.id.iv_avatar);
             name = v.findViewById(R.id.tv_name_age);
+            tvOffer = v.findViewById(R.id.tv_offered_to_pay);
+            tvAnonym = v.findViewById(R.id.tv_invited_anonymously);
 
         }
         public void bindModel(final MyInvitesUser myInvitesUser, final ClickUninviteUser clickUninviteUser){
-            Glide.with(context).load(myInvitesUser.getPhoto()).into(avatar);
-            name.setText(myInvitesUser.getFullname());
-            if(!other) {
-                if (myInvitesUser.getAttendingstatus() != null)
-                    confirm.setImageResource(myInvitesUser.getAttendingstatus().equals("1") ? R.drawable.confirmed : R.drawable.uninvite);
-            }
-            else
-            {
-                if (myInvitesUser.getAttendingstatus() != null)
-                    if(myInvitesUser.getAttendingstatus().equals("1"))
-                        confirm.setImageResource(R.drawable.confirmed );
-                    else
-                        confirm.setVisibility(View.GONE);
-            }
-            confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!other) {
-                        if(myInvitesUser.getAttendingstatus().equals("0"))
-                        {
-                            clickUninviteUser.uninvite(myInvitesUser);
+            //Glide.with(context).load(myInvitesUser.getPhoto()).into(avatar);
+            try {
+
+                GlideImage.load(context, myInvitesUser.getPhoto(),avatar);
+
+                name.setText(myInvitesUser.getFullname());
+                if(!other) {
+                    if (myInvitesUser.getAttendingstatus() != null)
+                        confirm.setImageResource(myInvitesUser.getAttendingstatus().equals("1") ? R.drawable.confirmed : R.drawable.uninvite);
+                }
+                else
+                {
+                    if (myInvitesUser.getAttendingstatus() != null)
+                        if(myInvitesUser.getAttendingstatus().equals("1"))
+                            confirm.setImageResource(R.drawable.confirmed );
+                        else
+                            confirm.setVisibility(View.GONE);
+                }
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!other) {
+                            if(myInvitesUser.getAttendingstatus().equals("0"))
+                            {
+                                clickUninviteUser.uninvite(myInvitesUser);
+                            }
                         }
                     }
+                });
+
+                try {
+                    tvAnonym.setVisibility(myInvitesUser.isAnonymouslyInvited()? View.VISIBLE : View.GONE);
+                }catch (NullPointerException e){
+                    e.printStackTrace();
                 }
-            });
+                try {
+                    tvOffer.setVisibility(myInvitesUser.isOfferToPay()? View.VISIBLE : View.GONE);
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+            }catch (NullPointerException e){
+                Log.d(TAG, "adapter e");
+            }
         }
     }
 

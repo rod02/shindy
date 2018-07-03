@@ -211,6 +211,8 @@ public class EventActivity extends Fragment  {
             eventId  =  args.getString(EXTRA_EVENT_ID);
             String json   =  args.getString(EXTRA_MODEL);
             event = new Gson().fromJson(json, Event.class);
+            Log.d(TAG, "representative json "+json);
+            Log.d(TAG, "representative eventFromJson "+event.getRepresentative());
 
 
         }
@@ -225,6 +227,8 @@ public class EventActivity extends Fragment  {
 
         FontUtils.setFont(title, FontUtils.Be_Bright);
         Activity mActivity = getActivity();
+        etCoHost = view.findViewById(R.id.et_co_host);
+
         Api.getInstance().getUsers(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
@@ -237,6 +241,24 @@ public class EventActivity extends Fragment  {
                     usersAdapter = new SimpleUsersAdapter(getContext(), users);
                     etCoHost.setAdapter(usersAdapter);
                     etCoHost.setOnItemClickListener(onItemClickListener);
+                    if(update) {
+                        if (event.getRepresentative() != null || !event.getRepresentative().equals("")) {
+                            Log.d(TAG, "getUsersList getrepresentative: "+event.getRepresentative());
+
+                            for (User user : users) {
+                                try {
+                                    if(user.getFbid().equals(event.getRepresentative())) {
+                                        etCoHost.setText(user.getFullname());
+                                        return;
+                                    }
+                                }catch (NullPointerException e){
+                                    Log.d(TAG, "get Representative ");
+
+                                }
+
+                            }
+                        }
+                    }
                 }
             }
 
@@ -375,7 +397,6 @@ public class EventActivity extends Fragment  {
 
 
 
-        etCoHost = view.findViewById(R.id.et_co_host);
         etEventName = view.findViewById(R.id.etEventName);
         etLocation = view.findViewById(R.id.etLocation);
         etMaxFemale = view.findViewById(R.id.et_max_female);
@@ -458,7 +479,7 @@ public class EventActivity extends Fragment  {
 
         imgLocation.setOnClickListener(onClickLocation);
         llLocation.setOnClickListener(onClickLocation);
-
+        etLocation.setOnClickListener(onClickLocation);
        btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -544,8 +565,11 @@ public class EventActivity extends Fragment  {
         if(lat==0) lat = Double.parseDouble(event.getLat());
 
         etZipcode.setText(event.getZipcode());
+        zipcode = event.getZipcode();
         etDescription.setText(event.getDescription());
-        etTicketPrice.setText(event.getTicketprice());/*
+        etTicketPrice.setText(event.getTicketprice());
+        coHostId = event.getRepresentative();
+        /*
         //event.setRepresentative(etCoHost.getTag()==null?"": (String) etCoHost.getTag());
         SimpleDateFormat sdf1 = new SimpleDateFormat(TextUtils.SDF_1);*/
         //event.setCreateDate(sdf1.format(new Date()));
@@ -557,6 +581,7 @@ public class EventActivity extends Fragment  {
         etMaxMale.setText(event.getMax_male());
         etMaxFemale.setText(event.getMax_female());
         etWebsite.setText(event.getWebsite_url());
+
        try{
            Log.d(TAG, "ableToInvite : "+event.getAbleGuestInvite());
            cpAbleInvite.setChecked(event.isAbleGuestInvite());
@@ -693,6 +718,9 @@ public class EventActivity extends Fragment  {
         };
         if(update){
            // Api.getInstance().updateEvent(event, callback);
+            Log.d(TAG, "representative update : "+ event.getRepresentative());
+            Log.d(TAG, "representative:cohostID "+ coHostId);
+
             api.updateEvent(event, callback);
 
         }else {
@@ -873,7 +901,7 @@ public class EventActivity extends Fragment  {
         event.setMax_male(getText(etMaxMale));
         event.setMax_female(getText(etMaxFemale));
         event.setWebsite_url(getText(etWebsite));
-        event.setRepresentative(coHostId==null? "":coHostId);
+      //  event.setRepresentative(coHostId==null? "":coHostId);
         event.setCreatedby(User.getCurrentUser().getFullname());
         event.setPrivate_host(User.getCurrentUser().getFullname());
         event.setPrivateHostFbId(User.getCurrentUser().getFbid());
@@ -905,6 +933,8 @@ public class EventActivity extends Fragment  {
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     User user = (User) adapterView.getItemAtPosition(position);
                     coHostId = user.getFbid();
+                    Log.d(TAG, "onItemClick getRepresentative: "+coHostId);
+
                     etCoHost.setText(user.getFullname());
                     etCoHost.clearFocus();
 

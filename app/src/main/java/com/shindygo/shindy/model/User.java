@@ -47,6 +47,12 @@ public class User {
     @SerializedName("religion")
     @Expose
     private String religion;
+    @SerializedName("show_my_religion")
+    @Expose
+    private String showMyReligion;
+    @SerializedName("invite_me_other_religion")
+    @Expose
+    private String inviteMeOtherReligion;
     @SerializedName("gender")
     @Expose
     private String gender;
@@ -84,6 +90,7 @@ public class User {
     @SerializedName("allow_anonymous_invite")
     @Expose
     private String allowAnonymousInvite;
+
     private boolean anonymous_invite;
 
     private boolean offer_to_pay;
@@ -116,14 +123,19 @@ public class User {
         jsonObject.put("age",age);
         jsonObject.put("age_pref",agePref);
         jsonObject.put("religion",religion);
+        jsonObject.put("show_my_religion",showMyReligion());
+        jsonObject.put("invite_me_other_religion",getInviteMeOtherReligion());
         jsonObject.put("gender",gender);
         jsonObject.put("gender_pref",genderPref);
+        jsonObject.put("show_my_gender_pref",getShowMyGenderPref());
+        jsonObject.put("invite_me_other_share_gender_pref",getInviteMeOtherShareGenderPref());
         jsonObject.put("address",address);
         jsonObject.put("distance",distance);
         jsonObject.put("zipcode",zipcode);
         jsonObject.put("availability",availability);
         jsonObject.put("joineddate",joineddate);
         jsonObject.put("updatedate",updatedate);
+        jsonObject.put("allow_anonymous_invite",allowAnonymousInvite());
 
         return  jsonObject;
     }
@@ -214,6 +226,7 @@ public class User {
     }
 
     public String getReligion() {
+        if(religion==null || religion.equals(""))return "0";
         return religion;
     }
 
@@ -230,6 +243,7 @@ public class User {
     }
 
     public String getGenderPref() {
+        if(genderPref==null || genderPref.equals("")) return "0";
         return genderPref;
     }
 
@@ -246,6 +260,7 @@ public class User {
     }
 
     public String getDistance() {
+        if(distance==null || distance.equals(""))return "0";
         return distance;
     }
 
@@ -326,7 +341,30 @@ public class User {
         this.offer_to_pay = offer_to_pay;
     }
 
+    public String getShowMyReligion() {
+        return showMyReligion;
+    }
 
+    public void setShowMyReligion(String showMyReligion) {
+        this.showMyReligion = showMyReligion;
+    }
+
+    public boolean showMyReligion(){
+        try {
+            return getShowMyReligion().equals("1");
+        }catch (NullPointerException e){
+            return false;
+        }
+    }
+
+    public String getInviteMeOtherReligion() {
+        if(inviteMeOtherReligion==null || inviteMeOtherReligion.equals("")) return "0";
+        return inviteMeOtherReligion;
+    }
+
+    public void setInviteMeOtherReligion(String inviteMeOtherReligion) {
+        this.inviteMeOtherReligion = inviteMeOtherReligion;
+    }
 
     /**
      * Getter for the User that is currently logged in to the application.
@@ -412,6 +450,7 @@ public class User {
     }
 
     public String getShowMyGenderPref() {
+        if(showMyGenderPref==null || showMyGenderPref.equalsIgnoreCase("")) return "0";
         return showMyGenderPref;
     }
 
@@ -420,6 +459,7 @@ public class User {
     }
 
     public String getInviteMeOtherShareGenderPref() {
+        if(inviteMeOtherShareGenderPref==null || inviteMeOtherShareGenderPref.equals(""))return "0";
         return inviteMeOtherShareGenderPref;
     }
 
@@ -437,5 +477,14 @@ public class User {
 
     public boolean showMyGender(){
         return (getShowMyGenderPref()==null || getShowMyGenderPref().equals("")? false :true );
+    }
+
+    public boolean allowAnonymousInvite() {
+        try {
+            return getAllowAnonymousInvite().equals("1");
+        }catch (NullPointerException e){
+            return false;
+        }
+
     }
 }

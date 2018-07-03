@@ -5,21 +5,23 @@
     <color name="white">#FFF</color>
     <color name="gray">#616161</color>
     <color name="colorAccent">#FFC000</color>
-    <color name="fb_blue">#3B5998</color>
+    <color name="fb_blue">#3b5998</color>
     <color name="navigation_bg_gray">#EAE8E1</color>
     <color name="navigation_notification_yellow">#FFC000</color>
     <color name="navigation_notification_red">#FFFF1100</color>
     <color name="nav_selected_font_blue">#007AFF</color>
     <color name="light_gray">#F7F7F7</color>
-    <color name="dark_gray">#E7E7E7</color>
+    <color name="dark_gray">#e7e7e7</color>
+    <color name="darker_gray">#aaaaaa</color>
     <color name="grat_bg">#cccccc</color>
     <color name="gray_tint">#666666</color>
-    <color name="green_online">#4CD964</color>
+    <color name="green_online">#4cd964</color>
     <color name="new_user_bg">#FFFFFF</color>
     <color name ="emptydots">#91bce2</color>
 
     <color name="text_link_pressed">#03ffe2</color>
     <color name="btn_post_pressed">#FF1493</color>
     <color name="text_link_color">#0000ff</color>
+    <color name="offere_to_pay">#e70505</color>
 
 </resources>

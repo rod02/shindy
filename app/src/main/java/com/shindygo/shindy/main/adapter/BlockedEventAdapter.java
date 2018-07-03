@@ -142,7 +142,7 @@ public class BlockedEventAdapter extends RecyclerView.Adapter<BlockedEventAdapte
                 tvEventName.setText(e.getEventname());
                 //ivAvatar.setImageResource(android.R.color.transparent);
                 //Glide.with(context).load(e.getImage()).into(ivAvatar);
-                GlideImage.load(e.getImage(), ivAvatar);
+                GlideImage.load(context, e.getImage(), ivAvatar);
 
             } catch (Exception ex) {
                 ex.printStackTrace();

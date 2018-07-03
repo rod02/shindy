@@ -1,101 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:layout_height="wrap_content">
+    android:paddingBottom="@dimen/dp10"
+    android:paddingStart="@dimen/dp20">
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Invite a friend via Email"
-        android:textSize="20dp"
-        android:textColor="@android:color/darker_gray"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/textView" />
+        android:alpha="0.7"
+        android:gravity="center_horizontal"
+        android:text="Invite a friend via Email"
+        android:textColor="@color/gray"
+        android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/tab_button_icon_size"
+        android:layout_height="@dimen/tab_button_icon_size"
         android:layout_alignEnd="@+id/editText"
         android:layout_alignRight="@+id/editText"
         android:layout_alignTop="@+id/textView"
-        android:src="@drawable/close" />
+        android:alpha="0.7"
+        android:src="@android:drawable/presence_offline" />
+
     <LinearLayout
         android:id="@+id/ll"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/close"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="@dimen/dp20"
+        android:layout_marginEnd="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp20">
 
         <ImageView
             android:id="@+id/imgEvent"
-            android:layout_width="120dp"
-            android:layout_height="80dp"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/day" />
+            android:src="@mipmap/no_image" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/darker_gray"
                 android:layout_marginStart="@dimen/dp20"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="name"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/dp20"
-                android:text="name"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/darker_gray"
                 android:layout_marginStart="@dimen/dp20"
-                android:textSize="@dimen/dp20"
-                android:layout_marginTop="@dimen/dp10"
-                android:text="date"/>
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="date"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/dp20" />
         </LinearLayout>
     </LinearLayout>
+
     <EditText
-        android:padding="5dp"
-        android:maxLength="301"
         android:id="@+id/editText"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:gravity="top"
-        android:textColor="@android:color/darker_gray"
-        android:hint="enter email"
-        android:singleLine="true"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
         android:layout_below="@+id/ll"
-        android:layout_marginTop="14dp"
         android:layout_marginEnd="@dimen/dp20"
         android:background="@drawable/rounded_border_gray"
-        />
-    <EditText
-        android:padding="5dp"
+        android:gravity="top"
+        android:hint="@string/enter_email"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
         android:maxLength="301"
+        android:padding="@dimen/dp10"
+        android:singleLine="true"
+        android:textColor="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tv_separate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editText"
+        android:layout_below="@+id/editText"
+        android:hint="@string/separate_each_email"
+        android:textStyle="italic" />
+
+    <EditText
         android:id="@+id/editText2"
         android:layout_width="320dp"
         android:layout_height="100dp"
-        android:gravity="top"
-        android:hint="Leave a note"
-        android:textColor="@android:color/darker_gray"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_below="@+id/editText"
-        android:maxLines="4"
-        android:layout_marginTop="14dp"
+        android:layout_below="@+id/tv_separate"
         android:layout_marginEnd="@dimen/dp20"
+        android:layout_marginTop="14dp"
         android:background="@drawable/rounded_border_gray"
-        />
+        android:gravity="top"
+        android:hint="@string/leave_note_optional"
+        android:inputType="textCapSentences"
+        android:maxLength="301"
+        android:maxLines="4"
+        android:padding="@dimen/dp10"
+        android:textColor="@android:color/darker_gray" />
 
     <TextView
-        android:visibility="invisible"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText"
@@ -104,16 +130,16 @@
         android:layout_marginTop="14dp"
         android:text="300 charecters left"
         android:textStyle="italic"
-        android:id="@+id/textView2" />
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/send"
-        android:layout_width="70dp"
+        android:layout_width="90dp"
         android:layout_height="35dp"
         android:layout_alignEnd="@+id/close"
         android:layout_below="@+id/editText2"
-        android:layout_marginTop="@dimen/dp20"
         android:layout_marginBottom="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp20"
         android:background="@color/colorPrimary"
         android:text="Send"
         android:textAllCaps="false"

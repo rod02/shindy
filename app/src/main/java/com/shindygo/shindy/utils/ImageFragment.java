@@ -43,7 +43,7 @@ public class ImageFragment extends Fragment {
             e.printStackTrace();
         }
         if(s.id != null && !s.id.equals("0")){
-            GlideImage.load(s.imagePath,imageView);
+            GlideImage.load(getContext(), s.imagePath,imageView);
         }else{
             GlideImage.loadFromPath(imagepath,imageView);
         }

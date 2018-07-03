@@ -84,7 +84,7 @@ public class EventUserAdapter extends RecyclerView.Adapter<EventUserAdapter.Even
                 imageView.setImageResource(R.mipmap.no_image);
             }
 */
-            GlideImage.load(event.getImage(), imageView);
+            GlideImage.load(context, event.getImage(), imageView);
             //imageView.setTag(position);
 
             imageView.setOnClickListener(new View.OnClickListener() {

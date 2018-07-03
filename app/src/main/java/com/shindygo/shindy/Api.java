@@ -3,18 +3,22 @@ package com.shindygo.shindy;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.shindygo.shindy.interfaces.ShindiServer;
 import com.shindygo.shindy.model.Filter;
 import com.shindygo.shindy.model.User;
+import com.shindygo.shindy.model.UserAvailability;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -36,6 +40,8 @@ public class Api {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new Incept("shindy@admin", "orange@123"))
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
                 .build();
         retrofit = new Retrofit.Builder()
                 .client(client)
@@ -86,7 +92,9 @@ public class Api {
         }
 
     }
-    public  void searchUserF(String  text,Filter filter, int filterBy,   Callback<List<User>> callback){
+
+
+    public void search(String text, Filter filter, int filterBy, Callback<ResponseBody> callback) {
 
         if (filter!=null) {
             int ageto = filter.getAgeTo();
@@ -105,13 +113,58 @@ public class Api {
                     break;
             }
 
+            shindiServer.search(fbid,text,sfilter,distance==(0)?null:String.valueOf(distance),
+                    agefrom==(0)?null:String.valueOf(agefrom),ageto==(0)?null:String.valueOf(ageto),
+                    genderPref,gender==0?null:String.valueOf(gender),religion)
+                    .enqueue(callback);
+        } else {
+            searchUser1(text,filterBy,callback);
+        }
+    }
+
+    public  void searchUser1(String  text,int filterBy,   Callback<ResponseBody> callback){
+        String filter="";
+        switch (filterBy){
+            case 0: filter =null;
+                break;
+            case 1:filter = "favorite";
+                break;
+            case 2:filter = "friend";
+                break;
+        }
+
+        final String fbid = sharedPref.getString("fbid", "");
+       shindiServer.searchUser1(fbid,text,filter).enqueue(callback);
+    }
+    public  void searchUserF(String  text,Filter filter, int filterBy,   Callback<List<User>> callback){
+
+        if (filter!=null) {
+            int ageto = filter.getAgeTo();
+            int agefrom = filter.getAgeFrom();
+            int gender= filter.getGenderPos();
+            int genderPref = filter.getGenderPref();
+            int religion = filter.getReligionPos();
+            int distance = filter.getDistancePos();
+            String sfilter="";
+            switch (filterBy){
+                case 0: sfilter =null;
+                    break;
+                case 1:sfilter = "favorite";
+                    break;
+                case 2:sfilter = "friend";
+                    break;
+            }
+            Log.e("API", "fbid "+fbid);
             Call<List<User>>getUsers = shindiServer.searchUserFilter(fbid,text,sfilter,distance==(0)?null:String.valueOf(distance),agefrom==(0)?null:String.valueOf(agefrom),ageto==(0)?null:String.valueOf(ageto),genderPref,gender==0?null:String.valueOf(gender),religion);
             getUsers.enqueue(callback);
         } else {
+            Log.e("API", "fbid "+fbid);
+
             searchUser(text,filterBy,callback);
         }
 
     }
+
    public  void searchUser(String  text,int filterBy,   Callback<List<User>> callback){
         String filter="";
        switch (filterBy){
@@ -188,6 +241,22 @@ public class Api {
     }
 
 
+    public void notAvailableTime(UserAvailability availability, Callback<ResponseBody> callback) {
+        Call<ResponseBody> notAvailableTime = shindiServer.notAvailableTime(availability.toMap());
+        notAvailableTime.enqueue(callback);
+    }
+    public void deleteUserAvailableTime(String fbid, String id, Callback<ResponseBody> callback) {
+        Map<String, String> map = new HashMap<>();
+        map.put("fbid", fbid);
+        map.put("id", id);
+        Call<ResponseBody> notAvailableTime = shindiServer.deleteUserAvailableTime(map);
+        notAvailableTime.enqueue(callback);
+    }
+
+    public void fetchUserNotAvailableTime(String fbid, Callback<List<UserAvailability>> callback) {
+        shindiServer.fetchUserNotAvailableTime(fbid).enqueue(callback);
+    }
+
 
     public static void initialized(Context applicationContext) {
         if(isInitialized()){
@@ -211,4 +280,5 @@ public class Api {
     public static Context getContext() {
         return context;
     }
+
 }

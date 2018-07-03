@@ -7,10 +7,12 @@ import com.shindygo.shindy.model.CreateEventCallBack;
 import com.shindygo.shindy.model.Discussion;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.MyInvites;
+import com.shindygo.shindy.model.OpenedgeSetupResponse;
 import com.shindygo.shindy.model.Rating;
 import com.shindygo.shindy.model.Reply;
 import com.shindygo.shindy.model.Status;
 import com.shindygo.shindy.model.User;
+import com.shindygo.shindy.model.UserAvailability;
 
 import org.json.JSONObject;
 
@@ -19,6 +21,7 @@ import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -85,6 +88,11 @@ public interface ShindiServer {
     @Headers({"API-key: shindykey456"})
     @FormUrlEncoded
     @POST("SearchAlluserinshindy")
+    Call<ResponseBody> searchUser1(@Field("user_fbid") String fbID,@Field("fullname") String text,@Nullable @Field("filterby")String filter);
+
+    @Headers({"API-key: shindykey456"})
+    @FormUrlEncoded
+    @POST("SearchAlluserinshindy")
     Call<List<User>> searchUser(@Field("user_fbid") String fbID,@Field("fullname") String text,@Nullable @Field("filterby")String filter);
 
     @Headers({"API-key: shindykey456"})
@@ -98,6 +106,19 @@ public interface ShindiServer {
                                       @Nullable @Field("gender_pref")int  genderPref,
                                       @Nullable @Field("gender")String  gender,
                                       @Nullable @Field("religion")int  religion);
+    @Headers({"API-key: shindykey456"})
+    @FormUrlEncoded
+    @POST("SearchAlluserinshindy")
+    Call<ResponseBody> search(@Field("user_fbid") String fbID,@Field("fullname") String text,
+                                      @Nullable @Field("filterby")String filter,
+                                      @Nullable @Field("")String  distance,
+                                      @Nullable @Field("min_age")String  ageto,
+                                      @Nullable @Field("max_age")String  agefrom,
+                                      @Nullable @Field("gender_pref")int  genderPref,
+                                      @Nullable @Field("gender")String  gender,
+                                      @Nullable @Field("religion")int  religion);
+
+
 
 
     @Headers({"API-key: shindykey456"})
@@ -117,6 +138,22 @@ public interface ShindiServer {
     @FormUrlEncoded
     @POST("unfavoriteuser")
     Call<Object> unfavoriteUser(@FieldMap Map<String ,String> user);
+
+
+    @Headers({"API-key: shindykey456"})
+    @FormUrlEncoded
+    @POST("notavailbletime")
+    Call<ResponseBody> notAvailableTime(@FieldMap Map<String, String> map);
+
+    @Headers({"API-key: shindykey456"})
+    @FormUrlEncoded
+    @POST("delete_time_user")
+    Call<ResponseBody> deleteUserAvailableTime(@FieldMap Map<String, String> map);
+
+    @Headers({"API-key: shindykey456"})
+    @GET("notavailable_timelist/fbid/{id}/api-key/shindykey456 ")
+    Call<List<UserAvailability>> fetchUserNotAvailableTime(@Path("id") String fbid);
+
 
     @Headers({"API-key: shindykey456"})
     @GET("eventlist")
@@ -202,6 +239,7 @@ public interface ShindiServer {
     @FormUrlEncoded
     @POST("sendinvite")
     Call<ResponseBody> sendInvite(@FieldMap Map<String ,Object> user);
+
 
     @Headers({"API-key: shindykey456"})
     @FormUrlEncoded
@@ -296,5 +334,17 @@ public interface ShindiServer {
     @FormUrlEncoded
     @POST("update_event")
     Call<JSONObject> updateEvent(@FieldMap Map<String, Object> event);
+
+
+
+    @FormUrlEncoded
+    @POST("paypage/")
+    Call<ResponseBody> paypage(@Field("sealedSetupParameters") String sealedSetupParameters);
+
+
+    @FormUrlEncoded
+    @POST("transactions")
+    Call<ResponseBody> setupRequest(@FieldMap Map<String, String> request);
+
 
 }

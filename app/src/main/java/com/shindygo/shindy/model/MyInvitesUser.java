@@ -152,6 +152,15 @@ public class MyInvitesUser implements Parcelable
         this.anonymousInvite = anonymousInvite;
     }
 
+    public boolean isAnonymouslyInvited(){
+        try {
+            return getAnonymousInvite().equals("1");
+        }catch (NullPointerException e){
+            return false;
+        }
+    }
+
+
     public String getOfferToPay() {
         return offerToPay;
     }
@@ -159,6 +168,16 @@ public class MyInvitesUser implements Parcelable
     public void setOfferToPay(String offerToPay) {
         this.offerToPay = offerToPay;
     }
+
+
+    public boolean isOfferToPay(){
+        try {
+            return getOfferToPay().equals("1");
+        }catch (NullPointerException e){
+            return false;
+        }
+    }
+
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);

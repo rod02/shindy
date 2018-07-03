@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_height="match_parent">
 
 
     <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -71,6 +72,7 @@
                             app:piv_selectedColor="@android:color/white"
                             app:piv_viewPager="@id/pager" />
 
+
                         <LinearLayout
                             android:layout_width="wrap_content"
 
@@ -92,6 +94,7 @@
 
 
                             <Button
+                                android:id="@+id/btn_twitter"
                                 android:layout_width="@dimen/tab_button_icon_size"
                                 android:layout_height="@dimen/tab_button_icon_size"
                                 android:layout_margin="10dp"
@@ -99,6 +102,7 @@
                                 android:background="@mipmap/twit_round" />
 
                             <Button
+                                android:id="@+id/btn_fb"
                                 android:layout_width="@dimen/tab_button_icon_size"
                                 android:layout_height="@dimen/tab_button_icon_size"
                                 android:layout_margin="10dp"
@@ -106,7 +110,7 @@
                                 android:background="@mipmap/fb_round" />
 
                             <Button
-                                android:id="@+id/button2"
+                                android:id="@+id/btn_email"
                                 android:layout_width="@dimen/tab_button_icon_size"
                                 android:layout_height="@dimen/tab_button_icon_size"
                                 android:layout_margin="10dp"
@@ -115,6 +119,17 @@
                                 android:drawablePadding="10dp"
                                 android:gravity="center_vertical|center_horizontal" />
                         </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/iv_back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="top|left"
+                            android:layout_marginLeft="@dimen/dp10"
+                            android:layout_marginTop="@dimen/dp25"
+                            app:srcCompat="@drawable/ef_ic_arrow_back" />
 
                     </RelativeLayout>
 
@@ -143,7 +158,6 @@
 
 
             </android.support.design.widget.CollapsingToolbarLayout>
-
 
 
         </android.support.design.widget.AppBarLayout>
@@ -512,18 +526,9 @@
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp20"
         android:focusable="auto"
         android:focusableInTouchMode="false"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="top|left"
-        android:layout_margin="10dp"
-        app:srcCompat="@drawable/ic_back" />
+        android:visibility="visible" />
 
 </RelativeLayout>

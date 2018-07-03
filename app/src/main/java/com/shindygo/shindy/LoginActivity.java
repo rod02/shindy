@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         FontUtils.setFont(appText, FontUtils.Roboto_Light);
         //FontUtils.setFont(fbLoginBtn, FontUtils.Roboto_Medium);
         FontUtils.setFont(fbVerficationTxt, FontUtils.Roboto_Light);
-//        FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         /*     profileTracker.startTracking();*/
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("user_birthday", "public_profile", "email", "user_location"));
+        loginButton.setReadPermissions(Arrays.asList( "public_profile", "email"));
         loginButton.registerCallback(callbackManager, callback);
 
 
@@ -105,7 +105,6 @@ public class LoginActivity extends AppCompatActivity {
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
-
             // LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("user_birthday","email", "user_location"));
 
         //    Set<String> per = loginResult.getAccessToken().getDeclinedPermissions();
@@ -132,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     });
             Bundle parameters = new Bundle();
-            parameters.putString("fields", "id,name,email,gender,birthday");
+            parameters.putString("fields", "id,name,email,birthday");
             request.setParameters(parameters);
             request.executeAsync();
 

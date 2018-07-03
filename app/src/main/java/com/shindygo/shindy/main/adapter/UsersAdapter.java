@@ -123,7 +123,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersHolder>
         public void bindModel(final User user, final ClickUser clickUser, final ClickCard clickCard) {
             name.setText(user.getFullname() + ", " + user.getAge());
            // Glide.with(context).load(user.getPhoto()).into(avatar);
-            GlideImage.load(user.getPhoto(), avatar);
+            GlideImage.load(context, user.getPhoto(), avatar);
 
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -198,13 +198,23 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersHolder>
             message.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    clickCard.Click(true);
+                    try{
+                        clickCard.Click(true);
+
+                    }catch (NullPointerException e){
+
+                    }
                 }
             });
             profile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    clickUser.Click(user);
+                    try {
+                        clickUser.Click(user);
+
+                    }catch (NullPointerException e){
+
+                    }
                 }
             });
             favorite.setOnClickListener(new View.OnClickListener() {

@@ -147,6 +147,7 @@
                         android:layout_height="wrap_content"
 
                         android:clickable="true"
+                        android:focusable="false"
                         android:hint="@string/date_start"
                         android:textSize="18sp" />
                 </android.support.design.widget.TextInputLayout>
@@ -172,6 +173,8 @@ da                    android:textSize="18sp" />-->
                         android:layout_weight="1"
                         android:clickable="true"
                         android:hint="@string/time_start"
+                        android:focusable="false"
+
                         android:textSize="18sp" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -213,6 +216,8 @@ da                    android:textSize="18sp" />-->
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:clickable="true"
+                        android:focusable="false"
+
                         android:hint="@string/date_end"
                         android:textSize="18sp" />
                 </android.support.design.widget.TextInputLayout>
@@ -240,6 +245,7 @@ da                    android:textSize="18sp" />-->
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/etTimeEnd"
+                        android:focusable="false"
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -290,6 +296,8 @@ da                    android:textSize="18sp" />-->
                         android:layout_weight="1"
                         android:clickable="true"
                         android:hint="@string/expiry_date"
+                        android:focusable="false"
+
                         android:textSize="18sp" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -330,6 +338,7 @@ da                    android:textSize="18sp" />-->
                         android:id="@+id/etLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
 
                         android:hint="@string/location"
                         android:imeOptions="actionGo|actionSearch|actionDone" />

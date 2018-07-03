@@ -29,5 +29,8 @@ public class ImageUtils {
 
     public static String img64fromPath(String path) throws FileNotFoundException{
         return img64from(Uri.fromFile(new File(path)));
+
     }
+
+
 }

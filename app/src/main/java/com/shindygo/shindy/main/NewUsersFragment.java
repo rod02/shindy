@@ -512,7 +512,7 @@ public class NewUsersFragment extends Fragment {
                         View customView = inflater.inflate(R.layout.profile_popup, null);
                         ImageView imageView = customView.findViewById(R.id.imageView2);
                         final ImageView star = customView.findViewById(R.id.iv_star);
-                        GlideImage.load(user.getPhoto(),imageView);
+                        GlideImage.load(getContext(), user.getPhoto(),imageView);
 
                         //Glide.with(getContext()).load(user.getPhoto()).into(imageView);
                         TextView name = customView.findViewById(R.id.tv_name);
@@ -551,33 +551,33 @@ public class NewUsersFragment extends Fragment {
 
                             }
                         });
-                        pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
+                        pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.darker_gray));
                         pay.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 if (isPay==1){
                                     isPay=0;
-                                    pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.fb_blue));
+                                    pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.green_online));
                                 }
                                 else {
                                     isPay=1;
-                                    pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
+                                    pay.setColorFilter(ContextCompat.getColor(getContext(), R.color.darker_gray));
                                 }
 
                             }
 
                         });
-                        anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
+                        anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.darker_gray));
                         anonim.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 if (isAnon==1){
                                     isAnon=0;
-                                    anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.fb_blue));
+                                    anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorPrimary));
                                 }
                                 else {
                                     isAnon=1;
-                                    anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_tint));
+                                    anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.darker_gray));
                                 }
 
 

@@ -73,7 +73,7 @@ public class SimpleUsersAdapter extends ArrayAdapter {
         tvName.setText(mContext.getResources().getString(R.string.name_n_age,
                 user.getFullname(), user.getAge()));
         try {
-            GlideImage.load(user.getPhoto(), avatar);
+            GlideImage.load(mContext, user.getPhoto(), avatar);
         }catch (Exception e){
             e.printStackTrace();
         }

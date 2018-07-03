@@ -122,7 +122,7 @@ public class MyCreatedEventsAdapter extends RecyclerView.Adapter<MyCreatedEvents
                 Log.e(TAG, "imagePath");
             }
 
-            GlideImage.load(imagePath, avatar);
+            GlideImage.load(context, imagePath, avatar);
 
           //  Glide.with(context).load(imagePath).into(avatar);
 

@@ -1,5 +1,7 @@
 package com.shindygo.shindy.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -43,5 +45,6 @@ public class PageFragment2 extends Fragment {
         Glide.with(getContext()).load(s).into(imageView);
         return view;
     }
+
 }
 

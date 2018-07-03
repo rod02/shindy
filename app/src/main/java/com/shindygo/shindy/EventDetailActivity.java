@@ -7,12 +7,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -20,18 +28,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.widget.LoginButton;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareOpenGraphAction;
+import com.facebook.share.model.ShareOpenGraphContent;
+import com.facebook.share.model.ShareOpenGraphObject;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.widget.ShareDialog;
 import com.rahimlis.badgedtablayout.BadgedTabLayout;
 import com.rd.PageIndicatorView;
 import com.shindygo.shindy.activity.SendInviteActivity;
@@ -39,13 +73,25 @@ import com.shindygo.shindy.api.EventController;
 import com.shindygo.shindy.main.model.Respo;
 import com.shindygo.shindy.model.Discussion;
 import com.shindygo.shindy.model.Event;
-import com.shindygo.shindy.model.Image;
 import com.shindygo.shindy.model.Status;
+import com.shindygo.shindy.utils.FileUtils;
+import com.shindygo.shindy.utils.GlideImage;
 import com.shindygo.shindy.utils.MapsUtil;
 import com.shindygo.shindy.utils.OnSwipeTouchListener;
 import com.shindygo.shindy.utils.PageFragment2;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 
-import java.util.Map;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +110,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
     private static final int DISCUSSION = 1;
     private static final int REVIEW = 2;
     static final int REPLY = 3;
-
+    private static final int MAX_IMAGE_SIZE = 1280;
 
 
     @BindView(R.id.taab)
@@ -118,6 +164,15 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.rl_parent)
+    RelativeLayout rlMain;
+    @BindView(R.id.btn_email)
+    Button btnEmail;
+    @BindView(R.id.btn_fb)
+    Button btnFb;
+    @BindView(R.id.btn_twitter)
+    Button btnTwitter;
+    TwitterLoginButton loginButton;
 
     private boolean hided = false;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -129,17 +184,38 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
     private ViewPager pager;
     private SharedPreferences sharedPref;
     private String fbid;
+    private PopupWindow messPopup;
+    CallbackManager callbackManager;
+
+    Uri shareAbleUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
+        Twitter.initialize(EventDetailActivity.this);
         ButterKnife.bind(this);
         eventController = new EventController(this);
         menu.setVisibility(View.GONE);
         sharedPref = getSharedPreferences("set", Context.MODE_PRIVATE);
         fbid = sharedPref.getString("fbid", "");
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = new TwitterLoginButton(this);
+        loginButton.setCallback(new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                shareTwitter();
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+                Log.d(TAG, "Twitter login failure " + e.getLocalizedMessage());
+                Toast.makeText(EventDetailActivity.this,"login failed", Toast.LENGTH_LONG).show();
+            }
+        });
+
         // Set up the ViewPager with the sections adapter.
         event = (Event) getIntent().getExtras().getParcelable("event");
         if (event == null) {
@@ -177,8 +253,8 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
             ((ImageView) llBlockEvent.findViewById(R.id.stop)).setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.navigation_notification_red));
         if (event.getAttendingstatus().equals("1"))
             iamInImage.setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.green_online));
-            tvMan.setText(event.getMax_male());
-        tvWoman.setText(event.getMax_female());
+            tvMan.setText(event.getMaleSpot());
+        tvWoman.setText(event.getFeMaleSpot());
         tvRate.setText(event.getHostReview());
         tvEventName.setText(event.getEventname());
         tvHostedBy.setText(getString(R.string.hosted_by_n , event.getPrivate_host()));
@@ -250,8 +326,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
             @Override
             public void onClick(View v) {
                 if (event.getAttendingstatus().equals("0")) {
-                    if(event.getOffer_to_pay().equals("1"))
-                    {
+                    if(event.getOffer_to_pay().equals("1")) {
                         new EventController(EventDetailActivity.this).joinIamInEvent(event.getEventid(),event.getInvitecode(), new Callback<Status>() {
                             @Override
                             public void onResponse(Call<Status> call, Response<Status> response) {
@@ -266,6 +341,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
 
                             @Override
                             public void onFailure(Call<Status> call, Throwable t) {
+                                Log.d(TAG, "ImIn onFailure "+t.getLocalizedMessage());
                             }
                         });
                     }
@@ -291,6 +367,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
 
                         @Override
                         public void onFailure(Call<Status> call, Throwable t) {
+                            Log.d(TAG, "ImIn onFailure leaveEvent "+t.getLocalizedMessage());
 
                         }
                     });
@@ -458,6 +535,200 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
                 onBackPressed();
             }
         });
+
+        btnEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                composeEmail();
+            }
+        });
+
+        btnFb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareFb();
+            }
+        });
+        btnTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareTwitter();
+            }
+        });
+        getShareableImage(event.getImage());
+    }
+
+    private void getShareableImage(String imageUrl) {
+        Glide // execute this on UI thread!
+                .with(this)
+                .asBitmap()
+                .load(imageUrl)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        //shareAbleUri = bitmapToUriConverter(resource);
+                        new SaveAsFileTask().execute(resource);
+                    }
+                });
+        ;
+
+    }
+    public Uri bitmapToUriConverter(Bitmap mbitmap) {
+        Uri uri = null;
+        try {
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            // Calculate inSampleSize
+           // options.inSampleSize = calculateInSampleSize(options, 100, 100);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+          /*  Bitmap newBitmap = Bitmap.createScaledBitmap(mBitmap, 200, 200,
+                    true);*/
+            Bitmap newBitmap = Bitmap.createScaledBitmap(mbitmap, mbitmap.getWidth(), mbitmap.getHeight(), true);
+            File file = new File(FileUtils.getFilename());
+            OutputStream out = new FileOutputStream(file);
+            newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+            //get absolute path
+            String realPath = file.getAbsolutePath();
+            File f = new File(realPath);
+            uri = Uri.fromFile(f);
+
+        } catch (Exception e) {
+            Log.e("Your Error Message", e.getMessage());
+        }
+        return uri;
+    }
+    class SaveAsFileTask extends AsyncTask<Bitmap, Void, File> {
+        @Override protected File doInBackground(Bitmap... params) {
+            OutputStream out = null;
+            File file = null;
+            try {
+                /*File target = new File(FileUtils.getFilename());
+                OutputStream out = new FileOutputStream(target);
+                out.write((byte[])params[0]);*/
+                final BitmapFactory.Options options = new BitmapFactory.Options();
+                // Calculate inSampleSize
+                // options.inSampleSize = calculateInSampleSize(options, 100, 100);
+
+                // Decode bitmap with inSampleSize set
+                options.inJustDecodeBounds = false;
+          /*  Bitmap newBitmap = Bitmap.createScaledBitmap(mBitmap, 200, 200,
+                    true);*/
+                Bitmap mbitmap = params[0];
+                Bitmap newBitmap = Bitmap.createScaledBitmap(mbitmap, mbitmap.getWidth(), mbitmap.getHeight(), true);
+                file = new File(FileUtils.getFilename());
+                out = new FileOutputStream(file);
+                newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                return file;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (out != null) out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return file;
+        }
+        @Override protected void onPostExecute(@Nullable File result) {
+            //Uri uri = FileProvider.getUriForFile(EventDetailActivity.this, "com.shindygo.shindy.fileprovider", result);
+            shareAbleUri  =Uri.fromFile(result);;
+        }
+    }
+    private void shareTwitter() {
+        final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+                .getActiveSession();
+        if(session==null || session.getAuthToken().isExpired()){
+            loginButton.callOnClick();
+            return;
+        }
+        final Intent intent = new ComposerActivity.Builder(EventDetailActivity.this)
+                .session(session)
+                .image(shareAbleUri)
+                .text(event.getEventname())
+                .hashtags("#shindy")
+                .createIntent();
+        startActivity(intent);
+    }
+
+    private void shareFb() {
+        /*ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .add
+                .build();
+        SharePhoto sharePhoto = new SharePhoto.Builder()
+                .setImageUrl(Uri.parse(event.getImage()))
+                .
+                 .build();
+
+        ShareContent shareContent = new ShareMediaContent.Builder()
+                .
+                .addMedium(sharePhoto)
+
+                .build();*/
+
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("http://shindygo.com/"))
+                .build();
+    /*    SharePhoto sharePhoto = new SharePhoto.Builder()
+                .setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ted))
+                .setCaption(event.getEventname())
+                .build();
+        */
+   /*     ShareContent content = new ShareMediaContent.Builder()
+
+                .addMedium(sharePhoto)
+
+                .build();*/
+     /*   ShareOpenGraphObject object = new ShareOpenGraphObject.Builder()
+                .putString("og:type", "event.normal")
+                .putString("og:title", event.getEventname())
+                .putString("og:description", event.getDescription())
+                .putPhoto("og:image",sharePhoto)
+           *//*         .putInt("fitness:duration:value", 100)
+                    .putString("fitness:duration:units", "s")
+                    .putInt("fitness:distance:value", 12)
+                    .putString("fitness:distance:units", "km")
+                    .putInt("fitness:speed:value", 5)
+                    .putString("fitness:speed:units", "m/s")*//*
+                .build();
+        ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+                .setActionType("og.shares")
+                .putObject("event:normal", object)
+                .build();
+        ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
+                .setPreviewPropertyName("event:normal")
+                .setAction(action)
+                .build();*/
+
+
+        ShareDialog shareDialog = new ShareDialog(EventDetailActivity.this);
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                Log.d(TAG, "fbShare onSuccess" +result.toString());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "fbShare onCancel" );
+                Toast.makeText(EventDetailActivity.this, "Facebook share cancelled", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "fbShare onError "+ error.toString() );
+
+                Toast.makeText(EventDetailActivity.this, "Facebook share failed", Toast.LENGTH_LONG).show();
+
+            }
+        });
+        shareDialog.show(content);
+
     }
 
     private void sendDiscussionReply() {
@@ -673,4 +944,79 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         }
     }
 
+
+
+    private void composeEmail() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        // Inflate the custom layout/view
+        View customView = inflater.inflate(R.layout.popup_invite_by_email, null);
+        final TextView textView = customView.findViewById(R.id.textView2);
+        final EditText email = customView.findViewById(R.id.editText);
+        final EditText note = customView.findViewById(R.id.editText2);
+        ImageView imageView = customView.findViewById(R.id.imgEvent);
+        Button send = customView.findViewById(R.id.send);
+        TextView title,date;
+        title = customView.findViewById(R.id.title);
+        date = customView.findViewById(R.id.date);
+        title.setText(event.getEventname());
+        date.setText(event.getEventSched());
+        Glide.with(EventDetailActivity.this).load(event.getImage()).into(imageView);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(note.getWindowToken(),0);
+                if(!TextUtils.isEmpty(email.getText().toString()))
+                    new EventController(EventDetailActivity.this).inviteByEmail(event.getEventid(), email.getText().toString(), note.getText().toString(), new Callback<Status>() {
+                        @Override
+                        public void onResponse(Call<Status> call, Response<Status> response) {
+                            Status status = response.body();
+                            if(!status.getStatus().equals("success")) {
+                                Toast.makeText(EventDetailActivity.this, status.getResult(), Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(EventDetailActivity.this, "Invite sent", Toast.LENGTH_SHORT).show();
+                                messPopup.dismiss();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Status> call, Throwable t) {
+
+                        }
+                    });
+                else
+                    Toast.makeText(EventDetailActivity.this, "Enter correct email", Toast.LENGTH_SHORT).show();
+            }
+        });
+        messPopup = new PopupWindow(
+                customView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+        if (Build.VERSION.SDK_INT >= 21) {
+            messPopup.setElevation(5.0f);
+        }
+
+        ImageView closeButton = customView.findViewById(R.id.close);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                messPopup.dismiss();
+            }
+        });
+
+        messPopup.showAtLocation(rlMain, Gravity.CENTER, 0, 0);
+    }
+
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        loginButton.onActivityResult(requestCode, resultCode, data);
+
+    }
 }

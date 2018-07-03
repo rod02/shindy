@@ -104,7 +104,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
 
         tvAddress.setText(event.getFulladdress());
         tvDate.setText(event.getSchedStartdate());
-        tvPrice.setText(event.getCustomPrice());
+        tvPrice.setText(event.getTicketprice());
         text.setText(event.getDescription());
         tvSite.setText(event.getWebsite_url());
     }

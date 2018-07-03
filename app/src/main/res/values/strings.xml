@@ -10,6 +10,8 @@
     <string name="fb_login_protocol_scheme">fb434815240293809</string>
     <string name="title_activity_main">MainActivity</string>
 
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">mUWox3yqTY4g7vu0PzXF0mjxw</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">YrMcoseUFlQUxV7MIgrP1Sx4ksNSbY5jHTEuuRz5ovJvUrbfXM</string>
 
     <string name="empty_directory">Empty Directory</string>
     <string name="storage_removed">Storage was removed or unmounted.</string>
@@ -134,7 +136,6 @@
     <string name="yesterday">yesterday</string>
 
 
-
     <!--string quick review-->
 
     <string name="quick_review">Quick Review</string>
@@ -166,9 +167,9 @@
     <string name="invite_me_to_events_other_religion">Invite me to events with others from my religion</string>
     <string name="interested_in">Interested in</string>
     <string name="show_my_gender_pref_on_profile">Show my gender preference on my Profile</string>
-    <string name="all_rights_reserved">Shindy All Rights Reserved \\nFor assistance or feedback please contact us at \nsupport@shindygo.com</string>
+    <string name="all_rights_reserved">Shindy All Rights Reserved \nFor assistance or feedback please contact us at \nsupport@shindygo.com</string>
     <string name="pay_for_invitee">Pay for Invitee</string>
-    <string name="pay_for_invitee_message">By clicking the button below you agree to pay for the invitees ticket if the accept your invitation to attend the event. Your credit card will not be charged unless they agree to attend. You can retract your offer at any time as long as the invitee has not already accepted. All ticket sales are final and non-refundable.</string>
+    <string name="pay_for_invitee_message">By clicking the button below you agree to pay for the invitees ticket if they accept your invitation to attend the event. Your credit card will not be charged unless they agree to attend. You can retract your offer at any time as long as the invitee has not already accepted. All ticket sales are final and non-refundable.</string>
     <string name="i_agree">I agree</string>
     <string name="mark_invite_anonymous">Mark Invite Anonymous</string>
     <string name="mark_anonymous_message">The recipient won\'t know it was you who sent them an invitation to attend your event.</string>
@@ -179,10 +180,21 @@
     <string name="times_not_available">Times not available to attend events</string>
     <string name="add">add</string>
     <string name="total_reviews">Total Reviews</string>
+    <string name="offered_to_pay">Offered to pay</string>
+    <string name="invited_anonymously">Invited Anonymously</string>
+    <string name="choose_time">Choose Time</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="leave_note_optional">Leave a Note (Optional)</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="please_select_day">Please select day</string>
+    <string name="please_select_time">Please select time</string>
+    <string name="separate_each_email">separate each email by a comma</string>
+    <string name="enter_your_invite_code">Enter you Event Invite Code</string>
+    <string name="invite_me_to_events_with_same_gender">Invite me to events with others that share the same gender preferance</string>
+    <string name="loading_wait">Loading page please wait</string>
 
     <!--string quick review-->
-
-
 
 
 </resources>

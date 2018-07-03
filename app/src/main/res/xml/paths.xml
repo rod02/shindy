@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <files-path
+        name="myfiles"
+        path="myfiles/" />
+    <external-path name="ext" path="" />
+
+    <!-- Based on default Glide operation, see InternalCacheDiskCacheFactory instantiated from GlideBuilder.createGlide() -->
+    <cache-path
+        name="share"
+        path="cache"
+        tools:path="DiskCache.Factory.DEFAULT_DISK_CACHE_DIR" />
+</paths>
