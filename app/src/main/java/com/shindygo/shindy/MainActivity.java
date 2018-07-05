@@ -133,8 +133,8 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         Profile.getCurrentProfile();
-        Api.initialized(getApplicationContext());
-        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+       // Api.initialized(getApplicationContext().getApplicationContext());
+        broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 ComponentName comp = new ComponentName(context.getPackageName(),

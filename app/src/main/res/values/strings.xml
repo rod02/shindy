@@ -193,6 +193,12 @@
     <string name="enter_your_invite_code">Enter you Event Invite Code</string>
     <string name="invite_me_to_events_with_same_gender">Invite me to events with others that share the same gender preferance</string>
     <string name="loading_wait">Loading page please wait</string>
+    <string name="title_activity_join_group">Join Group</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="my_groups">My Groups</string>
+    <string name="add_a_group">Add a Group</string>
+    <string name="join_group_msg">Get invited to exclusive events by groups you belong to.</string>
+    <string name="payment_page">Payment Page</string>
 
     <!--string quick review-->
 

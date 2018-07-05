@@ -24,4 +24,8 @@
     <color name="text_link_color">#0000ff</color>
     <color name="offere_to_pay">#e70505</color>
 
+    <color name="toolbar_background">#FFF</color>
+
+
+
 </resources>

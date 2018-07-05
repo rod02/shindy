@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -50,7 +51,7 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  * Use the {@link MyShindigsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyShindigsFragment extends Fragment {
+public class MyShindigsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = MyShindingsAdapter.class.getSimpleName();
 
@@ -67,6 +68,7 @@ public class MyShindigsFragment extends Fragment {
     @BindView(R.id.linearLayout2)
     LinearLayout linearLayout2;
 
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
 
 
@@ -108,9 +110,16 @@ public class MyShindigsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        update();
+        try {
+            update();
+        }catch (NullPointerException e){
+
+        }
+
     }
     public void update() {
+        mSwipeRefreshLayout.setRefreshing(true);
+
         eventController.getAttendingEvent(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
@@ -130,7 +139,7 @@ public class MyShindigsFragment extends Fragment {
 
                             }
                         }));
-                   // rvShindingsAttending.setNestedScrollingEnabled(true);
+                     rvShindingsAttending.setNestedScrollingEnabled(true);
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
@@ -159,18 +168,22 @@ public class MyShindigsFragment extends Fragment {
 
                             }
                         }));
-                    rvShindingsInvited.setNestedScrollingEnabled(false);
+                     rvShindingsInvited.setNestedScrollingEnabled(false);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    mSwipeRefreshLayout.setEnabled(true);
+                    hideRefreshProgressBar();
                 }catch (NullPointerException e){
 
                 }
 
-                }
+            }
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
 
             }
         });
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -179,8 +192,46 @@ public class MyShindigsFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_my_shindigs, container, false);
         unbinder = ButterKnife.bind(this, view);
         eventController = new EventController(getContext());
+        rvShindingsInvited.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition() == 0)
+                    mSwipeRefreshLayout.setEnabled(true);
+                else
+                    mSwipeRefreshLayout.setEnabled(false);
+            }
+        });
+        // SwipeRefreshLayout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_invited);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
 
-        update();
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mSwipeRefreshLayout.setRefreshing(true);
+
+                // Fetching data from server
+                try {
+                    update();
+                }catch (NullPointerException e){
+
+                }
+
+
+            }
+        });
+
+        //update();
         tvInvite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -214,15 +265,21 @@ public class MyShindigsFragment extends Fragment {
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         if (editText.getText().toString().length()>0)
                             eventController.EnterInviteCode(editText.getText().toString(), new Callback<Status>() {
                                 @Override
                                 public void onResponse(Call<Status> call, Response<Status> response) {
                                     Log.d(TAG, response.toString());
-                                    Status status = response.body();
-                                    Toast.makeText(getContext(), status.getStatus().equals("success")?"You are attend for this event!":"Invalid invite code", Toast.LENGTH_SHORT).show();
-                                    update();
-                                    mPopupWindow.dismiss();
+                                    try {
+                                        Status status = response.body();
+                                        Toast.makeText(getContext(), status.getStatus().equals("success")?"You are attend for this event!":"Invalid invite code", Toast.LENGTH_SHORT).show();
+                                        update();
+                                        mPopupWindow.dismiss();
+                                    }catch (NullPointerException e){
+
+                                    }
+
 
                                 }
 
@@ -236,7 +293,40 @@ public class MyShindigsFragment extends Fragment {
                 mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
             }
         });
+
+
         return view;
+    }
+
+
+    /**
+     * Called when a swipe gesture triggers a refresh.
+     */
+    @Override
+    public void onRefresh() {
+        // Fetching data from server
+        try {
+            update();
+            Log.v(TAG, "swipe refresh");
+        }catch (NullPointerException e){
+
+        }
+
+
+    }
+    // Call when the a network service is done. We should re-enable
+// swipe-to-refresh as now we allow user to refresh it.
+    public void hideRefreshProgressBar() {
+        if (mSwipeRefreshLayout != null &&
+                mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    mSwipeRefreshLayout.setEnabled(true);
+                }
+            });
+        }
     }
 
 
@@ -269,16 +359,7 @@ public class MyShindigsFragment extends Fragment {
         unbinder.unbind();
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }

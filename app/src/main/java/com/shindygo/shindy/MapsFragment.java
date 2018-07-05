@@ -117,15 +117,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         provider = locationManager.getBestProvider(new Criteria(), false);
-        if(MapsUtil.checkLocationPermission(getActivity()))
-            currentLocation = MapsUtil.getLastBestLocation();
+        try {
+            if(MapsUtil.checkLocationPermission(getActivity()))
+                currentLocation = MapsUtil.getLastBestLocation();
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.map);
+            SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.map);
 
-        mapFragment.getMapAsync(this);
-        mapFragment.getView().setClickable(false);
-        unbinder = ButterKnife.bind(this, view);
+            mapFragment.getMapAsync(this);
+            mapFragment.getView().setClickable(false);
+            unbinder = ButterKnife.bind(this, view);
+        }catch (NullPointerException e){
+
+        }
+
 
 
         return view;
@@ -246,17 +251,27 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
     @Override
     public void onResume() {
         super.onResume();
-        if (MapsUtil.hasPermission())
-            locationManager.requestLocationUpdates(provider, 400, 1, this);
+        try {
+            if (MapsUtil.hasPermission())
+                locationManager.requestLocationUpdates(provider, 400, 1, this);
+        }catch (NullPointerException e){
+
+        }
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (MapsUtil.hasPermission()) {
+        try {
+            if (MapsUtil.hasPermission()) {
 
-            locationManager.removeUpdates(this);
+                locationManager.removeUpdates(this);
+            }
+        }catch (NullPointerException e){
+
         }
+
     }
 
     /**

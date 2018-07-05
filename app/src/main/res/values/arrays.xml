@@ -9,20 +9,34 @@
         <item>8 years</item>
         <item>9 years</item>
         <item>10 years</item>
+        <item>15 years</item>
+        <item>Doesn't Matter</item>
+
 
     </string-array>
     <string-array name="distance">
-        <item>Optional</item>
-
+        <item>50 Miles</item>
         <item>20 Miles</item>
         <item>40 Miles</item>
-        <item>50 Miles</item>
         <item>60 Miles</item>
         <item>80 Miles</item>
         <item>120 Miles</item>
         <item>140 Miles</item>
         <item>160 Miles</item>
         <item>180 Miles</item>
+
+    </string-array>
+
+    <string-array name="within_distance">
+        <item>Within 50 Miles</item>
+        <item>Within 20 Miles</item>
+        <item>Within 40 Miles</item>
+        <item>Within 60 Miles</item>
+        <item>Within 80 Miles</item>
+        <item>Within 120 Miles</item>
+        <item>Within 140 Miles</item>
+        <item>Within 160 Miles</item>
+        <item> >180 Miles</item>
 
 
     </string-array>
@@ -35,10 +49,11 @@
     </string-array>
 
     <string-array name="with_others">
-        <item>Optional</item>
         <item>Not Applicable</item>
-        <item>Applicable</item>
+        <item>Always</item>
+        <item>Sometimes</item>
     </string-array>
+
     <string-array name="gender">
         <item>Optional</item>
         <item>Male</item>
@@ -46,8 +61,8 @@
     </string-array>
     <string-array name="gender_preference">
         <item>Both</item>
-        <item>Male</item>
-        <item>Female</item>
+        <item>Men</item>
+        <item>Women</item>
     </string-array>
     <string-array name="availability">
         <item>Optional</item>

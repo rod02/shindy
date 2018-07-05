@@ -28,52 +28,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class CreatedEventsFragment extends Fragment {
+public class CreatedEventsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = CreatedEventsFragment.class.getSimpleName();
-    RecyclerView rv;/*
-    @BindView(R.id.tv_invite)
-    TextView tvInvite;
-    @BindView(R.id.linearLayout)
-    LinearLayout linearLayout;
-    @BindView(R.id.linearLayout2)
-    LinearLayout linearLayout2;*/
-   /* @BindView(R.id.list_item_profile)
-    TextView listItemProfile;
-    @BindView(R.id.ll_details)
-    LinearLayout llDetails;
-    @BindView(R.id.star_favorite)
-    ImageView starFavorite;
-    @BindView(R.id.list_item_favorite)
-    TextView listItemFavorite;*/
-/*    @BindView(R.id.ll_invited)
-    LinearLayout llInvited;
-    @BindView(R.id.list_item_invite)
-    TextView listItemInvite;
-    @BindView(R.id.list_item_message)
-    TextView listItemMessage;
-    @BindView(R.id.ll_invite)
-    LinearLayout llInvite;
-    @BindView(R.id.bar)
-    LinearLayout bar;*/
-
+    RecyclerView rv;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public CreatedEventsFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static CreatedEventsFragment newInstance() {
         CreatedEventsFragment fragment = new CreatedEventsFragment();
-       /* Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);*/
         return fragment;
     }
 
@@ -88,21 +54,57 @@ public class CreatedEventsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_created_events, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            rv = (RecyclerView) view;
-            rv.setLayoutManager(new LinearLayoutManager(context));
-            rv.setHasFixedSize(true);//every item of the RecyclerView has a fix size
+        Context context = view.getContext();
+        rv = (RecyclerView) view.findViewById(R.id.rv);
+        rv.setLayoutManager(new LinearLayoutManager(context));
+        rv.setHasFixedSize(true);//every item of the RecyclerView has a fix size
+        // SwipeRefreshLayout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.lay_swipe);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
 
-        }
-        loadRecyclerViewData();
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mSwipeRefreshLayout.setRefreshing(true);
+
+                // Fetching data from server
+                try {
+                    loadRecyclerViewData();
+                }catch (NullPointerException e){
+
+                }
+
+
+            }
+        });
+       // loadRecyclerViewData();
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition() == 0)
+                    mSwipeRefreshLayout.setEnabled(true);
+                else
+                    mSwipeRefreshLayout.setEnabled(false);
+            }
+        });
+
         return view;
     }
 
 
     private void loadRecyclerViewData() {
         // Showing refresh animation before making http call
-       // mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setRefreshing(true);
 
         final EventController api = new EventController(getContext());
         api.fetchCreatedEvents(User.getCurrentUserId(),new Callback<List<Event>>() {
@@ -120,8 +122,11 @@ public class CreatedEventsFragment extends Fragment {
                 try {
 
                     listEvents(eventsList, rv);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    mSwipeRefreshLayout.setEnabled(true);
+                    hideRefreshProgressBar();
                 }catch (NullPointerException e){
-                  //  e.printStackTrace();
+                    //  e.printStackTrace();
                     Log.d(TAG, "fetch on response");
                 }
 
@@ -138,35 +143,48 @@ public class CreatedEventsFragment extends Fragment {
 
 
     }
-
+    // Call when the a network service is done. We should re-enable
+    // swipe-to-refresh as now we allow user to refresh it.
+    public void hideRefreshProgressBar() {
+        if (mSwipeRefreshLayout != null &&
+                mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    mSwipeRefreshLayout.setEnabled(true);
+                }
+            });
+        }
+    }
     private void listEvents(List<Event> eventsList, RecyclerView rv) {
 
         MyCreatedEventsAdapter adapter = new MyCreatedEventsAdapter(eventsList, rv,
                 new Click<Event>() {
-            @Override
-            public void onClick(int id, View view, Event event) {
-                switch (id) {
-                    case R.id.ll_details: {
-                        openEventEditor(event);
-                        break;
-                    }
-                    case R.id.ll_invite: {
+                    @Override
+                    public void onClick(int id, View view, Event event) {
+                        switch (id) {
+                            case R.id.ll_details: {
+                                openEventEditor(event);
+                                break;
+                            }
+                            case R.id.ll_invite: {
 
 
-                        break;
-                    }
-                    case R.id.ll_invited: {
+                                break;
+                            }
+                            case R.id.ll_invited: {
 
 
-                        break;
-                    }
-                    case R.id.lay_edit: {
+                                break;
+                            }
+                            case R.id.lay_edit: {
 
-                        openEventEditor(event);
-                        break;
-                    }
-                }
-            } });
+                                openEventEditor(event);
+                                break;
+                            }
+                        }
+                    } });
         rv.setAdapter(adapter);
 
 
@@ -196,13 +214,18 @@ public class CreatedEventsFragment extends Fragment {
 
 
 
-        @Override
-        public void onDetach() {
-            super.onDetach();
-        }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-        }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onRefresh() {
+        loadRecyclerViewData();
+    }
 }

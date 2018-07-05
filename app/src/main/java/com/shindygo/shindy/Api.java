@@ -259,9 +259,9 @@ public class Api {
 
 
     public static void initialized(Context applicationContext) {
-        if(isInitialized()){
+        /*if(isInitialized()){
             return;
-        }
+        }*/
         instance = new Api(applicationContext);
     }
 

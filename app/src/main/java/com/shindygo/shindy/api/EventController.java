@@ -12,6 +12,7 @@ import com.shindygo.shindy.model.Discussion;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.InviteEvent;
 import com.shindygo.shindy.model.MyInvites;
+import com.shindygo.shindy.model.OpenedgeSetupResponse;
 import com.shindygo.shindy.model.Rating;
 import com.shindygo.shindy.model.Reply;
 import com.shindygo.shindy.model.Status;
@@ -251,4 +252,13 @@ public class EventController {
         updateEvent.enqueue(callback);
     }
 
+
+    public void checkout(String fbid, String eventid, String chargeTotal, Callback<OpenedgeSetupResponse> callback){
+        Map<String,String> map = new HashMap<>();
+        map.put("fbid",fbid);
+        map.put("charge_total",chargeTotal);
+        map.put("eventid",eventid);
+        shindiServer.checkoutEvent(map).enqueue(callback);
+
+    }
 }

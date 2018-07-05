@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -15,7 +17,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".App">
         <activity android:name=".LoginActivity">
 
             <!--
@@ -30,9 +33,12 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-        <provider android:authorities="com.facebook.app.FacebookContentProvider434815240293809"
+
+        <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider434815240293809"
+            android:exported="true" />
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -40,8 +46,6 @@
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
-
-
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.VIEW" /> -->
@@ -54,13 +58,14 @@
             <!-- <data android:scheme="@string/fb_login_protocol_scheme" /> -->
             <!-- </intent-filter> -->
         </activity>
+
         <receiver
             android:name=".MyResultReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_SUCCESS"/>
-                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_FAILURE"/>
-                <action android:name="com.twitter.sdk.android.tweetcomposer.TWEET_COMPOSE_CANCEL"/>
+                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_SUCCESS" />
+                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_FAILURE" />
+                <action android:name="com.twitter.sdk.android.tweetcomposer.TWEET_COMPOSE_CANCEL" />
             </intent-filter>
         </receiver>
 
@@ -73,6 +78,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/paths" />
         </provider>
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme"
@@ -125,7 +131,11 @@
             android:name=".utils.ConnectIntentService"
             android:exported="false" />
 
-        <activity android:name=".PaymentPageActivity"></activity>
+        <activity android:name=".PaymentPageActivity" />
+        <activity
+            android:name=".JoinGroupActivity"
+            android:label="@string/title_activity_join_group"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

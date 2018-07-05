@@ -506,7 +506,9 @@ public class ProfileActivity extends Fragment {
         tvJoinGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent intent = new Intent(getContext(), JoinGroupActivity.class);
+                intent.putExtra("fbid", user.getFbid());
+                startActivity(intent);
             }
         });
 

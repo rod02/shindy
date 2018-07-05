@@ -347,4 +347,11 @@ public interface ShindiServer {
     Call<ResponseBody> setupRequest(@FieldMap Map<String, String> request);
 
 
+    @Headers({
+            "API-key: shindykey456",
+            "Authorization: Basic c2hpbmR5QGFkbWluOm9yYW5nZUAxMjM="
+    })
+    @FormUrlEncoded
+    @POST("checkout")
+    Call<OpenedgeSetupResponse> checkoutEvent(@FieldMap Map<String, String> map);
 }

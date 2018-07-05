@@ -64,6 +64,10 @@ public class Event implements Parcelable {
     @SerializedName("representative")
     @Expose
     private String representative;
+    @SerializedName("representative_name")
+    @Expose
+    private String representativeName;
+
     @SerializedName("createdate")
     @Expose
     private String createdate;
@@ -195,6 +199,14 @@ public class Event implements Parcelable {
         }catch (NullPointerException e){
             return  false;
         }
+    }
+
+    public String getRepresentativeName() {
+        return representativeName;
+    }
+
+    public void setRepresentativeName(String representativeName) {
+        this.representativeName = representativeName;
     }
 
     public String getInvitationId() {

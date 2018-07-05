@@ -194,7 +194,6 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
-        Twitter.initialize(EventDetailActivity.this);
         ButterKnife.bind(this);
         eventController = new EventController(this);
         menu.setVisibility(View.GONE);
