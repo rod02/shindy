@@ -22,6 +22,10 @@
             android:id="@+id/nav_host_new_event"
             android:icon="@drawable/calender_add"
             android:title="@string/host_new_event" />
+        <item
+            android:id="@+id/nav_events"
+            android:icon="@drawable/calender_star"
+            android:title="@string/events" />
     </group>
     <group
         android:id="@+id/menu_bottom"

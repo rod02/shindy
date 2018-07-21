@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/light_gray"
-android:layout_width="match_parent" android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent" android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -44,7 +46,7 @@ android:layout_width="match_parent" android:layout_height="match_parent">
             android:layout_alignParentTop="true"
             android:layout_marginEnd="14dp"
             android:layout_marginStart="14dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="14dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_back"
             android:tint="@color/white" />
@@ -216,7 +218,8 @@ android:layout_width="match_parent" android:layout_height="match_parent">
                 android:id="@+id/rv_event_user"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                tools:listitem="@layout/item_event_user" />
 
             <ImageView
                 android:id="@+id/iv_arrow"
@@ -229,16 +232,30 @@ android:layout_width="match_parent" android:layout_height="match_parent">
                 android:visibility="gone" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_Bam"
+        <LinearLayout
+            android:id="@+id/ll_bam"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lll"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:background="@color/green_online"
-            android:gravity="center_horizontal"
-            android:text="Invite Sent...Bam"
-            android:textColor="@android:color/white"
-            android:visibility="gone" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_bam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lll"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_weight="0"
+                android:drawableEnd="@drawable/bam"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Invite Sent...Bam"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:visibility="visible" />
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

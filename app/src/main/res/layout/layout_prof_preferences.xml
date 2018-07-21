@@ -269,7 +269,7 @@
                             android:textSize="14sp" />
 
                         <Spinner
-                            android:id="@+id/sp_gender"
+                            android:id="@+id/sp_gender_pref"
                             style="@style/Widget.AppCompat.Spinner.Underlined"
                             android:layout_width="@dimen/prof_pref_spinner_width"
                             android:layout_height="wrap_content"

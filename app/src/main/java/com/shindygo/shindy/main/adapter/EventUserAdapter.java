@@ -90,21 +90,21 @@ public class EventUserAdapter extends RecyclerView.Adapter<EventUserAdapter.Even
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(TAG,  "imageView.OnCLick "+ position);
+                  /*  Log.d(TAG,  "imageView.OnCLick "+ position);
                     Log.d(TAG,  "imageView.OnCLick "+ event.getEventid());
-                    Log.d(TAG,  "imageView.OnCLick "+ event.getEventname());
+                    Log.d(TAG,  "imageView.OnCLick "+ event.getEventname());*/
 
                     clickCard.Click(true,event.getEventid());
 
                     if(isMultiselect){
                         boolean tof = storeChecked.get(position)!=null;
-                        Log.d(TAG,  "imageView.OnCLick "+ "tof "+tof);
+                      //  Log.d(TAG,  "imageView.OnCLick "+ "tof "+tof);
 
                         if (tof){
                            // triggerOnItemClickListener(--itemSelected, view); // transfer position to update unselected
                             storeChecked.remove(position);// delete position of unselected position in the fragment
                             view.setSelected(false);
-                            Log.d(TAG,  "imageView.OnCLick "+ "please deselect");
+                         //   Log.d(TAG,  "imageView.OnCLick "+ "please deselect");
 
                         }else {
                             //triggerOnItemClickListener(++itemSelected, view);
@@ -112,7 +112,7 @@ public class EventUserAdapter extends RecyclerView.Adapter<EventUserAdapter.Even
                             storeChecked.put(position,event);
                             view.setSelected(true);
 
-                            Log.d(TAG,  "imageView.OnCLick "+ "please select");
+                         //   Log.d(TAG,  "imageView.OnCLick "+ "please select");
 
                         }
                     }
@@ -134,7 +134,7 @@ public class EventUserAdapter extends RecyclerView.Adapter<EventUserAdapter.Even
                 }
             });
             imageView.setSelected(storeChecked.get(position)!=null);
-            Log.d(TAG,  "bindModel imageView "+ position + " "+ event.getEventname());
+          //  Log.d(TAG,  "bindModel imageView "+ position + " "+ event.getEventname());
 
         }
     }

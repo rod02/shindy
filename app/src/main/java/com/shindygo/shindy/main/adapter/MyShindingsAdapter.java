@@ -45,6 +45,7 @@ public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.
     public MyShindingsAdapter(List<Event> events, ClickEvent clickEvent) {
         this.list = events;
         this.clickEvent = clickEvent;
+
     }
 
     @Override
@@ -61,6 +62,7 @@ public class MyShindingsAdapter extends RecyclerView.Adapter<MyShindingsAdapter.
     @Override
     public void onBindViewHolder(final MyShindingsHolder holder, final int position) {
         holder.bindModel(list.get(position), clickEvent);
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.shindygo.shindy.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.shindygo.shindy.interfaces.ClickCard;
 import com.shindygo.shindy.interfaces.ClickShowPopup;
 import com.shindygo.shindy.interfaces.OnClickShow;
 import com.shindygo.shindy.model.User;
+
+import static android.view.View.GONE;
 
 public class NewUserCardAdapter extends ArrayAdapter<User> {
     ClickCard clickCard;
@@ -72,11 +75,26 @@ public class NewUserCardAdapter extends ArrayAdapter<User> {
             ivPreview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (delay)return;
+                    view.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                delay =false;
+                            }catch (NullPointerException e){
+
+                            }
+
+                        }
+                    }, 5000);
+                    delay = true;
+
                     clickShowPopup.Show((User) view.getTag());
                 }
             });
         }
     }
 
+    static boolean delay = false;
 
 }

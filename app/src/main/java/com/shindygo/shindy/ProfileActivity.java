@@ -2,6 +2,7 @@ package com.shindygo.shindy;
 
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -49,7 +50,13 @@ import com.shindygo.shindy.dialog.TimePicker;
 import com.shindygo.shindy.model.User;
 import com.shindygo.shindy.model.UserAvailability;
 import com.shindygo.shindy.utils.GlideImage;
+import com.shindygo.shindy.utils.MySharedPref;
 import com.shindygo.shindy.utils.TextUtils;
+import com.shindygo.shindy.utils.Validate;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -68,12 +75,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 
 public class ProfileActivity extends Fragment {
 
     private static final String TAG = ProfileActivity.class.getSimpleName();
+    private static final int RQ_LOCATION = 143;
 
     @BindView(R.id.imageView2)
     ImageView imageView2;
@@ -94,8 +103,8 @@ public class ProfileActivity extends Fragment {
     Spinner spDistance;
     @BindView(R.id.sp_religion)
     Spinner spReligion;
-    @BindView(R.id.sp_gender)
-    Spinner gender;
+    @BindView(R.id.sp_gender_pref)
+    Spinner spGenderPref;
     @BindView(R.id.sp_avaiba)
     Spinner spAvaiba;
     @BindView(R.id.btn_add_availability)
@@ -164,6 +173,13 @@ public class ProfileActivity extends Fragment {
     TextView tvLogout;
     @BindView(R.id.tv_join_group)
     TextView tvJoinGroup;
+    @BindView(R.id.ll_address)
+    LinearLayout layAddress;
+    @BindView(R.id.etAddress)
+    TextInputEditText etAddress;
+
+    @BindView(R.id.sp_gender)
+    Spinner spGender;
 
     private PopupWindow mPopupWindow;
     private RelativeLayout mRelativeLayout;
@@ -171,19 +187,28 @@ public class ProfileActivity extends Fragment {
     User user;
     List<UserAvailability> userAvailabilities = new ArrayList<>();
     UserAvailabilityAdapter userAvailabilityAdapter ;
+    double longitude;
+    double latitude;
+    String address;
+    String zipcode;
 
 
     public static final String BASE_URL = "http://shindygo.com/rest_webservices/restapicontroller/";
 
     private int getIndex(Spinner spinner, String myString) {
         int index = 0;
+        try {
 
-        for (int i = 0; i < spinner.getCount(); i++) {
-            if (spinner.getItemAtPosition(i).toString().contains(myString) || spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)) {
-                index = i;
-                break;
+            for (int i = 0; i < spinner.getCount(); i++) {
+                if (spinner.getItemAtPosition(i).toString().contains(myString) || spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)) {
+                    index = i;
+                    break;
+                }
             }
+        }catch (NullPointerException e){
+
         }
+
         return index;
     }
 
@@ -192,6 +217,7 @@ public class ProfileActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.activity_profile, container, false);
         ButterKnife.bind(this, view);
+        MySharedPref.setProfileSetupDone(true);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -208,6 +234,8 @@ public class ProfileActivity extends Fragment {
                     //Glide.with(getApplicationContext()).load(user.getPhoto()).into(imageView2);
                     tvNameAge.setText(user.getFullname());
                     etZip.setText(user.getZipcode());
+                    zipcode= user.getZipcode();
+
                     etAbout.setText(user.getAbout());
                     swAllowAnonymInvite.setChecked(user.allowAnonymousInvite());
                   //  etAge.setText(user.getAgePref());
@@ -216,13 +244,19 @@ public class ProfileActivity extends Fragment {
                     spReligion.setSelection(Integer.parseInt(user.getReligion()));
                     swShowReligion.setChecked(user.showMyReligion());
                     spReligionAbleInvite.setSelection(Integer.parseInt(user.getInviteMeOtherReligion()));
-                    gender.setSelection(Integer.parseInt(user.getGenderPref()));
+                    spGenderPref.setSelection(Integer.parseInt(user.getGenderPref()));
                     swShowMyGender.setChecked(user.showMyGender());
                     spAvaiba.setSelection(getIndex(spAvaiba, user.getAvailability()));
                     spInviteSameGenderPref.setSelection(Integer.parseInt(user.getInviteMeOtherShareGenderPref()));
-
+                    spGender.setSelection(Integer.parseInt(user.getGender()));
+                    address = user.getAddress();
+                    longitude = Double.parseDouble(Validate.string(user.getLongitude()));
+                    latitude = Double.parseDouble(Validate.string(user.getLatitude()));
+                    etAddress.setText(address);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
+                }catch (NullPointerException e){
+
                 }
             }
 
@@ -273,17 +307,27 @@ public class ProfileActivity extends Fragment {
         };
         logout.setOnClickListener(onClickLogout);
         tvLogout.setOnClickListener(onClickLogout);
+
         final SharedPreferences sharedPref = getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
         final String url = sharedPref.getString("url", "");
-        Glide.with(getContext()).load(url).into(imageView2);
-   /*     tvNameAge.setText(sharedPref.getString("name", ""));
-        etZip.setText(sharedPref.getString("zip", ""));
-        etAbout.setText(sharedPref.getString("about", "")); //TODO убрать шаред преф и настроять норм отображение спиннеров
-        //spAge.setSelection(sharedPref.getInt("spAge", 0));
-        spDistance.setSelection(sharedPref.getInt("spDistance", 0));
-        spReligion.setSelection(sharedPref.getInt("spReligion", 0));
-        gender.setSelection(sharedPref.getInt("spGender", 0));
-        spAvaiba.setSelection(sharedPref.getInt("spAva", 0));*/
+        GlideImage.load(getContext(),url,imageView2);
+        View.OnClickListener onClickLocation =  new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), MapsActivity.class);
+                if(latitude!=0){
+                    i.putExtra("longitude", longitude);
+                    i.putExtra("latitude", latitude);
+                    i.putExtra("title", etAddress.getText().toString());
+                }else i.putExtra("self",true);
+
+                startActivityForResult(i, RQ_LOCATION);
+
+            }
+        };
+
+        layAddress.setOnClickListener(onClickLocation);
+        etAddress.setOnClickListener(onClickLocation);
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -355,7 +399,7 @@ public class ProfileActivity extends Fragment {
                 TextView city = customView.findViewById(R.id.tv_city);
                 city.setText(user.getAddress());
                 TextView pref = customView.findViewById(R.id.tv_pref);
-                pref.setText("Preference: "+gender.getItemAtPosition(Integer.parseInt(user.getGenderPref())));
+                pref.setText("Preference: "+spGenderPref.getItemAtPosition(Integer.parseInt(user.getGenderPref())));
                 TextView religion = customView.findViewById(R.id.tv_religon);
                 religion.setText(spReligion.getItemAtPosition(Integer.parseInt(user.getReligion())).toString());
 
@@ -564,6 +608,7 @@ public class ProfileActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 TimePicker newFragment = new TimePicker();
+
                 newFragment.setListener(new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(android.widget.TimePicker timePicker, int i, int i1) {
@@ -610,7 +655,7 @@ public class ProfileActivity extends Fragment {
                     e.printStackTrace();
                 }
                 SimpleDateFormat sdf1 =new SimpleDateFormat(TextUtils.SDF_4);
-                SimpleDateFormat sdf2 =new SimpleDateFormat(TextUtils.SDF_6);
+                SimpleDateFormat sdf2 =new SimpleDateFormat(TextUtils.SDF_3);
 
 
                 UserAvailability availability = new UserAvailability();
@@ -627,9 +672,12 @@ public class ProfileActivity extends Fragment {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                addAvailability(availability);
 
+                Log.d(TAG,"requst "+ availability.getTimezone());
+                addAvailability(availability);
                 dialog.dismiss();
+
+
             }
         });
 
@@ -644,25 +692,36 @@ public class ProfileActivity extends Fragment {
                     Log.d(TAG,"onResponse");
                     Log.d(TAG,"onResponse " + response.toString());
                     try {
-                        Log.d(TAG,"onResponse " + response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    if(response.message().equalsIgnoreCase("ok")){
-                        if(userAvailabilityAdapter!=null){
-                            userAvailabilities.add(availability);
-                           // userAvailabilityAdapter.notifyDataSetChanged();
-                            userAvailabilityAdapter.notifyItemInserted(userAvailabilities.size() - 1);
+                        String responseString = response.body().string();
+                        JSONObject jsonObject = new JSONObject(responseString);
+                       Log.d(TAG,"onResponse " +jsonObject.toString() );
+                       String status = jsonObject.optString("status","false");
+                        JSONArray jsonArray = jsonObject.optJSONArray("error");
+                       if (status.equalsIgnoreCase("false")){
+                           Toast.makeText(getContext(), "unexpected error",Toast.LENGTH_SHORT).show();
+                           return;
+                       }
+                        if(response.message().equalsIgnoreCase("ok")){
+                            if(userAvailabilityAdapter!=null){
+                                userAvailabilities.add(availability);
+                                // userAvailabilityAdapter.notifyDataSetChanged();
+                                userAvailabilityAdapter.notifyItemInserted(userAvailabilities.size() - 1);
 
-                            exlAvail.initLayout(); // Recalculate size of children
+                                exlAvail.initLayout(); // Recalculate size of children
 
-                        }else{
-                            userAvailabilities = new ArrayList<UserAvailability>();
-                            userAvailabilities.add(availability);
-                            setUserAvailabilities(userAvailabilities);
+                            }else{
+                                userAvailabilities = new ArrayList<UserAvailability>();
+                                userAvailabilities.add(availability);
+                                setUserAvailabilities(userAvailabilities);
+                            }
+
+                            exlAvail.expand();
                         }
 
-                        exlAvail.expand();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
 
                 }catch (NullPointerException e){
@@ -673,6 +732,7 @@ public class ProfileActivity extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
 
             }
         });
@@ -693,7 +753,6 @@ public class ProfileActivity extends Fragment {
 
 
     private void attemptSave() {
-
         SharedPreferences sharedPref = getContext().getSharedPreferences("set", Context.MODE_PRIVATE);
         User user = new User(sharedPref.getString("fbid", ""), sharedPref.getString("name", ""), sharedPref.getString("email", ""));
         if (etZip.getText().toString().length() > 0)
@@ -703,21 +762,25 @@ public class ProfileActivity extends Fragment {
         user.setAgePref(spAge.getSelectedItem().toString());
         user.setDistance(String.valueOf(spDistance.getSelectedItemPosition()));
         user.setReligion("" + spReligion.getSelectedItemPosition());
-        user.setGenderPref("" + gender.getSelectedItemPosition());
+        user.setGenderPref("" + spGenderPref.getSelectedItemPosition());
         user.setAvailability(spAvaiba.getSelectedItem().toString());
         user.setAllowAnonymousInvite(swAllowAnonymInvite.isChecked()? "1":"0");
         user.setShowMyGenderPref(swShowMyGender.isChecked()? "1":"0");
         user.setShowMyReligion(swShowReligion.isChecked()? "1":"0");
         user.setInviteMeOtherReligion(String.valueOf(spReligionAbleInvite.getSelectedItemPosition()));
-
         user.setInviteMeOtherShareGenderPref(String.valueOf(spInviteSameGenderPref.getSelectedItemPosition()));
+        user.setGender(String.valueOf(spGender.getSelectedItemPosition()));
+        user.setAddress(address);
+        user.setLatitude(String.valueOf(latitude));
+        user.setLongitude(String.valueOf(longitude));
 
         SharedPreferences.Editor editor = sharedPref.edit();
         //         editor.putInt("prefAge", Integer.parseInt(etAge.getText().toString()));
         editor.putInt("spDistance", spDistance.getSelectedItemPosition());
         editor.putInt("spReligion", spReligion.getSelectedItemPosition());
-        editor.putInt("spGender", gender.getSelectedItemPosition());
+        editor.putInt("spGender", spGender.getSelectedItemPosition());
         editor.putInt("spAva", spAvaiba.getSelectedItemPosition());
+        editor.putInt("spGenderPref", spGenderPref.getSelectedItemPosition());
 
         editor.apply();
 
@@ -725,7 +788,12 @@ public class ProfileActivity extends Fragment {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 Log.d("onResponse", response.toString());
-                getFragmentManager().beginTransaction().remove(ProfileActivity.this).commit();
+                try {
+                    getFragmentManager().beginTransaction().remove(ProfileActivity.this).commit();
+
+                }catch (NullPointerException e){
+
+                }
             }
 
             @Override
@@ -746,6 +814,8 @@ public class ProfileActivity extends Fragment {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         if (getActivity()!=null)
+            MySharedPref.clear();
+        MySharedPref.clearUser();
         getActivity().finish();
     }
 
@@ -761,4 +831,33 @@ public class ProfileActivity extends Fragment {
     private void onClickExpToggleButton(final ExpandableLayout expandableLayout) {
         expandableLayout.toggle();
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.v(TAG, "onActivityResult requestCode:" +requestCode
+                + " resultCode:"+resultCode
+                + "  intent=="+String.valueOf(data==null));
+        switch (requestCode) {
+            case RQ_LOCATION: {
+                if (resultCode == RESULT_OK) {
+                    latitude = data.getDoubleExtra("result_lat", 0);
+                    longitude = data.getDoubleExtra("result_lon", 0);
+                    zipcode = data.getStringExtra("result_zipcode");
+                    if (zipcode == null)
+                        zipcode = "0000";
+                    address = data.getStringExtra("result_text");
+                    etAddress.setText(address);
+                    etZip.setText(zipcode);
+                }
+                if (resultCode == Activity.RESULT_CANCELED) {
+                    //Write your code if there's no result
+                }
+                break;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
 }

@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.twitter.sdk.android.tweetcomposer.TweetUploadService;
@@ -17,6 +19,7 @@ public class MyResultReceiver extends BroadcastReceiver {
             // success
             final Long tweetId = intentExtras.getLong(TweetUploadService.EXTRA_TWEET_ID);
             Toast.makeText(context, "Post success", Toast.LENGTH_LONG).show();
+
         } else if (TweetUploadService.UPLOAD_FAILURE.equals(intent.getAction())) {
             // failure
             final Intent retryIntent = intentExtras.getParcelable(TweetUploadService.EXTRA_RETRY_INTENT);

@@ -101,6 +101,7 @@ public class UserAvailabilityAdapter extends RecyclerView.Adapter<UserAvailabili
                                         list.remove(position);
                                         notifyItemRemoved(position);
                                         notifyItemRangeChanged(position, getItemCount());
+
                                     }
 
                                 }catch (NullPointerException e){

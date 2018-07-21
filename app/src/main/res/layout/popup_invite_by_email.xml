@@ -10,13 +10,13 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_centerHorizontal="false"
         android:layout_centerInParent="true"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:alpha="0.7"
-        android:gravity="center_horizontal"
+        android:gravity="start"
         android:text="Invite a friend via Email"
         android:textColor="@color/gray"
         android:textSize="20dp" />
@@ -63,7 +63,7 @@
                 android:maxLines="1"
                 android:text="name"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/dp20"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -71,11 +71,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp20"
+                android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="date"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/dp20" />
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -110,7 +111,7 @@
         android:layout_height="100dp"
         android:layout_below="@+id/tv_separate"
         android:layout_marginEnd="@dimen/dp20"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="@dimen/dp20"
         android:background="@drawable/rounded_border_gray"
         android:gravity="top"
         android:hint="@string/leave_note_optional"

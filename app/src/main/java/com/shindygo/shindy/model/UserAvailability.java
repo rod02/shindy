@@ -102,6 +102,8 @@ public class UserAvailability {
         map.put("date_not_available",day);
         map.put("start_time",startTime);
         map.put("end_time",endTime);
+        map.put("timezone",timezone);
+
         return  map;
     }
 

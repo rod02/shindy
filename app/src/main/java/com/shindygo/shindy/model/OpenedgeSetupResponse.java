@@ -13,9 +13,9 @@ public class OpenedgeSetupResponse {
     @SerializedName("errorMessage")
     @Expose
     public String errorMessage;
-    @SerializedName("paid")
+    @SerializedName("status")
     @Expose
-    public String paid;
+    public String status;
 
     public String getSealedSetupParameters() {
         return sealedSetupParameters;
@@ -42,12 +42,12 @@ public class OpenedgeSetupResponse {
     }
 
 
-    public String getPaid() {
-        return paid;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPaid(String paid) {
-        this.paid = paid;
+    public void setStatus(String paid) {
+        this.status = paid;
     }
 
     public OpenedgeSetupResponse(String sealedSetupParameters, String actionUrl) {

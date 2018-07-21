@@ -4,6 +4,7 @@ package com.shindygo.shindy.main.adapter;
  * Created by User on 16.03.2018.
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -14,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,8 +31,10 @@ import com.shindygo.shindy.interfaces.ClickEventCard;
 import com.shindygo.shindy.interfaces.ClickUser;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.InviteEvent;
+import com.shindygo.shindy.model.Status;
 import com.shindygo.shindy.model.User;
 import com.shindygo.shindy.utils.GlideImage;
+import com.shindygo.shindy.utils.MySharedPref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +45,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.view.View.GONE;
 
 /**
  * Created by Sergey on 24.10.2017.
@@ -100,6 +107,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersHolder>
         ImageView pay;
         @BindView(R.id.anonim)
         ImageView anonim;
+        @BindView(R.id.ll_bam)
+        LinearLayout layBam;
         private int isAnon=0;
         private int isPay=0;
 
@@ -132,54 +141,137 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersHolder>
                 }
             });
 
-            pay.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
+            pay.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
             pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (isPay==1){
+
+
+                    if(isPay==0){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        View payforin = LayoutInflater.from(context)
+                                .inflate(R.layout.alert_pay_for_invitee, null, false);
+                        builder.setView(payforin);
+                        Button agree = payforin.findViewById(R.id.btn_ok);
+                        Button close = payforin.findViewById(R.id.close);
+                        Button cancel = payforin.findViewById(R.id.btn_cancel);
+
+                        final AlertDialog alert = builder.show();
+                        agree.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (isPay==0){
+                                    isPay=1;
+                                    pay.setColorFilter(ContextCompat.getColor(context, R.color.green_online));
+                                }
+                                else {
+                                    isPay=0;
+                                    pay.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
+                                }
+                                alert.dismiss();
+                            }
+                        });
+                        close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alert.dismiss();
+                            }
+                        });
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alert.cancel();
+                            }
+                        });
+                        alert.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+
+                    } else {
                         isPay=0;
-                        pay.setColorFilter(ContextCompat.getColor(context, R.color.fb_blue));
+                        pay.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
                     }
-                    else {
-                        isPay=1;
-                        pay.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
-                    }
+
 
                 }
 
+
             });
-            anonim.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
+            anonim.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
             anonim.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        if (isAnon==1){
-                            isAnon=0;
-                                anonim.setColorFilter(ContextCompat.getColor(context, R.color.fb_blue));
+                               /* if (isAnon==1){
+                                    isAnon=0;
+                                    anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                                }
+                                else {
+                                    isAnon=1;
+                                    anonim.setColorFilter(ContextCompat.getColor(getContext(), R.color.darker_gray));
+                                }
+
+*/
+                    if(MySharedPref.showInviteAnonymousAlert() && isAnon==0 ){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        View payforin = LayoutInflater.from(context)
+                                .inflate(R.layout.alert_mark_anonymous, null, false);
+                        builder.setView(payforin);
+                        Button btnOk = payforin.findViewById(R.id.btn_ok);
+                        final CheckBox checkBox = payforin.findViewById(R.id.checkbox);
+                        Button cancel = payforin.findViewById(R.id.close);
+
+                        final AlertDialog alert = builder.show();
+                        btnOk.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                MySharedPref.setInviteAnonymous(!checkBox.isChecked());
+                                if (isAnon==0){
+                                    isAnon=1;
+                                    anonim.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
+                                }
+                                else {
+                                    isAnon=0;
+                                    anonim.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
+                                }
+                                alert.dismiss();
+                            }
+                        });
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alert.dismiss();
+                            }
+                        });
+
+                        alert.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    }else {
+                        if (isAnon==0){
+                            isAnon=1;
+                            anonim.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
                         }
                         else {
-                            isAnon=1;
-                            anonim.setColorFilter(ContextCompat.getColor(context, R.color.gray_tint));
+                            isAnon=0;
+                            anonim.setColorFilter(ContextCompat.getColor(context, R.color.darker_gray));
                         }
 
+                    }
 
                 }
             });
             arrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    textView.setVisibility(View.VISIBLE);
-                    //todo send invite
+                    /*textView.setVisibility(View.VISIBLE);
                     EventController eventController = new EventController(context);
-                    eventController.sendinvite(new InviteEvent(choosenEvent, user.getFbid(), isAnon, isPay), new Callback<ResponseBody>() {
+                    eventController.sendinvite(new InviteEvent(choosenEvent, user.getFbid(), isAnon, isPay), new Callback<Status>() {
                         @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        public void onResponse(Call<Status> call, Response<Status> response) {
                             if (response != null) {
                                 Log.v("sendInvite", response.body().toString());
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        public void onFailure(Call<Status> call, Throwable t) {
                             t.printStackTrace();
                         }
                     });
@@ -192,7 +284,72 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersHolder>
 
                         }
                     }, 2000);
+*/
 
+                    EventUserAdapter adapter = (EventUserAdapter) recyclerView.getAdapter();
+                    EventController eventController = new EventController(context);
+                    final List<Event> events = adapter.getSelectedItems();
+                    for (int i = 0; i < events.size(); i++) {
+                        final int finalI = i;
+                        eventController.sendinvite(new InviteEvent(events.get(i).getEventid(), user.getFbid(), isAnon, isPay), new Callback<Status>() {
+                            @Override
+                            public void onResponse(Call<Status> call, Response<Status> response) {
+                                try {
+                                    if (response != null) {
+                                        Log.v("sendInvite", response.toString());
+                                        Status status = response.body();
+                                        Log.v("sendInvite", status.result);
+                                        Log.v("sendInvite", status.status);
+                                        Log.v("sendInvite", status.toString());
+
+                                        layBam.setVisibility(View.VISIBLE);
+
+                                    }
+
+                                    if(finalI == events.size()-1){
+                                        if(response.message().equalsIgnoreCase("ok")){
+                                            // mPopupWindow.dismiss();
+                                            //Snackbar.make(getView(), R.string.invite_sent_bam, Snackbar.LENGTH_LONG).show();
+
+
+                                        }
+                                    }
+
+                                }catch (NullPointerException e){
+
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<Status> call, Throwable t) {
+                                t.printStackTrace();
+                                try {
+                                    layBam.setVisibility(View.VISIBLE);
+
+                                    // bar.setVisibility(View.GONE);
+                                }catch (NullPointerException e){
+                                }
+                            }
+                        });
+
+
+                    }
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                layBam.setVisibility(GONE);
+                                bar.setVisibility(View.GONE);
+                            }catch (NullPointerException e){
+
+                            }
+
+                        }
+                    }, 2000);
                 }
             });
             message.setOnClickListener(new View.OnClickListener() {

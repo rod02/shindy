@@ -138,7 +138,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
 
     @SuppressLint("MissingPermission")
     public void requestLocationUpdates(boolean b) {
-        if(true){
+        if(b){
             locationManager.requestLocationUpdates(provider, 400, 1, MapsFragment.this);
 
         }
@@ -178,9 +178,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         Location loc2 = new Location("");
         loc2.setLatitude(latLng.latitude);
         loc2.setLongitude(latLng.longitude);
-
-
-        int distanceInMiles = (int) (currentLocation.distanceTo(loc2) * 0.000621371);
+        int distanceInMiles =0;
+        if(currentLocation!=null)
+         distanceInMiles = (int) (currentLocation.distanceTo(loc2) * 0.000621371);
 
         markerOptions.snippet(getString(R.string.miles_away_d, distanceInMiles));
         markerOptions.snippet(markerOptions.getSnippet()   +" \n"

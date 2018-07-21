@@ -9,14 +9,13 @@ import com.google.gson.annotations.SerializedName;
 import com.shindygo.shindy.Api;
 import com.shindygo.shindy.R;
 import com.shindygo.shindy.utils.TextUtils;
+import com.shindygo.shindy.utils.Validate;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import retrofit2.http.FieldMap;
 
 public class User {
 
@@ -91,6 +90,15 @@ public class User {
     @Expose
     private String allowAnonymousInvite;
 
+    @SerializedName("longitude")
+    @Expose
+    private String longitude;
+
+    @SerializedName("latitude")
+    @Expose
+    private String latitude;
+
+
     private boolean anonymous_invite;
 
     private boolean offer_to_pay;
@@ -116,25 +124,26 @@ public class User {
         Map <String,Object> jsonObject  = new HashMap<>();
         jsonObject.put("fbid",fbid);
         jsonObject.put("email_address",emailAddress);
-        jsonObject.put("gender","");
         jsonObject.put("fullname",fullname);
         jsonObject.put("photo",photo);
-        jsonObject.put("about",about);
-        jsonObject.put("age",age);
-        jsonObject.put("age_pref",agePref);
-        jsonObject.put("religion",religion);
+        jsonObject.put("about",Validate.nullString(about));
+        jsonObject.put("age",Validate.nullString(age));
+        jsonObject.put("age_pref",Validate.nullString(agePref));
+        jsonObject.put("religion",Validate.string(religion));
         jsonObject.put("show_my_religion",showMyReligion());
         jsonObject.put("invite_me_other_religion",getInviteMeOtherReligion());
-        jsonObject.put("gender",gender);
-        jsonObject.put("gender_pref",genderPref);
+        jsonObject.put("gender",Validate.nullString(gender));
+        jsonObject.put("gender_pref",Validate.nullString(genderPref));
         jsonObject.put("show_my_gender_pref",getShowMyGenderPref());
         jsonObject.put("invite_me_other_share_gender_pref",getInviteMeOtherShareGenderPref());
-        jsonObject.put("address",address);
-        jsonObject.put("distance",distance);
-        jsonObject.put("zipcode",zipcode);
-        jsonObject.put("availability",availability);
-        jsonObject.put("joineddate",joineddate);
-        jsonObject.put("updatedate",updatedate);
+        jsonObject.put("address", Validate.nullString(address));
+        jsonObject.put("longitude",Validate.nullString(longitude));
+        jsonObject.put("latitude",Validate.nullString(latitude));
+        jsonObject.put("distance",Validate.nullString(distance));
+        jsonObject.put("zipcode",Validate.nullString(zipcode));
+        jsonObject.put("availability",Validate.nullString(availability));
+        jsonObject.put("joineddate",Validate.nullString(joineddate));
+        jsonObject.put("updatedate",Validate.nullString(updatedate));
         jsonObject.put("allow_anonymous_invite",allowAnonymousInvite());
 
         return  jsonObject;
@@ -235,6 +244,7 @@ public class User {
     }
 
     public String getGender() {
+        if (gender == null|| gender.equals("")) return "0";
         return gender;
     }
 
@@ -458,6 +468,31 @@ public class User {
         this.showMyGenderPref = showMyGenderPref;
     }
 
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
     public String getInviteMeOtherShareGenderPref() {
         if(inviteMeOtherShareGenderPref==null || inviteMeOtherShareGenderPref.equals(""))return "0";
         return inviteMeOtherShareGenderPref;
@@ -476,7 +511,13 @@ public class User {
     }
 
     public boolean showMyGender(){
-        return (getShowMyGenderPref()==null || getShowMyGenderPref().equals("")? false :true );
+        try {
+            return (getShowMyGenderPref()==null || getShowMyGenderPref().equals("")? false :true );
+
+        }catch (NullPointerException e){
+
+        }
+        return false;
     }
 
     public boolean allowAnonymousInvite() {

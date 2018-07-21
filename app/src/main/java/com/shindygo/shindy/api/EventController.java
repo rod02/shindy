@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.google.gson.GsonBuilder;
 import com.shindygo.shindy.Incept;
 import com.shindygo.shindy.interfaces.ShindiServer;
 import com.shindygo.shindy.main.model.Respo;
@@ -49,7 +50,7 @@ public class EventController {
         retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl("http://shindygo.com/rest_webservices/eventapicontroller/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .build();
         shindiServer = retrofit.create(ShindiServer.class);
         sharedPref = context.getSharedPreferences("set", Context.MODE_PRIVATE);
@@ -154,9 +155,9 @@ public class EventController {
         add.enqueue(callback);
     }
 
-    public void sendinvite(InviteEvent inviteEvent,Callback<ResponseBody> responseCallback) {
+    public void sendinvite(InviteEvent inviteEvent,Callback<Status> responseCallback) {
         inviteEvent.setInvite_by(fbid);
-        Call<ResponseBody> invite = shindiServer.sendInvite(inviteEvent.toMap());
+        Call<Status> invite = shindiServer.sendInvite(inviteEvent.toMap());
         invite.enqueue(responseCallback);
     }
 
@@ -244,6 +245,9 @@ public class EventController {
 
     public void fetchCreatedEvents(String fbId, Callback<List<Event>> callback) {
         shindiServer.getEventCreatedByUser(fbId).enqueue(callback);
+    }
+    public void fetchEvents(String fbId, Callback<List<Event>> callback) {
+        shindiServer.fetchEvents(fbId).enqueue(callback);
     }
 
     public void updateEvent(Event event, Callback<JSONObject> callback) {

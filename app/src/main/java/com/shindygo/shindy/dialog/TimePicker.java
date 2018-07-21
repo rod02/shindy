@@ -12,23 +12,23 @@ import java.util.Calendar;
  * Created by Anton Kyrychenko on 028 28.03.18.
  */
 public class TimePicker   extends DialogFragment
-        {
+{
 
-            TimePickerDialog.OnTimeSetListener listener;
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
+    TimePickerDialog.OnTimeSetListener listener;
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // Use the current time as the default values for the picker
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
 
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(),listener
-                    , hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
-        }
+        // Create a new instance of TimePickerDialog and return it
+        return new TimePickerDialog(getActivity(),listener
+                , hour, minute,
+                DateFormat.is24HourFormat(getActivity()));
+    }
 
-            public void setListener(TimePickerDialog.OnTimeSetListener listener) {
-                this.listener = listener;
-            }
-        }
+    public void setListener(TimePickerDialog.OnTimeSetListener listener) {
+        this.listener = listener;
+    }
+}

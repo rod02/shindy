@@ -30,6 +30,7 @@ import com.shindygo.shindy.interfaces.ClickEvent;
 import com.shindygo.shindy.main.adapter.MyShindingsAdapter;
 import com.shindygo.shindy.model.Event;
 import com.shindygo.shindy.model.Status;
+import com.shindygo.shindy.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,8 @@ public class MyShindigsFragment extends Fragment implements SwipeRefreshLayout.O
     LinearLayout linearLayout;
     @BindView(R.id.linearLayout2)
     LinearLayout linearLayout2;
+    @BindView(R.id.rv_events)
+    RecyclerView rvEvents;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -75,6 +78,7 @@ public class MyShindigsFragment extends Fragment implements SwipeRefreshLayout.O
     private OnFragmentInteractionListener mListener;
     private PopupWindow mPopupWindow;
     private RelativeLayout mRelativeLayout;
+    List<Event> events_list = new ArrayList<>();
     List<Event> invited_list = new ArrayList<>();
     List<Event> attending_list = new ArrayList<>();
     EventController eventController;
@@ -94,7 +98,6 @@ public class MyShindigsFragment extends Fragment implements SwipeRefreshLayout.O
     public static MyShindigsFragment newInstance(String param1, String param2) {
         MyShindigsFragment fragment = new MyShindigsFragment();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -119,6 +122,41 @@ public class MyShindigsFragment extends Fragment implements SwipeRefreshLayout.O
     }
     public void update() {
         mSwipeRefreshLayout.setRefreshing(true);
+        eventController.fetchEvents(User.getCurrentUserId(), new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                List<Event> eventsList = new ArrayList<>();
+                Log.v(TAG, response.toString());
+
+                if (response.body()!=null)
+                    eventsList = response.body();
+                try {
+
+                    Log.i(TAG, response.message());
+                    Log.v(TAG, "list size; "+ eventsList.size());
+                }catch (NullPointerException e){
+
+                }
+                try {
+                    removeEventsCreatedBy(eventsList, User.getCurrentUserId());
+                    int listSize = eventsList.size();
+                    List<Event> events = eventsList.subList(listSize-4,listSize-1);
+                    listEvents(events, rvEvents);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    mSwipeRefreshLayout.setEnabled(true);
+                    rvEvents.setNestedScrollingEnabled(true);
+                    hideRefreshProgressBar();
+                }catch (NullPointerException e){
+                    //  e.printStackTrace();
+                    Log.d(TAG, "fetch on response");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+
+            }
+        });
 
         eventController.getAttendingEvent(new Callback<List<Event>>() {
             @Override
@@ -148,6 +186,7 @@ public class MyShindigsFragment extends Fragment implements SwipeRefreshLayout.O
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
                 t.printStackTrace();
+                hideRefreshProgressBar();
             }
         });
         eventController.getInvitedEvent(new Callback<List<Event>>() {
@@ -180,9 +219,39 @@ public class MyShindigsFragment extends Fragment implements SwipeRefreshLayout.O
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
+                hideRefreshProgressBar();
+            }
+        });
+
+    }
+
+    private void removeEventsCreatedBy(List<Event> eventsList, String currentUserId) {
+        for (Event e : eventsList) {
+            try {
+                if(e.getCreatedby().equalsIgnoreCase(currentUserId)) eventsList.remove(e);
+
+            }catch (NullPointerException ex){
+
+            }
+        }
+    }
+
+    private void listEvents(List<Event> eventsList, RecyclerView rv) {
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        MyShindingsAdapter adapter = new MyShindingsAdapter(eventsList, new ClickEvent() {
+            @Override
+            public void Click(Event event) {
+
+            }
+
+            @Override
+            public void openEvent(Event event) {
 
             }
         });
+        rv.setAdapter(adapter);
+
 
     }
     @Override
@@ -317,16 +386,26 @@ public class MyShindigsFragment extends Fragment implements SwipeRefreshLayout.O
     // Call when the a network service is done. We should re-enable
 // swipe-to-refresh as now we allow user to refresh it.
     public void hideRefreshProgressBar() {
-        if (mSwipeRefreshLayout != null &&
-                mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    mSwipeRefreshLayout.setEnabled(true);
-                }
-            });
+        try {
+            if (mSwipeRefreshLayout != null &&
+                    mSwipeRefreshLayout.isRefreshing()) {
+                mSwipeRefreshLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                            mSwipeRefreshLayout.setEnabled(true);
+                        }catch (NullPointerException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
         }
+
     }
 
 

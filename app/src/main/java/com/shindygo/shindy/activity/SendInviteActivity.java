@@ -2,10 +2,12 @@ package com.shindygo.shindy.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -44,7 +47,12 @@ import com.shindygo.shindy.model.Filter;
 import com.shindygo.shindy.model.InviteEvent;
 import com.shindygo.shindy.model.Status;
 import com.shindygo.shindy.model.User;
+import com.shindygo.shindy.utils.GlideImage;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,6 +125,8 @@ public class SendInviteActivity extends AppCompatActivity {
     ImageView sendInviteEmail;
     @BindView(R.id.main_layout)
     RelativeLayout mainLayout;
+    @BindView(R.id.lay_progress)
+    FrameLayout layProgress;
     private InviteFriendAdapter adapter;
 
 
@@ -132,6 +142,7 @@ public class SendInviteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invite_friends);
         ButterKnife.bind(this);
+        showProgress(true);
         invitedC = findViewById(R.id.invited_count);
         eventFull = getIntent().getParcelableExtra("event");
         event = eventFull.getEventid();
@@ -144,7 +155,7 @@ public class SendInviteActivity extends AppCompatActivity {
       //  tvExpires.setText(eventFull.getExpirydate());
         manCount.setText(eventFull.getMax_male());
         womenCount.setText(eventFull.getMax_female());
-        Glide.with(getContext()).load(eventFull.getImage()).into(ivAvatar);
+        GlideImage.load(getContext(), eventFull.getImage(),ivAvatar);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,6 +215,15 @@ public class SendInviteActivity extends AppCompatActivity {
         initSeach();
     }
 
+    private void showProgress(boolean b) {
+        try {
+            layProgress.setVisibility(b? View.VISIBLE:View.GONE);
+
+        }catch (NullPointerException e){
+
+        }
+    }
+
     @OnClick({R.id.back, R.id.title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -214,25 +234,64 @@ public class SendInviteActivity extends AppCompatActivity {
         }
     }
 
+    String alertMsg = "";
     @OnClick(R.id.send)
     public void onViewClicked() {
-        for (User u : invited) {
+        showProgress(true);
+        alertMsg = "";
+        for (final User u : invited) {
             InviteEvent inviteEvent = new InviteEvent(event, u.getFbid(), u.isAnonymous_invite(), u.isOffer_to_pay());
             EventController eventController = new EventController(getApplicationContext());
-            eventController.sendinvite(inviteEvent, new Callback<ResponseBody>() {
+            eventController.sendinvite(inviteEvent, new Callback<Status>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (response != null) {
-                        Log.v("sendInvite", response.body().toString());
-                        finish();
+                public void onResponse(Call<Status> call, Response<Status> response) {
+                    try {
+                        if (response != null) {
+                            Log.v("sendInvite: Response:", response.toString());
+                            if (response.message().equalsIgnoreCase("ok")){
+                                Status status = response.body();
+
+                                Log.v("sendInvite:Response:", status.toString());
+                            /*    if(status.getStatus().equalsIgnoreCase("success")){
+                                    alertMsg = alertMsg.concat(u.getFullname() + " " + status.getResult() + "\n");
+                                }else if(status.status!=null
+                                        &&  status.getResult().equalsIgnoreCase("you are already send invitation in this event")){
+                                    alertMsg.concat(getString(R.string.n_already_invited, u.getFullname()));
+                                }else {
+                                    alertMsg.concat(u.getFullname() + " " + status.getResult() + "\n");
+
+                                }*/
+                                if(invited.get(invited.size()-1).getFbid().equalsIgnoreCase(u.getFbid())) {
+                                    showProgress(false);
+                                   // showAlertConfirm(alertMsg, R.id.send);
+                                    Toast.makeText(getContext(), R.string.invite_sent_bam, Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+
+                            }
+
+                            // finish();
+
+                        }
+                    }catch (NullPointerException e){
 
                     }
+
                 }
 
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                public void onFailure(Call<Status> call, Throwable t) {
                     t.printStackTrace();
-                    finish();
+                    try {
+                        Log.d("SendInvite:Onfailure:", u.getFullname());
+                        //Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        showProgress(false);
+                       // finish();
+                        Toast.makeText(getContext(), R.string.invite_sent_bam, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }catch (NullPointerException e){
+
+                    }
                 }
             });
         }
@@ -245,49 +304,89 @@ public class SendInviteActivity extends AppCompatActivity {
         return getApplicationContext();
     }
 
+    void showAlertConfirm(String message, final int id ){
+        AlertDialog.Builder builder =  new AlertDialog.Builder(SendInviteActivity.this);
+        builder.setMessage(message);
+
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                switch (id){
+                    case R.id.send:
+                        finish();
+                        break;
+                }
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.show();
+        TextView tvMsg = dialog.findViewById(android.R.id.message);
+        tvMsg.setTextSize(12);
+
+    }
+
 
     private void seachF(String text) {
         final Api api = new Api(getContext());
         api.searchUserF(text, pFilter, searchUserSpinner.getSelectedItemPosition(), new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                list.clear();
-                if (response.body() != null)
-                    list = response.body();
-                adapter.notifyDataSetChanged();
-                Log.i("Search", response.message());
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                        layoutManager.getOrientation());
-                recyclerView.addItemDecoration(dividerItemDecoration);
-                adapter = new InviteFriendAdapter(list, new UserControl() {
+                try {
+                    list.clear();
+                    if (response.body() != null)
+                        list = response.body();
+                    adapter.notifyDataSetChanged();
+                    Log.i("Search", response.message());
+                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                            layoutManager.getOrientation());
+                    recyclerView.addItemDecoration(dividerItemDecoration);
+                    adapter = new InviteFriendAdapter(list, new UserControl() {
 
-                    @Override
-                    public void addUser(User user) {
-                        invited.add(user);
-                        invitedAdapter.notifyDataSetChanged();
-                        invitedC.setText("+" + invited.size());
-                        bottom.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void removeUser(User user) {
-                        invited.remove(user);
-                        invitedAdapter.notifyDataSetChanged();
-                        invitedC.setText("+" + invited.size());
-                        if (invited.size() < 1) {
-                            bottom.setVisibility(View.GONE);
+                        @Override
+                        public void addUser(User user) {
+                            invited.add(user);
+                            invitedAdapter.notifyDataSetChanged();
+                            invitedC.setText("+" + invited.size());
+                            bottom.setVisibility(View.VISIBLE);
                         }
-                    }
-                });
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(adapter);
+
+                        @Override
+                        public void removeUser(User user) {
+                            invited.remove(user);
+                            invitedAdapter.notifyDataSetChanged();
+                            invitedC.setText("+" + invited.size());
+                            if (invited.size() < 1) {
+                                bottom.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(adapter);
+                    showProgress(false);
+
+                }catch (NullPointerException e){
+
+                }
+
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                list.clear();
-                adapter.notifyDataSetChanged();
-                Log.i("123", "324");
+                t.printStackTrace();;
+               try {
+                   showProgress(false);
+                   list.clear();
+                   adapter.notifyDataSetChanged();
+               }catch (NullPointerException e){
+
+               }
+
             }
         });
 
@@ -356,23 +455,27 @@ public class SendInviteActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case 96:
-                if (resultCode == Activity.RESULT_OK) {
-                    pFilter = data.getParcelableExtra(FILTER);
-                    if (!pFilter.isClear()) {
-                        searchUserFiltersTxt.setText(getText(R.string.filtersApl));
-                        searchUserFiltersTxt.setBackgroundColor(Color.parseColor("#FFA500"));
-                    } else {
-                        searchUserFiltersTxt.setText("+FILTER");
-                        searchUserFiltersTxt.setBackgroundColor(Color.TRANSPARENT);
+        try {
+            switch (requestCode) {
+                case 96:
+                    if (resultCode == Activity.RESULT_OK) {
+                        pFilter = data.getParcelableExtra(FILTER);
+                        if (!pFilter.isClear()) {
+                            searchUserFiltersTxt.setText(getText(R.string.filtersApl));
+                            searchUserFiltersTxt.setBackgroundColor(Color.parseColor("#FFA500"));
+                        } else {
+                            searchUserFiltersTxt.setText("+FILTER");
+                            searchUserFiltersTxt.setBackgroundColor(Color.TRANSPARENT);
+                        }
+                        seachF(etSearch.getText().toString());
                     }
-                    seachF(etSearch.getText().toString());
-                }
-                break;
+                    break;
+
+            }
+        }catch (NullPointerException e){
 
         }
+
 
     }
 
@@ -391,7 +494,7 @@ public class SendInviteActivity extends AppCompatActivity {
         date = customView.findViewById(R.id.date);
         title.setText(eventFull.getEventname());
         date.setText(eventFull.getCreatedate());
-        Glide.with(getContext()).load(eventFull.getImage()).into(imageView);
+        GlideImage.load(getContext(),eventFull.getImage(),imageView);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -401,14 +504,25 @@ public class SendInviteActivity extends AppCompatActivity {
                 new EventController(SendInviteActivity.this).inviteByEmail(eventFull.getEventid(), email.getText().toString(), note.getText().toString(), new Callback<Status>() {
                     @Override
                     public void onResponse(Call<Status> call, Response<Status> response) {
-                        Status status = response.body();
-                        if(!status.getStatus().equals("success")) {
-                            Toast.makeText(SendInviteActivity.this, status.getResult(), Toast.LENGTH_SHORT).show();
+                        try {
+                            try {
+
+                                Status status = response.body();
+                                if(!status.getStatus().equals("success")) {
+                                    Toast.makeText(SendInviteActivity.this, status.getResult(), Toast.LENGTH_SHORT).show();
+                                    messPopup.dismiss();
+                                }
+                                else {
+                                    Toast.makeText(SendInviteActivity.this, "Invite sent", Toast.LENGTH_SHORT).show();
+                                    messPopup.dismiss();
+                                }
+                            }catch (NullPointerException e){
+
+                            }
+                        }catch (NullPointerException e){
+
                         }
-                        else {
-                            Toast.makeText(SendInviteActivity.this, "Invite sent", Toast.LENGTH_SHORT).show();
-                            messPopup.dismiss();
-                        }
+
                     }
 
                     @Override

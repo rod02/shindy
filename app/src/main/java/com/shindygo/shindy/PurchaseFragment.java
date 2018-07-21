@@ -152,16 +152,18 @@ public class PurchaseFragment extends Fragment {
                     public void onResponse(Call<OpenedgeSetupResponse> call, Response<OpenedgeSetupResponse> response) {
                         try {
                             if (response.message().equalsIgnoreCase("ok")){
+                                Log.d(TAG, response.toString());
                                     OpenedgeSetupResponse setupResponse = response.body();
                                     try {
-                                        if(setupResponse.paid.equalsIgnoreCase("paid")) {
+                                        if(setupResponse.status.equalsIgnoreCase("paid")) {
                                             join(event);
                                             return;
                                         }
                                     }catch (NullPointerException e){
 
                                     }
-                                    getPayPage(setupResponse);
+                                   // getPayPage(setupResponse);
+                                openPayPage(setupResponse);
 
                             }
                         }catch (NullPointerException e){
@@ -273,7 +275,14 @@ public class PurchaseFragment extends Fragment {
         intent.putExtra(PaymentPageActivity.HTML_DATA,stringHtmls);
         startActivityForResult(intent,RQ_PAY);
     }
+    void openPayPage(OpenedgeSetupResponse openedgeSetupResponse){
+        layProgress.setVisibility(View.GONE);
 
+        Intent intent = new Intent(getContext(), PaymentPageActivity.class);
+        intent.putExtra(PaymentPageActivity.SEALED_SETUP_PARAM,openedgeSetupResponse.sealedSetupParameters);
+        intent.putExtra(PaymentPageActivity.ACTION_URL,openedgeSetupResponse.actionUrl);
+        startActivityForResult(intent,RQ_PAY);
+    }
 
     private String generateOrderId() {
         return event.getEventid()+  User.getCurrentUserId();
@@ -319,6 +328,7 @@ public class PurchaseFragment extends Fragment {
 
     @Override
     public void onActivityResult ( int requestCode, int resultCode, Intent data){
+        Log.d(TAG, "requestCode: "+ requestCode+ " resultCode: "+resultCode);
         switch (requestCode){
             case RQ_PAY:
                 if(resultCode== Activity.RESULT_OK){

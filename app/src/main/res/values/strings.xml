@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Shindy</string>
     <string name="shindy">Shindy</string>
-    <string name="fb_acc_verification_text">For account verificaiton you must sign in with   a Facebook account to use Shindy</string>
+    <string name="fb_acc_verification_text">For account verification you must sign in with   a Facebook account to use Shindy</string>
     <string name="login_with_facebook">Login with Facebook</string>
-    <string name="uniqe_events_for_singles">Uniqe Events for Singles</string>
+    <string name="uniqe_events_for_singles">Unique Events for Singles</string>
     <!--<string name="facebook_app_id">206973290037604</string>
     <string name="fb_login_protocol_scheme">fb206973290037604</string>-->
     <string name="facebook_app_id">434815240293809</string>
@@ -119,13 +119,13 @@
     <string name="hosted_by_n">Hosted by: %1$s</string>
     <string name="invited_by_n">Invited by: %1$s</string>
     <string name="view_previous_reply">View %1$s previous reply</string>
-    <string name="offer_to_pay">Offer to Pay if you accept: $%1s</string>
+    <string name="offer_to_pay">Offer to Pay if you accept: $%1$s</string>
     <string name="event_sched_n_n">%1$s | %2$s</string>
     <string name="invite_sent_bam">Invite Sent....BAM !</string>
     <string name="expires_n">Expires: %1$s</string>
     <string name="location_n">Location: %1$s</string>
     <string name="date_n">Date: %1$s</string>
-
+    %1$s
     <string name="prompt_double_back_exit">Press back again to exit</string>
     <string name="long_latin">Lorem ipsum dolor sit amet,Praesent vestibulum non sapien a scelerisque.Lorem ipsum dolor sit amet,Praesent vestibulum non sapien a scelerisque.Lorem ipsum dolor sit amet,Praesent vestibulum non sapien a scelerisque.</string>
     <string name="edit">Edit</string>
@@ -191,7 +191,7 @@
     <string name="please_select_time">Please select time</string>
     <string name="separate_each_email">separate each email by a comma</string>
     <string name="enter_your_invite_code">Enter you Event Invite Code</string>
-    <string name="invite_me_to_events_with_same_gender">Invite me to events with others that share the same gender preferance</string>
+    <string name="invite_me_to_events_with_same_gender">Invite me to events with others that share the same gender preference</string>
     <string name="loading_wait">Loading page please wait</string>
     <string name="title_activity_join_group">Join Group</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -199,6 +199,13 @@
     <string name="add_a_group">Add a Group</string>
     <string name="join_group_msg">Get invited to exclusive events by groups you belong to.</string>
     <string name="payment_page">Payment Page</string>
+    <string name="alert_continue">Continue</string>
+    <string name="alert_leave_event_title">Leave Event?</string>
+    <string name="n_already_invited">%1$s Already Invited \n</string>
+    <string name="gender">Gender</string>
+    <string name="address">Address</string>
+    <string name="events">Events</string>
+    <string name="new_events">New Events</string>
 
     <!--string quick review-->
 

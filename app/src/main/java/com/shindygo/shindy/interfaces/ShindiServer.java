@@ -238,7 +238,7 @@ public interface ShindiServer {
     @Headers({"API-key: shindykey456"})
     @FormUrlEncoded
     @POST("sendinvite")
-    Call<ResponseBody> sendInvite(@FieldMap Map<String ,Object> user);
+    Call<Status> sendInvite(@FieldMap Map<String ,Object> user);
 
 
     @Headers({"API-key: shindykey456"})
@@ -270,6 +270,9 @@ public interface ShindiServer {
     @GET("eventlistcreatedbyuser")
     Call<List<Event>> getEventCreatedByUser(@Query("user_fbid") String id );
 
+    @Headers({"API-key: shindykey456"})
+    @GET("eventlist/api-key/shindykey456/user_fbid/{fbid}")
+    Call<List<Event>> fetchEvents(@Path("fbid") String fbid );
 
     @Headers({"API-key: shindykey456"})
     @GET("replydiscussionlist")
@@ -337,6 +340,12 @@ public interface ShindiServer {
 
 
 
+    @Headers({
+            "Origin: *",
+            "Access-Control-Allow-Origin: *",
+            "Access-Control-Allow-Methods: POST",
+            "Access-Control-Allow-Headers: X-Requested-With"
+    })
     @FormUrlEncoded
     @POST("paypage/")
     Call<ResponseBody> paypage(@Field("sealedSetupParameters") String sealedSetupParameters);

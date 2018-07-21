@@ -234,32 +234,37 @@ public class EventActivity extends Fragment  {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 Log.d(TAG, "getUsersList ");
                 Log.d(TAG, "getUsersList "+response.toString());
-                if(response.message().equalsIgnoreCase("ok")){
-                    users = response.body();
-                    Log.d(TAG, "getUsersList size: "+users.size());
+                try{
+                    if(response.message().equalsIgnoreCase("ok")){
+                        users = response.body();
+                        Log.d(TAG, "getUsersList size: "+users.size());
 
-                    usersAdapter = new SimpleUsersAdapter(getContext(), users);
-                    etCoHost.setAdapter(usersAdapter);
-                    etCoHost.setOnItemClickListener(onItemClickListener);
-                    if(update) {
-                        if (event.getRepresentative() != null || !event.getRepresentative().equals("")) {
-                            Log.d(TAG, "getUsersList getrepresentative: "+event.getRepresentative());
+                        usersAdapter = new SimpleUsersAdapter(getContext(), users);
+                        etCoHost.setAdapter(usersAdapter);
+                        etCoHost.setOnItemClickListener(onItemClickListener);
+                        if(update) {
+                            if (event.getRepresentative() != null || !event.getRepresentative().equals("")) {
+                                Log.d(TAG, "getUsersList getrepresentative: "+event.getRepresentative());
 
-                            for (User user : users) {
-                                try {
-                                    if(user.getFbid().equals(event.getRepresentative())) {
-                                        etCoHost.setText(user.getFullname());
-                                        return;
+                                for (User user : users) {
+                                    try {
+                                        if(user.getFbid().equals(event.getRepresentative())) {
+                                            etCoHost.setText(user.getFullname());
+                                            return;
+                                        }
+                                    }catch (NullPointerException e){
+                                        Log.d(TAG, "get Representative ");
+
                                     }
-                                }catch (NullPointerException e){
-                                    Log.d(TAG, "get Representative ");
 
                                 }
-
                             }
                         }
                     }
+                }catch (NullPointerException e){
+
                 }
+
             }
 
             @Override
@@ -665,26 +670,36 @@ public class EventActivity extends Fragment  {
                                 new EventController(getContext()).pushImage(event.getEventid(), url, new Callback<Object>() {
                                     @Override
                                     public void onResponse(Call<Object> call, Response<Object> response) {
-                                        if (url == images64.get(images64.size() - 1)) {
-                                            showProgressBar(false);
+                                        try {
+                                            if (url == images64.get(images64.size() - 1)) {
+                                                showProgressBar(false);
 
-                                            if(getView()!=null){
-                                                if (!update) {
-                                                    Snackbar.make(getView().findViewById(R.id.rl),
-                                                            R.string.event_successfully_created, Snackbar.LENGTH_LONG).show();
-                                                }else{
-                                                    Snackbar.make(getView().findViewById(R.id.rl), R.string.event_successfully_created, Snackbar.LENGTH_LONG).show();
+                                                if(getView()!=null){
+                                                    if (!update) {
+                                                        Snackbar.make(getView().findViewById(R.id.rl),
+                                                                R.string.event_successfully_created, Snackbar.LENGTH_LONG).show();
+                                                    }else{
+                                                        Snackbar.make(getView().findViewById(R.id.rl), R.string.event_successfully_created, Snackbar.LENGTH_LONG).show();
+                                                    }
+                                                    ( (AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
+
                                                 }
-                                                ( (AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
-
                                             }
+                                        }catch (NullPointerException e){
+
                                         }
+
                                     }
 
                                     @Override
                                     public void onFailure(Call<Object> call, Throwable t) {
                                         t.printStackTrace();;
-                                        showProgressBar(false);
+                                        try {
+                                            showProgressBar(false);
+
+                                        }catch (NullPointerException e){
+
+                                        }
 
                                     }
                                 });
@@ -696,6 +711,7 @@ public class EventActivity extends Fragment  {
 
                     }
                 }
+
                 showProgressBar(false);
             }
 

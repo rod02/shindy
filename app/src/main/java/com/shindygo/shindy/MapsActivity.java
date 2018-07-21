@@ -84,6 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("result_text",editText.getText().toString());
+
                 if(coord!=null) {
                     returnIntent.putExtra("result_lat", coord.latitude);
                     returnIntent.putExtra("result_lon", coord.longitude);
@@ -177,6 +178,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d(TAG, "arg");
         if(arg!=null){
             Log.d(TAG, "arg not null");
+            boolean self = arg.getBoolean("self",false);
+            if(self&& currentLocation!=null){
+                coord = new LatLng(currentLocation.getLatitude(),
+                        currentLocation.getLongitude());
+                Geocode(coord);
+                addMarker(coord,"You're here");
+                return;
+            }
             LatLng latLng = new LatLng(
                         (arg.getDouble("latitude", 0)),
                         (arg.getDouble("longitude", 0)));

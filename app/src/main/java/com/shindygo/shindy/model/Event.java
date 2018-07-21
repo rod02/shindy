@@ -168,7 +168,9 @@ public class Event implements Parcelable {
     @SerializedName("joinfemale")
     @Expose
     String joinFemale;
-
+    @SerializedName("no_gender")
+    @Expose
+    String noGender;
     @SerializedName("number_joinevent")
     @Expose
     String numberJoinEvent;
@@ -178,6 +180,8 @@ public class Event implements Parcelable {
     String ableGuestInvite;               //1 and 0
 
     public String getNumberJoinEvent() {
+        if (numberJoinEvent==null
+                || numberJoinEvent.equalsIgnoreCase("")) return "0";
         return numberJoinEvent;
     }
 
@@ -395,7 +399,14 @@ public class Event implements Parcelable {
         return website_url;
     }
 
+    public String getNoGender() {
+        if(noGender == null || noGender.equalsIgnoreCase("")) return "0";
+        return noGender;
+    }
 
+    public void setNoGender(String noGender) {
+        this.noGender = noGender;
+    }
 
     public Event() {
         this.invitationId = "";
@@ -842,6 +853,7 @@ public class Event implements Parcelable {
             int m= 0;
             int f=0;
             m = TextUtils.subtractString(getMax_male(), getJoinMale());
+            m -= Integer.parseInt(getNoGender());
             if (m>0){
                 f =TextUtils.subtractString(getMax_female(), getJoinFemale());
                 if(f<0){
@@ -861,7 +873,7 @@ public class Event implements Parcelable {
 
             if (f>0){
                 m = TextUtils.subtractString(getMax_male(), getJoinMale());
-
+                m -= Integer.parseInt(getNoGender());
                 if(m<0){
                     f = f+m;
                 }

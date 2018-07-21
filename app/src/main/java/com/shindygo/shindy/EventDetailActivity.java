@@ -58,6 +58,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
@@ -104,8 +105,8 @@ import retrofit2.Response;
 public class EventDetailActivity extends AppCompatActivity implements MapsFragment.OnFragmentInteractionListener,
         DiscussFragment.OnFragmentInteractionListener, ReviewDetailEventFragment.OnFragmentInteractionListener {
 
-
     private static final String TAG = EventDetailActivity.class.getSimpleName();
+    private static final String SHARE_URL = "http://shindygo.com/rest_webservices/sharefb/";
 
     private static final int DISCUSSION = 1;
     private static final int REVIEW = 2;
@@ -195,6 +196,8 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
         ButterKnife.bind(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         eventController = new EventController(this);
         menu.setVisibility(View.GONE);
         sharedPref = getSharedPreferences("set", Context.MODE_PRIVATE);
@@ -242,7 +245,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
                 menu.setVisibility(View.VISIBLE);
             }
         });
-       // ratingBar.setNumStars(5);
+        // ratingBar.setNumStars(5);
         if (event.getHostReview() != null)
             ratingBar.setRating(Float.parseFloat(event.getHostReview()));
 
@@ -252,7 +255,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
             ((ImageView) llBlockEvent.findViewById(R.id.stop)).setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.navigation_notification_red));
         if (event.getAttendingstatus().equals("1"))
             iamInImage.setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.green_online));
-            tvMan.setText(event.getMaleSpot());
+        tvMan.setText(event.getMaleSpot());
         tvWoman.setText(event.getFeMaleSpot());
         tvRate.setText(event.getHostReview());
         tvEventName.setText(event.getEventname());
@@ -266,10 +269,10 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
                         cvCommentBox.setVisibility(View.VISIBLE);
 
                         break;
-                        default:
-                            cvCommentBox.setVisibility(View.GONE);
+                    default:
+                        cvCommentBox.setVisibility(View.GONE);
 
-                            break;
+                        break;
                 }
             }
 
@@ -352,24 +355,12 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
                                 .addToBackStack("my_fragment")
                                 .commit();
                         findViewById(R.id.frame).setVisibility(View.VISIBLE);
+                        cvCommentBox.setVisibility(View.GONE);
+
                     }
                 }
-                else
-                {
-                    eventController.leaveEvent(event.getEventid(), new Callback<Status>() {
-                        @Override
-                        public void onResponse(Call<Status> call, Response<Status> response) {
-                            Toast.makeText(EventDetailActivity.this, "You leave event successfully", Toast.LENGTH_SHORT).show();
-                            event.setAttendingstatus("0");
-                            iamInImage.setColorFilter(null);
-                        }
-
-                        @Override
-                        public void onFailure(Call<Status> call, Throwable t) {
-                            Log.d(TAG, "ImIn onFailure leaveEvent "+t.getLocalizedMessage());
-
-                        }
-                    });
+                else {
+                    showAlertConfirm(R.string.alert_leave_event_title, iamIn.getId());
                 }
             }
         });
@@ -381,8 +372,13 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
                     eventController.likeEvent(event.getEventid(), new Callback<Object>() {
                         @Override
                         public void onResponse(Call<Object> call, Response<Object> response) {
-                            Toast.makeText(EventDetailActivity.this, "Event liked", Toast.LENGTH_SHORT).show();
-                            ivLike.setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.navigation_notification_red));
+                            try {
+                                Toast.makeText(EventDetailActivity.this, "Event liked", Toast.LENGTH_SHORT).show();
+                                ivLike.setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.navigation_notification_red));
+
+                            }catch (NullPointerException e){
+
+                            }
                         }
 
                         @Override
@@ -391,13 +387,16 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
                         }
                     });
                 } else {
-                    //todo unlike
                     event.setLike_status(false);
                     eventController.unlikeEvent(event.getEventid(), "", new Callback<Object>() {
                         @Override
                         public void onResponse(Call<Object> call, Response<Object> response) {
-                            Toast.makeText(EventDetailActivity.this, "Event disliked", Toast.LENGTH_SHORT).show();
-                            ivLike.setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.gray_tint));
+                            try {
+                                ivLike.setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.gray_tint));
+                            }catch (NullPointerException e){
+
+                            }
+                            // Toast.makeText(EventDetailActivity.this, "Event disliked", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -412,93 +411,113 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
             @Override
             public void onClick(View view) {
                 if(!TextUtils.isEmpty(event.getInvitedby()))
-                if (event.getBlock_status().equals("0")) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(EventDetailActivity.this).create();
+                    if (event.getBlock_status().equals("0")) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(EventDetailActivity.this).create();
 
-                    alertDialog.setTitle("Do you want to block "+event.getInvitedby()+" or current event?");
+                        alertDialog.setTitle("Do you want to block "+event.getInvitedby()+" or current event?");
 
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel", new DialogInterface.OnClickListener() {
+                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Cancel", new DialogInterface.OnClickListener() {
 
-                        public void onClick(DialogInterface dialog, int id) {
+                            public void onClick(DialogInterface dialog, int id) {
 
-                           dialog.cancel();
+                                dialog.cancel();
 
-                        } });
+                            } });
 
-                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Block event", new DialogInterface.OnClickListener() {
+                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Block event", new DialogInterface.OnClickListener() {
 
-                        public void onClick(DialogInterface dialog1, int id) {
+                            public void onClick(DialogInterface dialog1, int id) {
 
-                            AlertDialog.Builder dialog = new AlertDialog.Builder(EventDetailActivity.this);
-                            dialog.setTitle("Block this event")
-                                    .setMessage(Html.fromHtml("<b>" + "This will be put in your black list and you will not be invited again.You can unblock this later" + "</b>"))
-                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialoginterface, int i) {
-                                            dialoginterface.cancel();
+                                AlertDialog.Builder dialog = new AlertDialog.Builder(EventDetailActivity.this);
+                                dialog.setTitle("Block this event")
+                                        .setMessage(Html.fromHtml("<b>" + "This will be put in your black list and you will not be invited again.You can unblock this later" + "</b>"))
+                                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialoginterface, int i) {
+                                                dialoginterface.cancel();
+                                            }
+                                        })
+                                        .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialoginterface, int i) {
+
+
+                                                ((ImageView) llBlockEvent.findViewById(R.id.stop)).setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.navigation_notification_red));
+
+
+                                                eventController.blockEvent(event.getEventid(), new Callback<Object>() {
+                                                    @Override
+                                                    public void onResponse(Call<Object> call, Response<Object> response) {
+                                                        try {
+
+                                                            Toast.makeText(EventDetailActivity.this, "Event blocked successfully", Toast.LENGTH_SHORT).show();
+                                                            event.setBlock_status("1");
+                                                            finish();
+                                                        }catch (NullPointerException e){
+
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<Object> call, Throwable t) {
+
+                                                    }
+                                                });
+                                            }
+                                        }).show();
+
+                            }});
+
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Block user", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                new Api(EventDetailActivity.this).blockUser2(event.getInvited_by_id(), new Callback<Object>() {
+                                    @Override
+                                    public void onResponse(Call<Object> call, Response<Object> response) {
+                                        try {
+                                            Toast.makeText(EventDetailActivity.this, "User blocked successfully!", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }catch (NullPointerException e){
+
                                         }
-                                    })
-                                    .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialoginterface, int i) {
 
+                                    }
 
-                                            ((ImageView) llBlockEvent.findViewById(R.id.stop)).setColorFilter(ContextCompat.getColor(EventDetailActivity.this, R.color.navigation_notification_red));
+                                    @Override
+                                    public void onFailure(Call<Object> call, Throwable t) {
+                                        try {
+                                            Toast.makeText(EventDetailActivity.this, "Some problems at BACKEND!", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }catch (NullPointerException e){
 
-
-                                            eventController.blockEvent(event.getEventid(), new Callback<Object>() {
-                                                @Override
-                                                public void onResponse(Call<Object> call, Response<Object> response) {
-                                                    Toast.makeText(EventDetailActivity.this, "Event blocked successfully", Toast.LENGTH_SHORT).show();
-                                                    event.setBlock_status("1");
-                                                    finish();
-                                                }
-
-                                                @Override
-                                                public void onFailure(Call<Object> call, Throwable t) {
-
-                                                }
-                                            });
                                         }
-                                    }).show();
 
-                        }});
+                                    }
+                                });
+                            }});
+                        alertDialog.show();
 
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Block user", new DialogInterface.OnClickListener() {
+                    } else {
+                        eventController.unblockEvent(event.getEventid(), "", new Callback<Respo>() {
+                            @Override
+                            public void onResponse(Call<Respo> call, Response<Respo> response) {
+                                try {
+                                    Toast.makeText(EventDetailActivity.this, "Event unblocked successfully", Toast.LENGTH_SHORT).show();
+                                    ((ImageView) llBlockEvent.findViewById(R.id.stop)).setColorFilter(null);
+                                    event.setBlock_status("0");
+                                }catch (NullPointerException e){
 
-                        public void onClick(DialogInterface dialog, int id) {
-
-                            new Api(EventDetailActivity.this).blockUser2(event.getInvited_by_id(), new Callback<Object>() {
-                                @Override
-                                public void onResponse(Call<Object> call, Response<Object> response) {
-                                    Toast.makeText(EventDetailActivity.this, "User blocked successfully!", Toast.LENGTH_SHORT).show();
-                                    finish();
                                 }
 
-                                @Override
-                                public void onFailure(Call<Object> call, Throwable t) {
-                                    Toast.makeText(EventDetailActivity.this, "Some problems at BACKEND!", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            });
-                        }});
-                    alertDialog.show();
 
-                } else {
-                    eventController.unblockEvent(event.getEventid(), "", new Callback<Respo>() {
-                        @Override
-                        public void onResponse(Call<Respo> call, Response<Respo> response) {
-                            Toast.makeText(EventDetailActivity.this, "Event unblocked successfully", Toast.LENGTH_SHORT).show();
-                            ((ImageView) llBlockEvent.findViewById(R.id.stop)).setColorFilter(null);
-                            event.setBlock_status("0");
+                            }
 
-                        }
+                            @Override
+                            public void onFailure(Call<Respo> call, Throwable t) {
 
-                        @Override
-                        public void onFailure(Call<Respo> call, Throwable t) {
-
-                        }
-                    });
-                }
-            else
+                            }
+                        });
+                    }
+                else
                     Toast.makeText(EventDetailActivity.this, "You cant block this event, maybe it's your event?", Toast.LENGTH_SHORT).show();
 
             }
@@ -557,6 +576,56 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         getShareableImage(event.getImage());
     }
 
+    private void leaveEvent() {
+
+        eventController.leaveEvent(event.getEventid(), new Callback<Status>() {
+            @Override
+            public void onResponse(Call<Status> call, Response<Status> response) {
+                try {
+
+                    Toast.makeText(EventDetailActivity.this, "You leave event successfully", Toast.LENGTH_SHORT).show();
+                    event.setAttendingstatus("0");
+                    iamInImage.setColorFilter(null);
+                }catch (NullPointerException e){
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Status> call, Throwable t) {
+                Log.d(TAG, "ImIn onFailure leaveEvent "+t.getLocalizedMessage());
+
+            }
+        });
+    }
+
+
+    void showAlertConfirm(int res_msg, final int id ){
+        AlertDialog.Builder builder =  new AlertDialog.Builder(EventDetailActivity.this);
+        builder.setMessage(res_msg);
+        builder.setPositiveButton(R.string.alert_continue, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                switch (id){
+                    case R.id.iam_in:
+                        leaveEvent();
+                        break;
+                }
+
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+
     private void getShareableImage(String imageUrl) {
         Glide // execute this on UI thread!
                 .with(this)
@@ -577,7 +646,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         try {
             final BitmapFactory.Options options = new BitmapFactory.Options();
             // Calculate inSampleSize
-           // options.inSampleSize = calculateInSampleSize(options, 100, 100);
+            // options.inSampleSize = calculateInSampleSize(options, 100, 100);
 
             // Decode bitmap with inSampleSize set
             options.inJustDecodeBounds = false;
@@ -646,9 +715,10 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         }
         final Intent intent = new ComposerActivity.Builder(EventDetailActivity.this)
                 .session(session)
-                .image(shareAbleUri)
-                .text(event.getEventname())
+                // .image(shareAbleUri)
                 .hashtags("#shindy")
+                .text("\n"+SHARE_URL+event.getEventid()+"\n")
+
                 .createIntent();
         startActivity(intent);
     }
@@ -669,9 +739,9 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
 
                 .build();*/
 
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("http://shindygo.com/"))
-                .build();
+        /*ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(SHARE_URL+event.getEventid()))
+                .build();*/
     /*    SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ted))
                 .setCaption(event.getEventname())
@@ -721,12 +791,21 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "fbShare onError "+ error.toString() );
+                error.printStackTrace();
 
                 Toast.makeText(EventDetailActivity.this, "Facebook share failed", Toast.LENGTH_LONG).show();
 
             }
         });
-        shareDialog.show(content);
+        //   shareDialog.show(content);
+        String link  = SHARE_URL+event.getEventid();
+        Log.d(TAG,"fbShare link : "+link);
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse(link))
+                    .build();
+            shareDialog.show(linkContent, ShareDialog.Mode.WEB);
+        }
 
     }
 
@@ -960,7 +1039,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
         date = customView.findViewById(R.id.date);
         title.setText(event.getEventname());
         date.setText(event.getEventSched());
-        Glide.with(EventDetailActivity.this).load(event.getImage()).into(imageView);
+        GlideImage.load(EventDetailActivity.this,event.getImage(),imageView);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -970,14 +1049,19 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
                     new EventController(EventDetailActivity.this).inviteByEmail(event.getEventid(), email.getText().toString(), note.getText().toString(), new Callback<Status>() {
                         @Override
                         public void onResponse(Call<Status> call, Response<Status> response) {
-                            Status status = response.body();
-                            if(!status.getStatus().equals("success")) {
-                                Toast.makeText(EventDetailActivity.this, status.getResult(), Toast.LENGTH_SHORT).show();
+                            try {
+                                Status status = response.body();
+                                if(!status.getStatus().equals("success")) {
+                                    Toast.makeText(EventDetailActivity.this, status.getResult(), Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(EventDetailActivity.this, "Invite sent", Toast.LENGTH_SHORT).show();
+                                    messPopup.dismiss();
+                                }
+                            }catch (NullPointerException e){
+
                             }
-                            else {
-                                Toast.makeText(EventDetailActivity.this, "Invite sent", Toast.LENGTH_SHORT).show();
-                                messPopup.dismiss();
-                            }
+
                         }
 
                         @Override
@@ -1014,6 +1098,7 @@ public class EventDetailActivity extends AppCompatActivity implements MapsFragme
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "fb rqc: " + requestCode +"  rc: "+ resultCode+ " intent: "+(data==null));
         callbackManager.onActivityResult(requestCode, resultCode, data);
         loginButton.onActivityResult(requestCode, resultCode, data);
 

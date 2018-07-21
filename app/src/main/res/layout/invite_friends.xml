@@ -127,11 +127,12 @@
 
     <RelativeLayout
         android:id="@+id/bottom"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/rl2"
@@ -140,7 +141,8 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp20"
             android:background="@drawable/circle_shape_gray"
-            android:backgroundTint="#969696">
+            android:backgroundTint="#969696"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/invited_count"
@@ -155,9 +157,12 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_invite"
-            android:layout_width="282dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/rl2">
+            android:layout_centerHorizontal="false"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/rl2"
+            android:layout_toStartOf="@+id/send">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -170,4 +175,30 @@
             android:layout_marginEnd="@dimen/dp10"
             android:src="@drawable/sent" />
     </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/lay_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:background="@color/darker_gray"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
 </RelativeLayout>
